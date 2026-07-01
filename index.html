@@ -88,7 +88,7 @@ body{
 
 /* PEMUTAR */
 .isi-tengah{margin-top:80px;flex:1;overflow-y:auto;padding:15px 5% 25px}
-.isi-tengah.dengan-tombol{padding-bottom:180px}
+.isi-tengah.dengan-bawah{padding-bottom:180px}
 .pemutar{width:100%;max-width:450px;margin:10px auto;padding:clamp(18px,5vw,25px);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(0,0,0,.45));backdrop-filter:blur(12px);position:relative;border:1.5px solid rgba(255,255,255,.1);box-shadow:0 8px 32px rgba(0,0,0,.3);}
 .wadah-gambar{width:min(45vw,190px);aspect-ratio:1/1;margin:10px auto 18px;border-radius:50%;overflow:hidden;background:radial-gradient(circle,#222,#111);display:flex;align-items:center;justify-content:center;box-shadow:0 0 15px var(--neon1),0 0 30px var(--neon2);cursor:pointer}
 .gambar-lagu{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -106,14 +106,65 @@ canvas{width:100%;height:clamp(55px,12vw,75px);margin:12px 0;border-radius:14px;
 .tombol-kontrol .utama{width:clamp(58px,16vw,70px);height:clamp(58px,16vw,70px);background:linear-gradient(135deg,var(--neon1),var(--neon2));border-color:#fff;font-size:clamp(22px,6vw,28px);box-shadow:0 0 15px var(--neon1);}
 .tombol-kontrol .aktif{background:rgba(255,0,200,.3);border-color:var(--neon1);box-shadow:0 0 10px var(--neon1);}
 
-/* ✅ TOMBOL INSTAL */
+/* ✅ BAGIAN SOSIAL MEDIA - SELALU TAMPAK */
+.media-sosial-wrapper{
+    position:fixed;left:0;right:0;bottom:70px;
+    padding:10px max(12px,env(safe-area-inset-left)) 10px max(12px,env(safe-area-inset-right));
+    background:linear-gradient(180deg,transparent,rgba(0,0,0,.9));
+    text-align:center;
+    z-index:890;
+}
+.judul-sosial{
+    font-size:13px;
+    opacity:.85;
+    margin-bottom:10px;
+    color:var(--text);
+    letter-spacing:0.5px;
+}
+.media-sosial{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:18px;
+    flex-wrap:wrap;
+}
+.media-sosial a{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:rgba(255,255,255,.1);
+    display:grid;
+    place-items:center;
+    padding:7px;
+    border:1.5px solid transparent;
+    cursor:pointer;
+    transition:all .28s ease;
+    box-shadow:0 2px 8px rgba(0,0,0,.3);
+}
+.media-sosial a:hover{
+    background:rgba(255,255,255,.16);
+    border-color:var(--neon1);
+    box-shadow:0 0 14px var(--neon1);
+    transform:scale(1.12);
+}
+.media-sosial a:active{
+    transform:scale(.94);
+}
+.media-sosial a img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    border-radius:50%;
+}
+
+/* ✅ TOMBOL INSTAL - HANYA INI YANG BISA HILANG */
 #tombolInstal{
     position:fixed;left:0;right:0;bottom:0;
     padding:12px max(12px,env(safe-area-inset-left))
              calc(12px + env(safe-area-inset-bottom))
              max(12px,env(safe-area-inset-right));
     background:linear-gradient(180deg,transparent,rgba(0,0,0,.92));
-    display:flex;flex-direction:column;gap:15px;justify-content:center;z-index:900;
+    display:flex;justify-content:center;z-index:900;
     transform:translateY(0);opacity:1;transition:all .4s
 }
 #tombolInstal.sembunyi{transform:translateY(115%);opacity:0;pointer-events:none}
@@ -121,7 +172,7 @@ canvas{width:100%;height:clamp(55px,12vw,75px);margin:12px 0;border-radius:14px;
 .tombol-play{
     display:inline-flex;align-items:center;gap:12px;
     background:#000;color:#fff;border:1.5px solid #fff;border-radius:12px;
-    padding:9px 18px;cursor:pointer;max-width:280px;width:100%;margin:0 auto;
+    padding:9px 18px;cursor:pointer;max-width:280px;width:100%;
     box-shadow:0 6px 22px rgba(0,0,0,.6);transition:.2s
 }
 .tombol-play:active{transform:scale(.97)}
@@ -134,54 +185,6 @@ canvas{width:100%;height:clamp(55px,12vw,75px);margin:12px 0;border-radius:14px;
 .tombol-play .teks{line-height:1.15;text-align:left}
 .tombol-play .teks small{display:block;font-size:10px;opacity:.8;color:#ddd}
 .tombol-play .teks b{display:block;font-size:15px;color:#fff;font-weight:800}
-
-/* ✅ GAYA SOSIAL MEDIA SESUAI TEMA */
-.media-sosial-wrapper {
-  text-align: center;
-  padding: 8px 0 14px;
-}
-.judul-sosial {
-  font-size: 13px;
-  opacity: 0.85;
-  margin-bottom: 10px;
-  color: var(--text);
-  letter-spacing: 0.5px;
-}
-.media-sosial {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 18px;
-  flex-wrap: wrap;
-}
-.media-sosial a {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  display: grid;
-  place-items: center;
-  padding: 7px;
-  border: 1.5px solid transparent;
-  cursor: pointer;
-  transition: all 0.28s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-.media-sosial a:hover {
-  background: rgba(255, 255, 255, 0.16);
-  border-color: var(--neon1);
-  box-shadow: 0 0 14px var(--neon1);
-  transform: scale(1.12);
-}
-.media-sosial a:active {
-  transform: scale(0.94);
-}
-.media-sosial a img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 50%;
-}
 </style>
 </head>
 <body class="tema-pelangi">
@@ -227,7 +230,7 @@ canvas{width:100%;height:clamp(55px,12vw,75px);margin:12px 0;border-radius:14px;
 </div>
 
 <!-- ISI UTAMA -->
-<div class="isi-tengah dengan-tombol" id="isi">
+<div class="isi-tengah dengan-bawah" id="isi">
   <div class="pemutar">
     <div class="wadah-gambar" id="wadah">
       <span style="font-size:40px;color:var(--neon3)">🎵</span>
@@ -248,52 +251,38 @@ canvas{width:100%;height:clamp(55px,12vw,75px);margin:12px 0;border-radius:14px;
   </div>
 </div>
 
-    <!-- ✅ BAGIAN BAWAH UTAMA -->
-<div id="tombolInstal">
-
-  <!-- 🔹 BAGIAN SOSIAL MEDIA - DI ATAS, TERPISAH DARI TOMBOL UNDUH -->
-  <div class="media-sosial-wrapper">
-    <div class="judul-sosial">Ikuti Kami di Media Sosial</div>
-    <div class="media-sosial">
-      <!-- WhatsApp -->
-      <a href="https://wa.me/628123456789" target="_blank" title="WhatsApp" data-link="https://wa.me/628123456789">
-        <img src="https://i.ibb.co/WWkxxmpZ/37986-removebg-preview.png" alt="WhatsApp" loading="lazy">
-      </a>
-      <!-- Telegram -->
-      <a href="https://t.me/namaakun" target="_blank" title="Telegram" data-link="https://t.me/namaakun">
-        <img src="https://i.ibb.co/Rp7cyvVd/37990-removebg-preview.png" alt="Telegram" loading="lazy">
-      </a>
-      <!-- Instagram -->
-      <a href="https://instagram.com/namaakun" target="_blank" title="Instagram" data-link="https://instagram.com/namaakun">
-        <img src="https://i.ibb.co/C5LPSP8r/37987-removebg-preview.png" alt="Instagram" loading="lazy">
-      </a>
-      <!-- TikTok -->
-      <a href="https://tiktok.com/@namaakun" target="_blank" title="TikTok" data-link="https://tiktok.com/@namaakun">
-        <img src="https://i.ibb.co/jvLWv7BX/37985-removebg-preview.png" alt="TikTok" loading="lazy">
-      </a>
-      <!-- YouTube -->
-      <a href="https://youtube.com/@namaakun" target="_blank" title="YouTube" data-link="https://youtube.com/@namaakun">
-        <img src="https://i.ibb.co/fGGCfTF5/37989-removebg-preview.png" alt="YouTube" loading="lazy">
-      </a>
-      <!-- Facebook -->
-      <a href="https://facebook.com/namaakun" target="_blank" title="Facebook" data-link="https://facebook.com/namaakun">
-        <img src="https://i.ibb.co/Z6h4y5Y2/37988-removebg-preview.png" alt="Facebook" loading="lazy">
-      </a>
-    </div>
+<!-- ✅ BAGIAN SOSIAL MEDIA - SELALU TAMPAK -->
+<div class="media-sosial-wrapper">
+  <div class="judul-sosial">Ikuti Kami di Media Sosial</div>
+  <div class="media-sosial">
+    <!-- WhatsApp -->
+    <a href="https://wa.me/628123456789" target="_blank" title="WhatsApp" data-link="https://wa.me/628123456789">
+      <img src="https://i.ibb.co/WWkxxmpZ/37986-removebg-preview.png" alt="WhatsApp" loading="lazy">
+    </a>
+    <!-- Telegram -->
+    <a href="https://t.me/namaakun" target="_blank" title="Telegram" data-link="https://t.me/namaakun">
+      <img src="https://i.ibb.co/Rp7cyvVd/37990-removebg-preview.png" alt="Telegram" loading="lazy">
+    </a>
+    <!-- Instagram -->
+    <a href="https://instagram.com/namaakun" target="_blank" title="Instagram" data-link="https://instagram.com/namaakun">
+      <img src="https://i.ibb.co/C5LPSP8r/37987-removebg-preview.png" alt="Instagram" loading="lazy">
+    </a>
+    <!-- TikTok -->
+    <a href="https://tiktok.com/@namaakun" target="_blank" title="TikTok" data-link="https://tiktok.com/@namaakun">
+      <img src="https://i.ibb.co/jvLWv7BX/37985-removebg-preview.png" alt="TikTok" loading="lazy">
+    </a>
+    <!-- YouTube -->
+    <a href="https://youtube.com/@namaakun" target="_blank" title="YouTube" data-link="https://youtube.com/@namaakun">
+      <img src="https://i.ibb.co/fGGCfTF5/37989-removebg-preview.png" alt="YouTube" loading="lazy">
+    </a>
+    <!-- Facebook -->
+    <a href="https://facebook.com/namaakun" target="_blank" title="Facebook" data-link="https://facebook.com/namaakun">
+      <img src="https://i.ibb.co/Z6h4y5Y2/37988-removebg-preview.png" alt="Facebook" loading="lazy">
+    </a>
   </div>
-
-  <!-- 🔹 TOMBOL UNDUH / PASANG APLIKASI - DI BAWAH SENDIRI -->
-  <div class="tombol-play" id="klikPasang">
-    <div class="ikon"></div>
-    <div class="teks">
-      <small>UNDUH DI</small>
-      <b>GOOGLE PLAY</b>
-    </div>
-  </div>
-
 </div>
 
-<!-- BAGIAN BAWAH: TOMBOL INSTAL + SOSIAL MEDIA -->
+<!-- ✅ TOMBOL INSTAL - HANYA INI YANG HILANG SETELAH DIPASANG -->
 <div id="tombolInstal">
   <div class="tombol-play" id="klikPasang">
     <div class="ikon"></div>
@@ -310,7 +299,7 @@ if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catc
 
 /* ============ PEMASANGAN APLIKASI ============ */
 let acaraPasang = null;
-const tombolArea = document.getElementById('tombolInstal');
+const tombolInstal = document.getElementById('tombolInstal');
 const tombolPasang = document.getElementById('klikPasang');
 const isi = document.getElementById('isi');
 const KUNCI = 'winoro_terpasang';
@@ -318,7 +307,7 @@ const KUNCI = 'winoro_terpasang';
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   acaraPasang = e;
-  if(localStorage.getItem(KUNCI) !== '1') tombolArea.classList.remove('sembunyi');
+  if(localStorage.getItem(KUNCI) !== '1') tombolInstal.classList.remove('sembunyi');
 });
 
 tombolPasang.addEventListener('click', async () => {
@@ -326,27 +315,28 @@ tombolPasang.addEventListener('click', async () => {
   const hasil = await acaraPasang.prompt();
   if(hasil && hasil.outcome === 'accepted'){
     localStorage.setItem(KUNCI, '1');
-    tombolArea.classList.add('sembunyi');
-    isi.classList.remove('dengan-tombol');
+    tombolInstal.classList.add('sembunyi');
   }
   acaraPasang = null;
 });
 
 function cekMode(){
-  const sdh = localStorage.getItem(KUNCI) === '1';
-  const app = window.matchMedia('(display-mode: standalone)').matches
-           || window.matchMedia('(display-mode: fullscreen)').matches
-           || window.navigator.standalone === true;
-  if(sdh || app){
-    tombolArea.classList.add('sembunyi');
-    isi.classList.remove('dengan-tombol');
+  const sdhTerpasang = localStorage.getItem(KUNCI) === '1';
+  const modeAplikasi = window.matchMedia('(display-mode: standalone)').matches
+                    || window.matchMedia('(display-mode: fullscreen)').matches
+                    || window.navigator.standalone === true;
+
+  // ✅ HANYA tombol instal yang disembunyikan
+  if(sdhTerpasang || modeAplikasi){
+    tombolInstal.classList.add('sembunyi');
+  } else {
+    tombolInstal.classList.remove('sembunyi');
   }
 }
 cekMode();
 window.addEventListener('appinstalled', () => {
   localStorage.setItem(KUNCI, '1');
-  tombolArea.classList.add('sembunyi');
-  isi.classList.remove('dengan-tombol');
+  tombolInstal.classList.add('sembunyi');
 });
 
 /* ============ FITUR SALIN TAUTAN SOSIAL ============ */
@@ -358,12 +348,11 @@ document.querySelectorAll('.media-sosial a').forEach(ikon => {
       navigator.clipboard.writeText(link).then(() => {
         alert('✅ Tautan berhasil disalin:\n' + link);
       }).catch(() => alert('❌ Gagal menyalin tautan'));
-    }, 800); // Tahan 0,8 detik untuk salin
+    }, 800);
   }, {passive:true});
   ikon.addEventListener('touchend', () => clearTimeout(tahan), {passive:true});
   ikon.addEventListener('touchmove', () => clearTimeout(tahan), {passive:true});
 
-  // Untuk komputer
   ikon.addEventListener('contextmenu', e => {
     e.preventDefault();
     const link = ikon.dataset.link;
