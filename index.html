@@ -8,9 +8,6 @@
 <script>window.si=window.si||function(){(window.siq=window.siq||[]).push(arguments)};</script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
 
-<!-- ✅ BACA GAMBAR COVER DARI DALAM FILE MP3 -->
-<script src="https://cdn.jsdelivr.net/npm/jsmediatags@3.9.7/dist/jsmediatags.min.js"></script>
-
 <meta name="theme-color" content="#0b0418"/>
 <title>🎵 Pemutar Musik Saya</title>
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -18,16 +15,15 @@
 <style>
   *{font-family:'Poppins',sans-serif;box-sizing:border-box}
   html,body{margin:0;padding:0;color:#fff;min-height:100vh;overflow-x:hidden}
-  #BG{position:fixed;inset:0;z-index:-2;
-    background:radial-gradient(1000px 600px at 20% 0%,#4c1d95 0%,transparent 60%),
-               radial-gradient(900px 600px at 100% 100%,#831843 0%,transparent 55%),
-               linear-gradient(180deg,#05010d 0%,#0b0418 50%,#000 100%);
-    background-size:cover;background-position:center;background-repeat:no-repeat;transition:all .8s ease}
-  #BG.blur::after{content:"";position:fixed;inset:0;z-index:-1;backdrop-filter:blur(30px) saturate(140%);
-    background:rgba(5,1,13,.35)}
-  #BG_IMG{position:fixed;inset:-5%;z-index:-3;background-size:cover;background-position:center;filter:blur(40px) brightness(.35) saturate(1.3);transform:scale(1.15);transition:all .8s ease}
 
-  /* NAVBAR */
+  /* LATAR BELAKANG UTAMA */
+  #BG{position:fixed;inset:0;z-index:-3;
+    background:
+      radial-gradient(1000px 600px at 15% -10%,#6d28d9 0%,transparent 60%),
+      radial-gradient(900px 600px at 110% 110%,#be185d 0%,transparent 55%),
+      linear-gradient(180deg,#05010d 0%,#0b0418 55%,#000 100%);}
+
+  /* NAVBAR ATAS */
   nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(18px);
     background:rgba(10,3,22,.55);border-bottom:1px solid rgba(255,255,255,.06)}
   .logo{display:flex;align-items:center;gap:12px}
@@ -39,22 +35,45 @@
   .btn-folder:hover{transform:translateY(-2px)}
   .btn-folder:active{transform:scale(.97)}
 
-  /* COVER ART */
+  /* ✅ KOTAK GELOMBANG + GAMBAR TRANSPARAN DI BELAKANG */
   .cover{position:relative;width:min(360px,86vw);aspect-ratio:1/1;border-radius:28px;overflow:hidden;
-    background:linear-gradient(135deg,#1e1b4b,#831843);
-    box-shadow:0 30px 80px -20px rgba(139,92,246,.55), 0 0 0 1px rgba(255,255,255,.08);
-    transition:transform .6s ease}
-  .cover.play{animation:putar 14s linear infinite}
-  .cover img,.cover canvas{width:100%;height:100%;object-fit:cover;display:block}
-  .cover-ico{position:absolute;inset:0;display:grid;place-items:center;font-size:90px;opacity:.6}
+    background:
+      /* ✅ GAMBAR TRANSPARAN NOT MUSIK + LINGKARAN — DI BAWAH */
+      radial-gradient(circle at 50% 50%, rgba(236,72,153,.18) 0%, transparent 55%),
+      repeating-radial-gradient(circle at 50% 50%, transparent 0 40px, rgba(139,92,246,.10) 40px 42px),
+      linear-gradient(135deg,#1e1b4b 0%, #4c1d95 50%, #831843 100%);
+    box-shadow:0 30px 80px -20px rgba(139,92,246,.6), 0 0 0 1px rgba(255,255,255,.08);
+    transition:transform .6s ease;
+  }
+  .cover.play{animation:putar 16s linear infinite}
+  .cover canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2}
+  /* ✅ GAMBAR NOT MUSIK TRANSPARAN DI TENGAH — DI ATAS LATAR DI BAWAH GELOMBANG */
+  .cover::before{
+    content:"♪";
+    position:absolute;inset:0;z-index:1;
+    display:grid;place-items:center;
+    font-size:180px;
+    color:rgba(255,255,255,.08);
+    text-shadow:0 0 60px rgba(236,72,153,.25);
+    pointer-events:none;
+    user-select:none;
+  }
+  .cover::after{
+    content:"";
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:30px;height:30px;border-radius:50%;
+    background:#0b0418;
+    border:3px solid rgba(236,72,153,.6);
+    z-index:3;box-shadow:0 0 20px rgba(236,72,153,.4);
+  }
   @keyframes putar{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 
-  /* RANGE SLIDER */
+  /* SLIDER */
   .range{-webkit-appearance:none;appearance:none;height:6px;border-radius:999px;
     background:rgba(255,255,255,.12);outline:none;cursor:pointer}
   .range::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;
     background:#fff;box-shadow:0 0 0 5px rgba(236,72,153,.25);cursor:pointer}
-  .boost{background:linear-gradient(90deg,#22d3ee 0%,#22c55e 60%,#f59e0b 85%,#ef4444 100%)}
+  .boost{background:linear-gradient(90deg,#22d3ee 0%,#22c55e 55%,#f59e0b 80%,#ef4444 100%)}
 
   .glass{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(14px)}
   .item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;cursor:pointer;
@@ -72,10 +91,6 @@
   .play:hover{transform:scale(1.05)}
   .play:active{transform:scale(.95)}
 
-  .mode button{padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.1);
-    background:rgba(255,255,255,.05);color:#ddd;cursor:pointer;font-size:12px}
-  .mode button.on{background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#0b0418;border-color:transparent;font-weight:700}
-
   .scroll::-webkit-scrollbar{width:7px}
   .scroll::-webkit-scrollbar-thumb{background:rgba(236,72,153,.35);border-radius:10px}
 
@@ -86,16 +101,16 @@
 </head>
 <body>
 
-<div id="BG" class="blur"><div id="BG_IMG"></div></div>
+<div id="BG"></div>
 
-<!-- ✅ NAVBAR ATAS = LOGO KIRI · TOMBOL FOLDER KANAN -->
+<!-- ✅ NAVBAR = LOGO + NAMA KIRI · HANYA PILIH FOLDER KANAN -->
 <nav>
   <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
     <div class="logo">
       <div class="logo-icon">🎵</div>
       <div>
         <div class="font-extrabold text-lg leading-none">Pemutar Musik Saya</div>
-        <div class="text-[11px] text-white/50">Pilih Folder → Semua Lagu Otomatis Masuk</div>
+        <div class="text-[11px] text-white/50">📁 Pilih Folder → Semua Lagu Otomatis Masuk</div>
       </div>
     </div>
     <label class="btn-folder">
@@ -111,7 +126,7 @@
     <div class="text-7xl mb-3">🎧</div>
     <h2 class="text-2xl font-bold">Belum ada lagu</h2>
     <p class="text-white/60 mt-2">Klik <b class="text-pink-300">📁 Pilih FOLDER</b> di pojok kanan atas<br>
-    Pilih folder musikmu → <b>SEMUA LAGU OTOMATIS MASUK SEMUA SEKALIGUS</b><br>Tidak perlu pilih 1 per 1, bahkan yang ada di dalam subfolder pun ikut.</p>
+    Pilih folder musikmu → <b>SEMUA LAGU OTOMATIS MASUK SEMUA SEKALIGUS</b><br>Bahkan yang ada di dalam subfolder pun ikut semua.</p>
   </div>
 </main>
 
@@ -119,31 +134,19 @@
 <main id="app" class="hidden max-w-7xl mx-auto px-4 py-6">
   <div class="grid lg:grid-cols-[1.1fr_1fr] gap-6">
 
-    <!-- KIRI: COVER + INFO + KONTROL -->
+    <!-- KIRI: GELOMBANG + KONTROL -->
     <div class="glass rounded-3xl p-6 flex flex-col items-center">
 
-      <!-- MODE TAMPILAN -->
-      <div class="mode flex gap-2 flex-wrap justify-center mb-4 w-full">
-        <button class="on" data-m="viz">🎵 Gelombang</button>
-        <button data-m="auto">🖼️ Cover Lagu</button>
-        <button data-m="own">📷 Foto Pribadi</button>
-        <label class="!bg-white/5 hover:!bg-white/10 !text-white"><input id="upBg" type="file" accept="image/*" hidden/>Unggah Foto</label>
-      </div>
-
-      <!-- COVER / VISUAL -->
+      <!-- ✅ HANYA GELOMBANG — TIDAK ADA FOTO SAMA SEKALI -->
       <div id="COVER" class="cover">
         <canvas id="viz"></canvas>
-        <img id="ART" class="hidden" alt="cover"/>
-        <div id="DEF" class="cover-ico">🎵</div>
       </div>
 
-      <!-- JUDUL -->
       <div class="mt-5 text-center w-full">
         <div id="judul" class="text-xl md:text-2xl font-extrabold truncate">—</div>
         <div id="info" class="text-white/50 text-sm">0 dari 0 lagu</div>
       </div>
 
-      <!-- WAKTU -->
       <div class="w-full mt-4">
         <input id="bar" class="range w-full" type="range" min="0" max="1000" value="0"/>
         <div class="flex justify-between text-xs text-white/50 mt-1 tabular-nums">
@@ -151,7 +154,6 @@
         </div>
       </div>
 
-      <!-- KONTROL -->
       <div class="flex items-center gap-3 mt-3">
         <button id="shuffle" class="icon" title="Acak">🔀</button>
         <button id="prev"    class="icon">⏮</button>
@@ -160,7 +162,7 @@
         <button id="repeat"  class="icon" title="Ulang">🔁</button>
       </div>
 
-      <!-- ✅ VOLUME + BOOSTER 0% - 200% (SELALU SELARAS) -->
+      <!-- ✅ VOLUME SELARAS + BOOSTER 200% -->
       <div class="w-full mt-5 space-y-3">
         <div>
           <div class="flex justify-between text-xs text-white/70 mb-1">
@@ -173,12 +175,12 @@
             <span>🚀 Sound Booster</span><span id="boostPct">100%</span>
           </div>
           <input id="boost" class="range boost w-full" type="range" min="50" max="200" value="100"/>
-          <div class="text-[10px] text-white/40 mt-0.5">50% ⟶ 100% Normal ⟶ 140% Kuat ⟶ 200% Maksimal</div>
+          <div class="text-[10px] text-white/40 mt-0.5">50% ⟶ 100% Normal ⟶ 140% Kuat ⟶ 200% MAKSIMAL</div>
         </div>
       </div>
     </div>
 
-    <!-- KANAN: DAFTAR LAGU -->
+    <!-- KANAN: DAFTAR -->
     <div class="glass rounded-3xl p-5 flex flex-col">
       <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
         <h3 class="font-bold text-lg">📜 Daftar Lagu <span id="count" class="text-white/50 text-sm font-normal">(0)</span></h3>
@@ -204,41 +206,29 @@
   const judul=$('judul'), info=$('info'), bar=$('bar'), nowT=$('now'), totT=$('tot');
   const playBtn=$('play'), prev=$('prev'), next=$('next'), shuffle=$('shuffle'), repeat=$('repeat');
   const vol=$('vol'), volPct=$('volPct'), boost=$('boost'), boostPct=$('boostPct');
-  const list=$('list'), count=$('count'), cari=$('cari');
-  const COVER=$('COVER'), ART=$('ART'), DEF=$('DEF'), VIZ=$('viz'), BG_IMG=$('BG_IMG');
-  const upBg=$('upBg');
+  const list=$('list'), count=$('count'), cari=$('cari'), COVER=$('COVER'), VIZ=$('viz');
 
-  let tracks=[], urut=[], indeks=-1, acak=false, ulang=0, mode='viz', userBG=null;
+  let tracks=[], urut=[], indeks=-1, acak=false, ulang=0;
   let ctx, src, gain, analyser, raf;
 
-  // ========== AUDIO + BOOSTER (GAIN NODE 0 - 200%) ==========
+  // ========== AUDIO + BOOSTER 0-200% ==========
   function buatAudio(){
     if(ctx) return;
     ctx = new (window.AudioContext||window.webkitAudioContext)();
     src = ctx.createMediaElementSource(audio);
-    gain = ctx.createGain();                // ✅ INI BOOSTER NYA
-    gain.gain.value = 1;
-    analyser = ctx.createAnalyser();
-    analyser.fftSize = 512;
+    gain = ctx.createGain(); gain.gain.value = 1;
+    analyser = ctx.createAnalyser(); analyser.fftSize = 512;
     src.connect(gain); gain.connect(analyser); analyser.connect(ctx.destination);
   }
   function terapkanVolume(){
-    // ✅ VOLUME SELALU SELARAS: 0-100% = elemen audio, di atas 100% pakai Gain
-    const v = +vol.value;          // 0 - 200
-    volPct.textContent = v+'%';
-    if(v <= 100){
-      audio.volume = v / 100;
-      gain.gain.value = (+boost.value)/100;   // booster aktif penuh
-    } else {
-      audio.volume = 1;
-      // gabungkan sisa volume + booster
-      gain.gain.value = (v/100) * ((+boost.value)/100);
-    }
+    const v = +vol.value; volPct.textContent = v+'%';
+    if(v <= 100){ audio.volume = v/100; gain.gain.value = (+boost.value)/100; }
+    else        { audio.volume = 1;     gain.gain.value = (v/100) * ((+boost.value)/100); }
   }
   boost.oninput = ()=>{ boostPct.textContent=boost.value+'%'; terapkanVolume(); };
   vol.oninput   = terapkanVolume;
 
-  // ✅ SINKRONKAN TERUS‑MENERUS SETIAP 200ms biar sama persis dengan sistem HP
+  // ✅ SELALU SELARAS DENGAN TOMBOL VOLUME HP — DICEK TIAP 200ms
   setInterval(()=>{
     const v = Math.round(audio.volume * 100);
     if(+vol.value <= 100 && Math.abs(+vol.value - v) > 1){
@@ -246,57 +236,24 @@
     }
   }, 200);
 
-  // ========== VISUALIZER ==========
+  // ========== ✅ HANYA GELOMBANG — TIDAK ADA FOTO ==========
   const c = VIZ.getContext('2d');
   function aturViz(){const dpr=window.devicePixelRatio||1;const r=COVER.getBoundingClientRect();
     VIZ.width=r.width*dpr;VIZ.height=r.height*dpr;c.setTransform(dpr,0,0,dpr,0,0);}
   aturViz(); addEventListener('resize',aturViz);
   function gambar(){
     const W=VIZ.clientWidth,H=VIZ.clientHeight;c.clearRect(0,0,W,H);
-    if(mode!=='viz' || !analyser){raf=requestAnimationFrame(gambar);return;}
+    if(!analyser){raf=requestAnimationFrame(gambar);return;}
     const bars=96,data=new Uint8Array(bars);analyser.getByteFrequencyData(data);
     const bw=W/bars,pad=1.5,m=H/2;
-    for(let i=0;i<bars;i++){const v=data[i]/255,h=Math.max(3,v*H*.55);
-      const g=c.createLinearGradient(0,m-h,0,m+h);g.addColorStop(0,'#ec4899');g.addColorStop(.5,'#a855f7');g.addColorStop(1,'#06b6d4');
+    for(let i=0;i<bars;i++){const v=data[i]/255,h=Math.max(3,v*H*.52);
+      const g=c.createLinearGradient(0,m-h,0,m+h);
+      g.addColorStop(0,'#f472b6');g.addColorStop(.5,'#a855f7');g.addColorStop(1,'#60a5fa');
       c.fillStyle=g;c.fillRect(i*bw+pad,m-h,bw-pad*2,h*2);}
     raf=requestAnimationFrame(gambar);
   } gambar();
 
-  // ========== MODE TAMPILAN ==========
-  function setMode(m){
-    mode=m;
-    document.querySelectorAll('.mode button').forEach(b=>b.classList.toggle('on',b.dataset.m===m));
-    VIZ.classList.toggle('hidden', m!=='viz');
-    ART.classList.toggle('hidden', m==='viz' || !ART.src);
-    DEF.classList.toggle('hidden', m==='viz' || !!ART.src);
-  }
-  document.querySelectorAll('.mode button[data-m]').forEach(b=>b.onclick=()=>setMode(b.dataset.m));
-  upBg.onchange = e => {
-    const f=e.target.files[0];if(!f)return;
-    userBG = URL.createObjectURL(f);
-    BG_IMG.style.backgroundImage = `url(${userBG})`;
-    ART.src = userBG; setMode('own');
-  };
-  function pasangCover(dataUrl){
-    if(!dataUrl){ART.removeAttribute('src');ART.classList.add('hidden');DEF.classList.remove('hidden');return;}
-    ART.src = dataUrl; ART.classList.remove('hidden'); DEF.classList.add('hidden');
-    BG_IMG.style.backgroundImage = `url(${dataUrl})`;
-    if(mode==='auto') setMode('auto');
-  }
-  function bacaCoverDariLagu(file){
-    try{
-      jsmediatags.read(file,{
-        onSuccess: t => {
-          const p = t.tags.picture; if(!p){pasangCover(userBG);return;}
-          let bin=''; new Uint8Array(p.data).forEach(x=>bin+=String.fromCharCode(x));
-          pasangCover('data:'+p.format+';base64,'+btoa(bin));
-        },
-        onError: ()=>pasangCover(userBG)
-      });
-    }catch(e){pasangCover(userBG)}
-  }
-
-  // ========== MASUKKAN SEMUA LAGU DARI FOLDER ==========
+  // ========== MASUK SEMUA LAGU DARI FOLDER ==========
   folderInput.onchange = e => {
     const arr=[...e.target.files].filter(f=>f.type.startsWith('audio/'));
     if(!arr.length) return;
@@ -332,14 +289,9 @@
 
   // ========== PUTAR ==========
   function muat(i,auto=false){
-    if(i<0||i>=urut.length)return;indeks=i;
-    const tr=tracks[urut[i]];
-    audio.src=tr.url;
-    judul.textContent=tr.judul; info.textContent=`${i+1} dari ${urut.length} lagu`;
-    document.title='▶ '+tr.judul;
-    pasangCover(null);
-    bacaCoverDariLagu(tr.file);
-    render();
+    if(i<0||i>=urut.length)return;indeks=i;const tr=tracks[urut[i]];
+    audio.src=tr.url; judul.textContent=tr.judul; info.textContent=`${i+1} dari ${urut.length} lagu`;
+    document.title='▶ '+tr.judul; render();
     if(auto) audio.play().catch(()=>{});
   }
   function toggle(){buatAudio();if(ctx.state==='suspended')ctx.resume();audio.paused?audio.play():audio.pause();}
@@ -351,14 +303,12 @@
   repeat.onclick=()=>{
     ulang=(ulang+1)%3; repeat.classList.toggle('active',ulang>0);
     repeat.textContent=['🔁','🔁','🔂'][ulang];
-    repeat.title=['Mati','Semua','Satu'][ulang];
+    repeat.title=['Ulang: Mati','Ulang: Semua','Ulang: Satu Lagu'][ulang];
   };
 
   audio.onplay =()=>{playBtn.textContent='⏸';COVER.classList.add('play');};
   audio.onpause=()=>{playBtn.textContent='▶';COVER.classList.remove('play');};
-  audio.ontimeupdate=()=>{
-    if(audio.duration){bar.value=(audio.currentTime/audio.duration)*1000;nowT.textContent=fmt(audio.currentTime);}
-  };
+  audio.ontimeupdate=()=>{if(audio.duration){bar.value=(audio.currentTime/audio.duration)*1000;nowT.textContent=fmt(audio.currentTime);}};
   audio.onloadedmetadata=()=>totT.textContent=fmt(audio.duration);
   audio.onended=()=>{
     if(ulang===2){audio.currentTime=0;audio.play();}
@@ -367,7 +317,6 @@
   };
   bar.oninput=()=>audio.currentTime=(bar.value/1000)*(audio.duration||0);
 
-  // KEYBOARD
   addEventListener('keydown',e=>{
     if(e.target.tagName==='INPUT')return;
     if(e.code==='Space'){e.preventDefault();toggle();}
