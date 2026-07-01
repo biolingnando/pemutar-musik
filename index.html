@@ -4,414 +4,826 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#050010">
-<title>🎵 NEON MUSIC PLAYER</title>
+<meta name="theme-color" content="#0a001a">
+<title>🎵 WINORO MUSIC</title>
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 <style>
-/* =====================================================================
-   🖼️ 👉 TEMPAT TEMPEL LINK GAMBAR DARI IMGBB.COM
-      ✅ UPLOAD GAMBAR DI id.imgbb.com → AMBIL "Direct Link" (.jpg/.png)
-      ✅ TEMPEL DI DALAM tanda kutip  url('  DI SINI  ')
-      ✅ KALAU DIISI → SEMUA MEMBER LIHAT GAMBAR INI
-      ✅ KALAU DIKOSONGKAN url('') → PAKAI WARNA GRADASI BIASA
-   ===================================================================== */
+/* =========================================================
+   🖼️ TEMPAT TEMPEL LINK GAMBAR LATAR DARI IMGBB
+   ========================================================= */
 :root{
     --gambar-latar: url('');
-    --neon1:#ff00c8;--neon2:#00fff2;--neon3:#b700ff;
-    --bg1:#050010;--bg2:#150030;--text:#fff;
-    --atas:env(safe-area-inset-top,12px);
-    --bawah:env(safe-area-inset-bottom,16px);
-    --kiri:env(safe-area-inset-left,12px);
-    --kanan:env(safe-area-inset-right,12px);
+    --neon1:#ff00c8; --neon2:#00fff2; --neon3:#b700ff;
+    --bg1:#050010; --bg2:#150030; --text:#ffffff;
+    --atas: env(safe-area-inset-top, 12px);
+    --bawah: env(safe-area-inset-bottom, 16px);
+    --kiri: env(safe-area-inset-left, 12px);
+    --kanan: env(safe-area-inset-right, 12px);
 }
 
-/* 🎨 SETIAP TEMA = WARNA + LINK GAMBAR IMGBB SENDIRI */
-body.tema-pelangi{
-    --gambar-latar: url('https://i.ibb.co.com/JFGjG9yw/gitar2.jpg'); /* 👉 TEMPEL LINK IMGBB TEMA PELANGI */
-    --neon1:#ff00c8;--neon2:#00fff2;--neon3:#b700ff;--bg1:#050010;--bg2:#150030;
-}
-body.tema-ungu{
-    --gambar-latar: url(''); /* 👉 TEMPEL LINK IMGBB TEMA UNGU */
-    --neon1:#c300ff;--neon2:#7a00ff;--neon3:#ff00aa;--bg1:#0f0020;--bg2:#1e0040;
-}
-body.tema-biru{
-    --gambar-latar: url(''); /* 👉 TEMPEL LINK IMGBB TEMA BIRU */
-    --neon1:#00e5ff;--neon2:#0080ff;--neon3:#00ffd5;--bg1:#000814;--bg2:#001530;
-}
-body.tema-merah{
-    --gambar-latar: url(''); /* 👉 TEMPEL LINK IMGBB TEMA MERAH */
-    --neon1:#ff0055;--neon2:#ff8800;--neon3:#ffff00;--bg1:#140005;--bg2:#2a0010;
-}
-body.tema-hijau{
-    --gambar-latar: url(''); /* 👉 TEMPEL LINK IMGBB TEMA HIJAU */
-    --neon1:#00ff88;--neon2:#88ff00;--neon3:#00ffcc;--bg1:#001408;--bg2:#002a10;
-}
-body.tema-emas{
-    --gambar-latar: url(''); /* 👉 TEMPEL LINK IMGBB TEMA EMAS */
-    --neon1:#ffd700;--neon2:#ff8c00;--neon3:#fff200;--bg1:#140d00;--bg2:#2a1a00;
-}
-/* ✅ TAMBAH TEMA BARU: SALIN 1 BLOK DI ATAS → GANTI NAMA/WARNA/LINK */
+/* 🎨 SETIAP TEMA */
+body.tema-pelangi{ --gambar-latar: url(''); --neon1:#ff00c8; --neon2:#00fff2; --neon3:#b700ff; --bg1:#050010; --bg2:#150030; }
+body.tema-ungu{ --gambar-latar: url(''); --neon1:#c300ff; --neon2:#7a00ff; --neon3:#ff00aa; --bg1:#0f0020; --bg2:#1e0040; }
+body.tema-biru{ --gambar-latar: url(''); --neon1:#00e5ff; --neon2:#0080ff; --neon3:#00ffd5; --bg1:#000814; --bg2:#001530; }
+body.tema-merah{ --gambar-latar: url(''); --neon1:#ff0055; --neon2:#ff8800; --neon3:#ffff00; --bg1:#140005; --bg2:#2a0010; }
+body.tema-hijau{ --gambar-latar: url(''); --neon1:#00ff88; --neon2:#88ff00; --neon3:#00ffcc; --bg1:#001408; --bg2:#002a10; }
+body.tema-emas{ --gambar-latar: url(''); --neon1:#ffd700; --neon2:#ff8c00; --neon3:#fff200; --bg1:#140d00; --bg2:#2a1a00; }
 
 *{
-    margin:0;padding:0;box-sizing:border-box;
-    font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-    color:var(--text);
-    -webkit-tap-highlight-color:transparent;
-    -webkit-text-size-adjust:100%;
-    touch-action:manipulation;
-    user-select:none;
+    margin:0; padding:0; box-sizing:border-box;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    color: var(--text);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    touch-action: manipulation;
+    user-select: none;
+    transition: all 0.25s ease;
 }
-html,body{width:100%;min-height:100dvh;height:100dvh;overflow:hidden;}
 
-/* 🌌 LATAR: GAMBAR IMGBB DI ATAS → JATUHAN WARNA JIKA KOSONG */
+html, body{
+    width: 100%;
+    min-height: 100dvh;
+    height: 100dvh;
+    overflow: hidden;
+}
+
 body{
     background-image:
-        linear-gradient(160deg, rgba(0,0,0,0.55), rgba(0,0,0,0.72)), /* gelap biar tulisan jelas */
+        linear-gradient(160deg, rgba(0,0,0,0.6), rgba(0,0,0,0.78)),
         var(--gambar-latar),
-        radial-gradient(ellipse at top, var(--bg2), var(--bg1) 75%);
+        radial-gradient(ellipse at top, var(--bg2), var(--bg1) 80%);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    display:flex;flex-direction:column;
+    display: flex;
+    flex-direction: column;
     padding: var(--atas) var(--kanan) var(--bawah) var(--kiri);
-    transition: background .4s ease;
 }
 
-/* 🎨 TOMBOL LACI KANAN ATAS */
-.tombol-laci{
-    position:fixed; top: calc(10px + var(--atas)); right: calc(10px + var(--kanan));
-    z-index: 999;
-    width:44px;height:44px;border-radius:50%;
-    display:grid;place-items:center;font-size:20px;cursor:pointer;
-    background:rgba(0,0,0,.35);
-    border:1.5px solid var(--neon2);
-    box-shadow:0 0 10px var(--neon1), inset 0 0 8px rgba(255,255,255,.05);
+/* =========================================================
+   🎯 HEADER & JUDUL APLIKASI
+   ========================================================= */
+.header{
+    position: fixed;
+    top: var(--atas);
+    left: var(--kiri);
+    right: var(--kanan);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    z-index: 990;
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(10px);
+    border-radius: 14px;
+    margin: 8px 0;
+}
+
+.judul-aplikasi{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: clamp(20px, 5vw, 26px);
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-shadow: 0 0 6px var(--neon1), 0 0 12px var(--neon2);
+    animation: nyala 2s ease-in-out infinite alternate;
+}
+
+.judul-aplikasi .icon{
+    font-size: 1.2em;
+    filter: drop-shadow(0 0 8px var(--neon3));
+    animation: goyang 1.5s ease-in-out infinite;
+}
+
+@keyframes nyala { from { filter: brightness(0.9); } to { filter: brightness(1.4); } }
+@keyframes goyang { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
+
+/* =========================================================
+   📱 TOMBOL MENU & LACI
+   ========================================================= */
+.tombol-menu{
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid var(--neon2);
+    box-shadow: 0 0 10px var(--neon1);
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+    cursor: pointer;
     backdrop-filter: blur(8px);
-    transition:.2s;
 }
-.tombol-laci:active{transform:scale(.9);}
+.tombol-menu:active{ transform: scale(0.9); box-shadow: 0 0 15px var(--neon2); }
 
-/* 📂 LACI KELUAR DARI KANAN */
+.tombol-tema{
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid var(--neon1);
+    box-shadow: 0 0 10px var(--neon2);
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+}
+.tombol-tema:active{ transform: scale(0.9); }
+
 .laci{
-    position:fixed; top:0; right:0; z-index:1000;
-    height:100dvh;
-    width: min(82vw, 320px);
-    background: linear-gradient(180deg, rgba(10,0,25,.92), rgba(0,0,0,.92));
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100dvh;
+    width: min(85vw, 340px);
+    background: linear-gradient(180deg, rgba(15,0,35,0.94), rgba(0,0,0,0.92));
     border-left: 2px solid var(--neon1);
-    box-shadow: -12px 0 40px rgba(255,0,200,.25);
-    backdrop-filter: blur(14px);
+    box-shadow: -12px 0 40px rgba(255,0,200,0.28);
+    backdrop-filter: blur(16px);
     transform: translateX(110%);
-    transition: transform .35s cubic-bezier(.2,.8,.2,1);
-    padding: calc(20px + var(--atas)) 16px 40px;
-    overflow-y:auto;
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    padding: calc(25px + var(--atas)) 20px;
+    overflow-y: auto;
+    z-index: 1000;
 }
 .laci.buka{ transform: translateX(0); }
-.tutup-laci{
-    position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;
-    opacity:0;pointer-events:none;transition:.3s;
-}
-.tutup-laci.buka{opacity:1;pointer-events:auto;}
 
-.laci h3{font-size:18px;letter-spacing:2px;text-shadow:0 0 8px var(--neon1);}
-.laci .garis{
-    height:2px;margin:10px 0 14px;border-radius:2px;
-    background:linear-gradient(90deg,var(--neon1),var(--neon2),transparent);
+.tutup-latar{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
 }
-.laci h4{font-size:12px;opacity:.7;letter-spacing:1.5px;margin:14px 0 8px;text-transform:uppercase;}
+.tutup-latar.buka{ opacity: 1; pointer-events: auto; }
 
-.pilih-tema{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.tema-card{
-    border-radius:12px;padding:10px;cursor:pointer;
-    border:1.5px solid rgba(255,255,255,.15);
-    background:rgba(255,255,255,.04);
-    transition:.15s;display:flex;align-items:center;gap:8px;font-size:13px;
+.laci h3{
+    font-size: 19px;
+    margin-bottom: 12px;
+    text-shadow: 0 0 8px var(--neon1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
-.tema-card:active{transform:translateX(2px);background:rgba(255,255,255,.08);}
-.tema-card.aktif{
-    border-color:var(--neon2);
-    box-shadow:0 0 12px var(--neon1), inset 0 0 0 1px var(--neon1);
-    background:linear-gradient(90deg, rgba(255,0,200,.15), transparent);
-}
-.tema-bulet{
-    width:26px;height:26px;border-radius:50%;flex-shrink:0;
-    box-shadow:0 0 8px currentColor;
+.garis-pemisah{
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon1), var(--neon2), transparent);
+    margin: 12px 0 18px;
+    border-radius: 2px;
 }
 
-/* ✨ NEON HEADER */
-.neon-header{text-align:center;padding:10px 50px 6px 10px;flex:0 0 auto;}
-.neon-title{
-    font-size:clamp(18px,5.2vw,30px);font-weight:900;letter-spacing:2px;
-    display:inline-flex;align-items:center;gap:10px;line-height:1.2;
-    text-shadow:0 0 4px #fff, 0 0 8px var(--neon1), 0 0 16px var(--neon1), 0 0 28px var(--neon2);
-    animation:nyala 2s ease-in-out infinite alternate;
-}
-.music-icon{font-size:1.15em;filter:drop-shadow(0 0 6px var(--neon3)) drop-shadow(0 0 12px var(--neon1));animation:goyang 1.2s ease-in-out infinite;}
-@keyframes nyala{from{filter:brightness(.9);}to{filter:brightness(1.4);}}
-@keyframes goyang{0%,100%{transform:rotate(-7deg);}50%{transform:rotate(7deg);}}
-
-.ketik-wrap{height:clamp(20px,3.2vw,26px);display:flex;justify-content:center;align-items:center;margin-top:4px;}
-.teks-ketik{
-    font-size:clamp(11px,3.2vw,14px);color:var(--neon2);
-    text-shadow:0 0 6px var(--neon2);
-    border-right:2.5px solid var(--neon1);padding-right:3px;
-    white-space:nowrap;overflow:hidden;max-width:92%;
-}
-
+/* =========================================================
+   🎵 PEMUTAR MUSIK
+   ========================================================= */
 .isi-tengah{
-    flex:1 1 auto;overflow-y:auto;overflow-x:hidden;
-    padding:6px 4% 20px;
-    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+    margin-top: 80px;
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px 5% 25px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
 }
-.isi-tengah::-webkit-scrollbar{display:none;}
+.isi-tengah::-webkit-scrollbar{ display: none; }
 
-/* 💿 PEMUTAR */
-.player{
-    width:100%;max-width:440px;margin:8px auto 14px;
-    padding:clamp(12px,3.5vw,20px);border-radius:20px;
-    background:linear-gradient(145deg, rgba(255,255,255,.06), rgba(0,0,0,.4));
-    border:1.5px solid rgba(255,255,255,.08);
-    backdrop-filter: blur(10px);
-    position:relative;
+.pemutar{
+    width: 100%;
+    max-width: 450px;
+    margin: 10px auto;
+    padding: clamp(18px, 5vw, 25px);
+    border-radius: 24px;
+    background: linear-gradient(145deg, rgba(255,255,255,0.07), rgba(0,0,0,0.45));
+    border: 1.5px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
-.player::before{
-    content:"";position:absolute;inset:-1.5px;border-radius:21px;z-index:-1;
-    padding:2px;
-    background:linear-gradient(135deg,var(--neon1),var(--neon2),var(--neon3),var(--neon1));
-    background-size:300% 300%;animation:putarWarna 6s linear infinite;
-    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite:xor;mask-composite:exclude;
+.pemutar::before{
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 26px;
+    padding: 2px;
+    background: linear-gradient(135deg, var(--neon1), var(--neon2), var(--neon3), var(--neon1));
+    background-size: 300% 300%;
+    animation: putarWarna 7s linear infinite;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
 }
-@keyframes putarWarna{to{background-position:300% 50%;}}
+@keyframes putarWarna { to { background-position: 300% 50%; } }
 
-.cd{
-    width:min(42vw,170px);aspect-ratio:1/1;border-radius:50%;margin:4px auto 10px;position:relative;
-    background:
-        radial-gradient(circle at center, var(--neon2) 0 5%, #111 6% 11%, #222 12% 22%,
-        repeating-radial-gradient(circle,#1a1a1a 0 1.5%,#2a2a2a 1.5% 3%)),
-        linear-gradient(135deg,var(--neon1),var(--neon3));
-    box-shadow:0 0 12px var(--neon1), 0 0 24px var(--neon2);
+/* 🖼️ GAMBAR PIRINGAN BISA DIKLIK */
+.wadah-gambar{
+    width: min(45vw, 190px);
+    aspect-ratio: 1/1;
+    margin: 10px auto 18px;
+    position: relative;
+    cursor: pointer;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 15px var(--neon1), 0 0 30px var(--neon2);
+    transition: transform 0.3s;
 }
-.cd.putar{animation:muter 8s linear infinite;}
-@keyframes muter{to{transform:rotate(360deg);}}
-.cd::after{content:"🎵";position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(22px,6vw,30px);filter:drop-shadow(0 0 5px var(--neon3));}
+.wadah-gambar:active{ transform: scale(0.96); }
 
-#judulLagu{text-align:center;font-weight:700;font-size:clamp(12px,3.6vw,15px);margin-top:4px;text-shadow:0 0 6px var(--neon1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 6px;}
-.info{text-align:center;font-size:clamp(10px,2.6vw,12px);opacity:.7;}
-
-canvas{width:100%;height:clamp(50px,10vw,70px);margin-top:8px;border-radius:10px;display:block;}
-
-.bar{width:100%;height:5px;background:#222;border-radius:99px;cursor:pointer;margin:10px 0 4px;box-shadow:inset 0 0 3px #000;overflow:hidden;}
-.isi{height:100%;width:0%;background:linear-gradient(90deg,var(--neon1),var(--neon2));box-shadow:0 0 8px var(--neon1);transition:width .1s linear;}
-.waktu{display:flex;justify-content:space-between;font-size:clamp(10px,2.8vw,12px);opacity:.8;}
-
-.tombol{display:flex;justify-content:center;align-items:center;gap:clamp(8px,2.5vw,16px);margin-top:10px;}
-.tombol button{
-    width:clamp(40px,11vw,50px);height:clamp(40px,11vw,50px);border-radius:50%;
-    border:1.5px solid var(--neon2);background:rgba(255,255,255,.05);
-    box-shadow:0 0 7px var(--neon1);font-size:clamp(14px,4.2vw,18px);cursor:pointer;
-    display:grid;place-items:center;transition:.15s;
+.gambar-lagu{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: radial-gradient(circle, #222 0%, #111 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(30px, 8vw, 40px);
+    color: var(--neon3);
 }
-.tombol button:active{transform:scale(.9);}
-.tombol .main{
-    width:clamp(52px,14.5vw,64px);height:clamp(52px,14.5vw,64px);
-    font-size:clamp(18px,5.2vw,22px);
-    background:linear-gradient(135deg,var(--neon1),var(--neon2));border-color:#fff;
+.gambar-lagu.putar{ animation: putar 8s linear infinite; }
+@keyframes putar { to { transform: rotate(360deg); } }
+
+#input-gambar{ display: none; }
+
+.info-lagu{
+    text-align: center;
+    margin-bottom: 12px;
+}
+.teks-sedang{
+    font-size: 12px;
+    opacity: 0.7;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+#judul-lagu{
+    font-size: clamp(14px, 4vw, 17px);
+    font-weight: 700;
+    text-shadow: 0 0 6px var(--neon1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 8px;
 }
 
-.vol{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:clamp(11px,3vw,13px);}
-input[type=range]{-webkit-appearance:none;appearance:none;flex:1;height:4px;border-radius:99px;background:linear-gradient(90deg,var(--neon1),var(--neon2));outline:none;}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:clamp(12px,3.4vw,16px);height:clamp(12px,3.4vw,16px);border-radius:50%;background:#fff;box-shadow:0 0 8px var(--neon1);cursor:pointer;}
+canvas{
+    width: 100%;
+    height: clamp(55px, 12vw, 75px);
+    margin: 12px 0;
+    border-radius: 14px;
+    background: rgba(0,0,0,0.25);
+}
+
+.batas-waktu{
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 99px;
+    cursor: pointer;
+    overflow: hidden;
+    margin: 8px 0;
+}
+.isi-waktu{
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--neon1), var(--neon2));
+    box-shadow: 0 0 10px var(--neon1);
+    border-radius: 99px;
+}
+.waktu-tampil{
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    opacity: 0.8;
+    margin-bottom: 12px;
+}
+
+.tombol-kontrol{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(10px, 3vw, 18px);
+    margin: 12px 0;
+}
+.tombol-kontrol button{
+    width: clamp(42px, 12vw, 52px);
+    height: clamp(42px, 12vw, 52px);
+    border-radius: 50%;
+    border: 1.5px solid var(--neon2);
+    background: rgba(255,255,255,0.06);
+    box-shadow: 0 0 8px var(--neon1);
+    font-size: clamp(16px, 4.5vw, 20px);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+}
+.tombol-kontrol button:active{ transform: scale(0.9); }
+.tombol-kontrol .utama{
+    width: clamp(58px, 16vw, 70px);
+    height: clamp(58px, 16vw, 70px);
+    font-size: clamp(22px, 6vw, 28px);
+    background: linear-gradient(135deg, var(--neon1), var(--neon2));
+    border-color: #fff;
+    box-shadow: 0 0 15px var(--neon1);
+}
+
+.baris-volume{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+#tombol-bisukan{
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--neon2);
+    text-shadow: 0 0 6px var(--neon2);
+}
+#volume-garis{
+    flex: 1;
+    height: 5px;
+    border-radius: 99px;
+    background: rgba(255,255,255,0.15);
+    outline: none;
+    -webkit-appearance: none;
+}
+#volume-garis::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 8px var(--neon1);
+    cursor: pointer;
+}
+
+/* =========================================================
+   📋 DAFTAR LAGU & SOUND BOOSTER
+   ========================================================= */
+.daftar-lagu-item{
+    padding: 12px 14px;
+    margin: 6px 0;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.05);
+    border-left: 3px solid var(--neon1);
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+.daftar-lagu-item:hover, .daftar-lagu-item.aktif{
+    background: rgba(255,0,200,0.18);
+    border-left-color: var(--neon2);
+    text-shadow: 0 0 5px var(--neon2);
+}
+
+.pengaturan-blok{
+    margin-top: 20px;
+    padding: 14px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.05);
+}
+.judul-pengaturan{
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.slider-booster{
+    width: 100%;
+    height: 6px;
+    border-radius: 99px;
+    background: rgba(255,255,255,0.15);
+    outline: none;
+    -webkit-appearance: none;
+    margin: 8px 0;
+}
+.slider-booster::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--neon1), var(--neon2));
+    box-shadow: 0 0 10px var(--neon1);
+    cursor: pointer;
+}
+.nilai-booster{
+    text-align: right;
+    font-size: 13px;
+    opacity: 0.9;
+}
 
 .pilih-folder{
-    display:block;width:92%;max-width:420px;margin:6px auto;padding:9px 12px;border-radius:12px;cursor:pointer;
-    border:1.5px dashed var(--neon2);background:rgba(0,0,0,.25);backdrop-filter:blur(6px);
-    text-align:center;font-size:clamp(12px,3.4vw,14px);
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 12px;
+    border: 1.5px dashed var(--neon2);
+    background: rgba(0,0,0,0.25);
+    text-align: center;
+    cursor: pointer;
+    font-weight: 500;
 }
-.pilih-folder:active{background:linear-gradient(135deg,var(--neon1),var(--neon2));color:#000;font-weight:700;border-style:solid;}
+.pilih-folder:active{
+    background: linear-gradient(135deg, var(--neon1), var(--neon2));
+    color: #000;
+    border-style: solid;
+}
 
-.daftar{width:92%;max-width:420px;margin:10px auto 20px;display:flex;flex-direction:column;gap:5px;}
-.lagu{
-    padding:8px 10px;border-radius:9px;cursor:pointer;
-    background:rgba(0,0,0,.25);backdrop-filter:blur(4px);
-    border-left:3px solid var(--neon1);
-    font-size:clamp(12px,3.4vw,14px);
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+.pilihan-tema{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
 }
-.lagu:active{background:rgba(255,255,255,.12);}
-.lagu.aktif{background:linear-gradient(90deg, rgba(255,0,200,.25), transparent);border-left-color:var(--neon2);text-shadow:0 0 5px var(--neon2);}
+.kartu-tema{
+    padding: 10px;
+    border-radius: 12px;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 13px;
+}
+.kartu-tema.aktif{
+    border-color: var(--neon2);
+    box-shadow: 0 0 12px var(--neon1);
+    background: rgba(255,0,200,0.15);
+}
+.bulet-tema{
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--neon1), var(--neon2));
+    box-shadow: 0 0 8px var(--neon1);
+}
 </style>
 </head>
 <body class="tema-pelangi">
 
-<!-- 🎨 LACI KANAN -->
-<div class="tombol-laci" id="bukaLaci">🎨</div>
-<div class="tutup-laci" id="tutupLaci"></div>
-<aside class="laci" id="laci">
-    <h3>🎨 GANTI TEMA</h3>
-    <div class="garis"></div>
-    <h4>Pilih tampilanmu</h4>
-    <div class="pilih-tema" id="listTema"></div>
-    <h4>ℹ️ Info</h4>
-    <div style="font-size:12px;opacity:.75;line-height:1.6;">
-        Gambar & warna disiapkan pemilik aplikasi. Setiap tema punya latar sendiri.
-    </div>
-</aside>
-
 <!-- HEADER -->
-<header class="neon-header">
-    <h1 class="neon-title"><span class="music-icon">🎵</span>NEON MUSIC<span class="music-icon">🎵</span></h1>
-    <div class="ketik-wrap"><div class="teks-ketik" id="ketik"></div></div>
-</header>
-
-<!-- ISI -->
-<div class="isi-tengah">
-<label class="pilih-folder">📁 PILIH FOLDER LAGU KAMU
-    <input type="file" id="folder" webkitdirectory multiple hidden accept="audio/*">
-</label>
-
-<main class="player">
-    <div class="cd" id="cd"></div>
-    <div class="info">SEDANG DIPUTAR</div>
-    <div id="judulLagu">— Belum ada lagu —</div>
-    <canvas id="viz"></canvas>
-    <div class="bar" id="bar"><div class="isi" id="isi"></div></div>
-    <div class="waktu"><span id="awal">0:00</span><span id="akhir">0:00</span></div>
-    <div class="tombol">
-        <button id="acak">🔀</button><button id="mundur">⏮</button>
-        <button id="main" class="main">▶</button>
-        <button id="maju">⏭</button><button id="ulang">🔁</button>
+<div class="header">
+    <div class="judul-aplikasi">
+        <span class="icon">🎵</span>
+        WINORO MUSIC
     </div>
-    <div class="vol">🔊 <input type="range" id="vol" min="0" max="1" step="0.01" value="0.7"></div>
-</main>
+    <div style="display: flex; gap: 10px;">
+        <div class="tombol-tema" id="bukaTema">🎨</div>
+        <div class="tombol-menu" id="bukaMenu">☰</div>
+    </div>
+</div>
 
-<section class="daftar" id="daftar"></section>
+<!-- LATAR PENUTUP LACI -->
+<div class="tutup-latar" id="tutupLatar"></div>
+
+<!-- LACI UTAMA (☰) -->
+<div class="laci" id="laciUtama">
+    <h3>📋 DAFTAR & PENGATURAN</h3>
+    <div class="garis-pemisah"></div>
+
+    <label class="pilih-folder">📁 PILIH FOLDER LAGU
+        <input type="file" id="inputFolder" webkitdirectory multiple hidden accept="audio/*">
+    </label>
+
+    <h4 style="margin: 15px 0 8px; opacity: 0.7;">🎵 DAFTAR LAGU</h4>
+    <div id="daftarLaguDiMenu"></div>
+
+    <div class="pengaturan-blok">
+        <div class="judul-pengaturan">🔊 SOUND BOOSTER</div>
+        <input type="range" min="1" max="150" value="100" class="slider-booster" id="boosterSuara">
+        <div class="nilai-booster">Penguatan: <span id="nilaiBooster">100%</span></div>
+        <div style="font-size: 11px; opacity: 0.6; margin-top: 4px;">Bisa sampai 150% lebih keras dari normal</div>
+    </div>
+</div>
+
+<!-- LACI TEMA -->
+<div class="laci" id="laciTema">
+    <h3>🎨 GANTI TEMA & LATAR</h3>
+    <div class="garis-pemisah"></div>
+    <div class="pilihan-tema" id="daftarTema"></div>
+</div>
+
+<!-- ISI UTAMA -->
+<div class="isi-tengah">
+    <div class="pemutar">
+        <!-- GAMBAR LAGU BISA DIKLIK -->
+        <div class="wadah-gambar" id="wadahGambar">
+            <img src="" alt="Gambar Lagu" class="gambar-lagu" id="gambarLagu">
+            <input type="file" id="inputGambar" accept="image/*">
+        </div>
+
+        <div class="info-lagu">
+            <div class="teks-sedang">SEDANG DIPUTAR</div>
+            <div id="judul-lagu">— Belum ada lagu —</div>
+        </div>
+
+        <canvas id="visualGelombang"></canvas>
+
+        <div class="batas-waktu" id="garisWaktu">
+            <div class="isi-waktu" id="isiWaktu"></div>
+        </div>
+        <div class="waktu-tampil">
+            <span id="waktuMulai">00:00</span>
+            <span id="waktuSelesai">00:00</span>
+        </div>
+
+        <div class="tombol-kontrol">
+            <button id="tombolAcak" title="Acak">🔀</button>
+            <button id="tombolMundur">⏮</button>
+            <button id="tombolMain" class="utama">▶</button>
+            <button id="tombolMaju">⏭</button>
+            <button id="tombolUlang" title="Ulang">🔁</button>
+        </div>
+
+        <div class="baris-volume">
+            <span id="tombolBisukan" title="Klik untuk bisukan/nyalakan">🔊</span>
+            <input type="range" id="garisVolume" min="0" max="1" step="0.01" value="0.7">
+        </div>
+    </div>
 </div>
 
 <script>
 /* =========================================================
-   🎨 DAFTAR TEMA - NAMA & WARNA SESUAI CSS DI ATAS
-      Nanti kalau tambah tema di CSS → TAMBAHKAN JUGA DI SINI
+   🎨 DAFTAR TEMA
    ========================================================= */
 const DAFTAR_TEMA = [
     { id:'tema-pelangi', nama:'Pelangi', warna:['#ff00c8','#00fff2'] },
-    { id:'tema-ungu',    nama:'Ungu',    warna:['#c300ff','#7a00ff'] },
-    { id:'tema-biru',    nama:'Biru',    warna:['#00e5ff','#0080ff'] },
-    { id:'tema-merah',   nama:'Merah',   warna:['#ff0055','#ff8800'] },
-    { id:'tema-hijau',   nama:'Hijau',   warna:['#00ff88','#88ff00'] },
-    { id:'tema-emas',    nama:'Emas',    warna:['#ffd700','#ff8c00'] },
+    { id:'tema-ungu', nama:'Ungu', warna:['#c300ff','#7a00ff'] },
+    { id:'tema-biru', nama:'Biru', warna:['#00e5ff','#0080ff'] },
+    { id:'tema-merah', nama:'Merah', warna:['#ff0055','#ff8800'] },
+    { id:'tema-hijau', nama:'Hijau', warna:['#00ff88','#88ff00'] },
+    { id:'tema-emas', nama:'Emas', warna:['#ffd700','#ff8c00'] }
 ];
 
-/* --- LACI --- */
-const laci=document.getElementById('laci'), buka=document.getElementById('bukaLaci'), tutup=document.getElementById('tutupLaci');
-const bukaL=()=>{laci.classList.add('buka');tutup.classList.add('buka');};
-const tutupL=()=>{laci.classList.remove('buka');tutup.classList.remove('buka');};
-buka.onclick=bukaL; tutup.onclick=tutupL;
+/* =========================================================
+   📱 ELEMEN UTAMA
+   ========================================================= */
+const $ = id => document.getElementById(id);
+const audio = new Audio();
+let daftarLagu = [], indeksSekarang = 0, acakAktif = false, ulangAktif = false;
+let gambarDefault = true;
+let penguatSuara = 1.0; // 100%
 
-const listTema=document.getElementById('listTema');
-function renderTema(){
-    listTema.innerHTML='';
-    const aktif=document.body.className;
-    DAFTAR_TEMA.forEach(t=>{
-        const d=document.createElement('div');
-        d.className='tema-card'+(aktif===t.id?' aktif':'');
-        d.innerHTML=`<div class="tema-bulet" style="background:linear-gradient(135deg,${t.warna[0]},${t.warna[1]});color:${t.warna[0]}"></div><span>${t.nama}</span>`;
-        d.onclick=()=>{
-            document.body.className=t.id;
-            renderTema(); tutupL();
-            localStorage.setItem('tema-musik',t.id);
+/* =========================================================
+   🎛️ KONTROL LACI
+   ========================================================= */
+const tutupLatar = $('tutupLatar');
+const laciUtama = $('laciUtama');
+const laciTema = $('laciTema');
+
+function bukaLaci(laci){
+    laci.classList.add('buka');
+    tutupLatar.classList.add('buka');
+}
+function tutupSemuaLaci(){
+    laciUtama.classList.remove('buka');
+    laciTema.classList.remove('buka');
+    tutupLatar.classList.remove('buka');
+}
+
+$('bukaMenu').onclick = () => bukaLaci(laciUtama);
+$('bukaTema').onclick = () => bukaLaci(laciTema);
+tutupLatar.onclick = tutupSemuaLaci;
+
+/* =========================================================
+   🖼️ GAMBAR LAGU BISA DIGANTI MEMBER
+   ========================================================= */
+const wadahGambar = $('wadahGambar');
+const gambarLagu = $('gambarLagu');
+const inputGambar = $('inputGambar');
+
+wadahGambar.onclick = () => inputGambar.click();
+inputGambar.onchange = e => {
+    const file = e.target.files[0];
+    if(!file) return;
+    gambarLagu.src = URL.createObjectURL(file);
+    gambarDefault = false;
+    localStorage.setItem('gambarLaguPemutar', gambarLagu.src);
+};
+
+// Pulihkan gambar terakhir
+if(localStorage.getItem('gambarLaguPemutar')){
+    gambarLagu.src = localStorage.getItem('gambarLaguPemutar');
+    gambarDefault = false;
+}else{
+    gambarLagu.textContent = '🎵';
+}
+
+/* =========================================================
+   🔊 VOLUME & SOUND BOOSTER
+   ========================================================= */
+const tombolBisukan = $('tombolBisukan');
+const garisVolume = $('garisVolume');
+const sliderBooster = $('boosterSuara');
+const nilaiBooster = $('nilaiBooster');
+let statusBisukan = false;
+
+// Bisukan / Nyalakan
+tombolBisukan.onclick = () => {
+    statusBisukan = !statusBisukan;
+    audio.muted = statusBisukan;
+    tombolBisukan.textContent = statusBisukan ? '🔇' : '🔊';
+    tombolBisukan.style.color = statusBisukan ? '#ff5555' : 'var(--neon2)';
+};
+
+// Ikuti volume HP + kontrol manual
+garisVolume.oninput = () => {
+    audio.volume = garisVolume.value;
+    statusBisukan = false;
+    tombolBisukan.textContent = '🔊';
+    tombolBisukan.style.color = 'var(--neon2)';
+};
+
+// Sound Booster sampai 150%
+sliderBooster.oninput = () => {
+    const nilai = sliderBooster.value;
+    penguatSuara = nilai / 100;
+    nilaiBooster.textContent = nilai + '%';
+    if(audio.sourceNode && audio.gainNode) audio.gainNode.gain.value = penguatSuara;
+    localStorage.setItem('penguatSuara', nilai);
+};
+
+// Pulihkan pengaturan terakhir
+if(localStorage.getItem('penguatSuara')){
+    const nilai = localStorage.getItem('penguatSuara');
+    sliderBooster.value = nilai;
+    penguatSuara = nilai / 100;
+    nilaiBooster.textContent = nilai + '%';
+}
+
+/* =========================================================
+   🎵 FUNGSI PEMUTAR LAGU
+   ========================================================= */
+const inputFolder = $('inputFolder');
+const daftarMenu = $('daftarLaguDiMenu');
+const judulLagu = $('judul-lagu');
+const garisWaktu = $('garisWaktu');
+const isiWaktu = $('isiWaktu');
+const waktuMulai = $('waktuMulai');
+const waktuSelesai = $('waktuSelesai');
+const tombolMain = $('tombolMain');
+const tombolMaju = $('tombolMaju');
+const tombolMundur = $('tombolMundur');
+const tombolAcak = $('tombolAcak');
+const tombolUlang = $('tombolUlang');
+
+inputFolder.onchange = e => {
+    const file = [...e.target.files].filter(f => f.type.startsWith('audio/'));
+    if(!file.length) return alert('❌ Tidak ada file lagu di folder ini');
+    daftarLagu = file;
+    indeksSekarang = 0;
+    tampilkanDaftarLagu();
+    muatLagu(0);
+};
+
+function tampilkanDaftarLagu(){
+    daftarMenu.innerHTML = '';
+    daftarLagu.forEach((lagu, i) => {
+        const elemen = document.createElement('div');
+        elemen.className = 'daftar-lagu-item' + (i === indeksSekarang ? ' aktif' : '');
+        elemen.textContent = `${i+1}. ${lagu.name.replace(/\.[^/.]+$/, '')}`;
+        elemen.onclick = () => {
+            indeksSekarang = i;
+            muatLagu(i);
+            audio.play();
+            tutupSemuaLaci();
         };
-        listTema.appendChild(d);
+        daftarMenu.appendChild(elemen);
     });
 }
-const simpan=localStorage.getItem('tema-musik');
-if(simpan) document.body.className=simpan;
-renderTema();
 
-/* --- PEMUTAR MUSIK --- */
-const $=id=>document.getElementById(id);
-const audio=new Audio(); audio.volume=0.7;
-let daftarLagu=[], indeks=0, acakON=false, ulangON=false, tipe=null;
+function muatLagu(i){
+    if(!daftarLagu[i]) return;
+    audio.src = URL.createObjectURL(daftarLagu[i]);
+    judulLagu.textContent = daftarLagu[i].name.replace(/\.[^/.]+$/, '');
+    if(gambarDefault){
+        gambarLagu.textContent = '🎵';
+        gambarLagu.src = '';
+    }
+    tampilkanDaftarLagu();
+}
 
-$('folder').onchange=e=>{
-    const file=[...e.target.files].filter(f=>f.type.startsWith('audio'));
-    if(!file.length){alert('❌ Tidak ada lagu di folder ini');return;}
-    daftarLagu=file; indeks=0; renderDaftar(); muat(0);
+function putarLagu(){
+    if(audio.paused){
+        audio.play();
+        tombolMain.textContent = '⏸';
+        gambarLagu.classList.add('putar');
+    }else{
+        audio.pause();
+        tombolMain.textContent = '▶';
+        gambarLagu.classList.remove('putar');
+    }
+}
+
+tombolMain.onclick = () => daftarLagu.length ? putarLagu() : alert('Pilih folder lagu terlebih dahulu!');
+tombolMaju.onclick = () => gantiLagu(1);
+tombolMundur.onclick = () => gantiLagu(-1);
+tombolAcak.onclick = () => { acakAktif = !acakAktif; tombolAcak.style.opacity = acakAktif ? 1 : 0.4; };
+tombolUlang.onclick = () => { ulangAktif = !ulangAktif; tombolUlang.style.opacity = ulangAktif ? 1 : 0.4; };
+
+function gantiLagu(arah){
+    if(!daftarLagu.length) return;
+    indeksSekarang = acakAktif ? Math.floor(Math.random() * daftarLagu.length) : (indeksSekarang + arah + daftarLagu.length) % daftarLagu.length;
+    muatLagu(indeksSekarang);
+    audio.play();
+    tombolMain.textContent = '⏸';
+    gambarLagu.classList.add('putar');
+}
+
+audio.ontimeupdate = () => {
+    if(!audio.duration) return;
+    const persen = (audio.currentTime / audio.duration) * 100;
+    isiWaktu.style.width = persen + '%';
+    waktuMulai.textContent = formatWaktu(audio.currentTime);
+    waktuSelesai.textContent = formatWaktu(audio.duration);
 };
-function renderDaftar(){
-    $('daftar').innerHTML='';
-    daftarLagu.forEach((f,i)=>{
-        const d=document.createElement('div');
-        d.className='lagu'+(i===indeks?' aktif':'');
-        d.textContent=`${i+1}. ${f.name.replace(/\.[^/.]+$/,'')}`;
-        d.onclick=()=>{indeks=i;muat(i);audio.play();};
-        $('daftar').appendChild(d);
+
+audio.onended = () => ulangAktif ? audio.currentTime = 0 : gantiLagu(1);
+
+garisWaktu.onclick = e => {
+    const lebar = garisWaktu.getBoundingClientRect().width;
+    const posisi = (e.offsetX / lebar) * audio.duration;
+    audio.currentTime = posisi;
+};
+
+function formatWaktu(detik){
+    const m = Math.floor(detik / 60);
+    const d = Math.floor(detik % 60);
+    return `${m}:${d < 10 ? '0' + d : d}`;
+}
+
+/* =========================================================
+   🎨 TAMPILKAN PILIHAN TEMA
+   ========================================================= */
+function tampilkanTema(){
+    const daftarTema = $('daftarTema');
+    daftarTema.innerHTML = '';
+    const temaAktif = document.body.className;
+    DAFTAR_TEMA.forEach(tema => {
+        const kartu = document.createElement('div');
+        kartu.className = 'kartu-tema' + (temaAktif === tema.id ? ' aktif' : '');
+        kartu.innerHTML = `<div class="bulet-tema" style="background: linear-gradient(135deg, ${tema.warna[0]}, ${tema.warna[1]})"></div><span>${tema.nama}</span>`;
+        kartu.onclick = () => {
+            document.body.className = tema.id;
+            tampilkanTema();
+            tutupSemuaLaci();
+            localStorage.setItem('temaTerpilih', tema.id);
+        };
+        daftarTema.appendChild(kartu);
     });
 }
-function muat(i){
-    if(!daftarLagu.length)return;
-    const f=daftarLagu[i];
-    audio.src=URL.createObjectURL(f);
-    $('judulLagu').textContent=f.name.replace(/\.[^/.]+$/,'');
-    mulaiKetik($('judulLagu').textContent);
-    document.querySelectorAll('.lagu').forEach((el,n)=>el.classList.toggle('aktif',n===i));
-}
-function mulaiKetik(teks){
-    clearInterval(tipe); const el=$('ketik'); let n=0; el.textContent='';
-    tipe=setInterval(()=>{
-        el.textContent=teks.slice(0,++n);
-        if(n>teks.length){clearInterval(tipe);setTimeout(()=>mulaiKetik(teks),2000);}
-    },55);
-}
-mulaiKetik('👋 Klik 🎨 kanan atas → ganti tema & latar 🎧');
 
-$('main').onclick=()=>{
-    if(!daftarLagu.length){alert('Pilih folder lagu dulu!');return;}
-    if(audio.paused){audio.play();$('main').textContent='⏸';$('cd').classList.add('putar');}
-    else{audio.pause();$('main').textContent='▶';$('cd').classList.remove('putar');}
-};
-$('maju').onclick=()=>lanjut(1); $('mundur').onclick=()=>lanjut(-1);
-$('acak').onclick=()=>{acakON=!acakON;$('acak').style.opacity=acakON?1:.4;};
-$('ulang').onclick=()=>{ulangON=!ulangON;$('ulang').style.opacity=ulangON?1:.4;};
-$('vol').oninput=e=>audio.volume=e.target.value;
-function lanjut(a){
-    if(!daftarLagu.length)return;
-    indeks=acakON?Math.floor(Math.random()*daftarLagu.length):(indeks+a+daftarLagu.length)%daftarLagu.length;
-    muat(indeks);audio.play();$('main').textContent='⏸';$('cd').classList.add('putar');
-}
-audio.ontimeupdate=()=>{
-    if(!audio.duration)return;
-    $('isi').style.width=(audio.currentTime/audio.duration*100)+'%';
-    $('awal').textContent=fmt(audio.currentTime);
-    $('akhir').textContent=fmt(audio.duration);
-};
-audio.onended=()=>ulangON?(audio.currentTime=0,audio.play()):lanjut(1);
-$('bar').onclick=e=>{const r=$('bar').getBoundingClientRect();audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;};
-function fmt(s){const m=Math.floor(s/60),x=Math.floor(s%60);return `${m}:${String(x).padStart(2,'0')}`;}
+// Pulihkan tema terakhir
+if(localStorage.getItem('temaTerpilih')) document.body.className = localStorage.getItem('temaTerpilih');
+tampilkanTema();
 
-/* --- VISUAL --- */
-const ctx=$('viz').getContext('2d');
-$('viz').width=$('viz').offsetWidth*2;$('viz').height=140;
-let ac,src,an,data;
-audio.onplay=()=>{
-    if(ac)return;
-    ac=new (window.AudioContext||window.webkitAudioContext)();
-    src=ac.createMediaElementSource(audio);an=ac.createAnalyser();an.fftSize=128;
-    data=new Uint8Array(an.frequencyBinCount);
-    src.connect(an);an.connect(ac.destination);gambar();
+/* =========================================================
+   📊 VISUAL GELOMBANG SUARA
+   ========================================================= */
+const kanvas = $('visualGelombang');
+const konteks = kanvas.getContext('2d');
+let analisa, sumber;
+
+audio.onplay = () => {
+    if(analisa) return;
+    const konteksAudio = new (window.AudioContext || window.webkitAudioContext)();
+    sumber = konteksAudio.createMediaElementSource(audio);
+    analisa = konteksAudio.createAnalyser();
+    const penguat = konteksAudio.createGain();
+    penguat.gain.value = penguatSuara;
+    audio.gainNode = penguat;
+    audio.sourceNode = sumber;
+    analisa.fftSize = 128;
+    sumber.connect(penguat);
+    penguat.connect(analisa);
+    analisa.connect(konteksAudio.destination);
+    gambarGelombang();
 };
-function gambar(){
-    requestAnimationFrame(gambar);if(!an)return;
-    an.getByteFrequencyData(data);
-    const w=$('viz').width,h=$('viz').height,bw=w/data.length;
-    ctx.clearRect(0,0,w,h);
-    for(let i=0;i<data.length;i++){
-        const t=data[i]/255,bh=t*h;
-        const g=ctx.createLinearGradient(0,h-bh,0,h);
-        g.addColorStop(0,getComputedStyle(document.body).getPropertyValue('--neon1'));
-        g.addColorStop(1,getComputedStyle(document.body).getPropertyValue('--neon2'));
-        ctx.fillStyle=g;ctx.shadowBlur=10;ctx.shadowColor=getComputedStyle(document.body).getPropertyValue('--neon1');
-        ctx.fillRect(i*bw+2,h-bh,bw-4,bh);
+
+function gambarGelombang(){
+    requestAnimationFrame(gambarGelombang);
+    if(!analisa) return;
+    const data = new Uint8Array(analisa.frequencyBinCount);
+    analisa.getByteFrequencyData(data);
+    const lebar = kanvas.width = kanvas.offsetWidth * 2;
+    const tinggi = kanvas.height = 140;
+    konteks.clearRect(0, 0, lebar, tinggi);
+    const lebarBatang = lebar / data.length;
+    for(let i = 0; i < data.length; i++){
+        const tinggiBatang = (data[i] / 255) * tinggi;
+        const gradasi = konteks.createLinearGradient(0, tinggi - tinggiBatang, 0, tinggi);
+        gradasi.addColorStop(0, getComputedStyle(document.body).getPropertyValue('--neon1'));
+        gradasi.addColorStop(1, getComputedStyle(document.body).getPropertyValue('--neon2'));
+        konteks.fillStyle = gradasi;
+        konteks.shadowBlur = 10;
+        konteks.shadowColor = getComputedStyle(document.body).getPropertyValue('--neon1');
+        konteks.fillRect(i * lebarBatang + 2, tinggi - tinggiBatang, lebarBatang - 4, tinggiBatang);
     }
 }
 </script>
