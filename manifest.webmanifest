@@ -1,0 +1,26 @@
+{
+  "name": "WINORO MUSIC",
+  "short_name": "WINORO MUSIC",
+  "description": "Pemutar Lagu Offline",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#050010",
+  "theme_color": "#0a001a",
+  "lang": "id",
+  "icons": [
+    {
+      "src": "https://i.ibb.co/mCJdjydg/FB-IMG-1779332724114.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://i.ibb.co/mCJdjydg/FB-IMG-1779332724114.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}
