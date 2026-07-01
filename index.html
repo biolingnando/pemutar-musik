@@ -134,6 +134,32 @@ body{
 }
 .tombol-tema:active{ transform: scale(0.9); }
 
+/* ✅ TOMBOL TUTUP SILANG DI LACI */
+.tombol-tutup{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 1.5px solid var(--neon1);
+    box-shadow: 0 0 8px var(--neon1);
+    display: grid;
+    place-items: center;
+    font-size: 18px;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: 0.2s;
+}
+.tombol-tutup:hover{
+    background: rgba(255,0,200,0.2);
+    transform: scale(1.05);
+}
+.tombol-tutup:active{
+    transform: scale(0.9);
+}
+
 .laci{
     position: fixed;
     top: 0;
@@ -335,13 +361,13 @@ canvas{
     gap: 10px;
     margin-top: 15px;
 }
-#tombol-bisukan{
+#tombolBisukan{
     font-size: 22px;
     cursor: pointer;
     color: var(--neon2);
     text-shadow: 0 0 6px var(--neon2);
 }
-#volume-garis{
+#garisVolume{
     flex: 1;
     height: 5px;
     border-radius: 99px;
@@ -349,7 +375,7 @@ canvas{
     outline: none;
     -webkit-appearance: none;
 }
-#volume-garis::-webkit-slider-thumb{
+#garisVolume::-webkit-slider-thumb{
     -webkit-appearance: none;
     width: 16px;
     height: 16px;
@@ -484,6 +510,8 @@ canvas{
 
 <!-- LACI UTAMA (☰) -->
 <div class="laci" id="laciUtama">
+    <!-- ✅ TOMBOL TUTUP SILANG -->
+    <div class="tombol-tutup" id="tutupMenu">✕</div>
     <h3>📋 DAFTAR & PENGATURAN</h3>
     <div class="garis-pemisah"></div>
 
@@ -504,6 +532,8 @@ canvas{
 
 <!-- LACI TEMA -->
 <div class="laci" id="laciTema">
+    <!-- ✅ TOMBOL TUTUP SILANG -->
+    <div class="tombol-tutup" id="tutupTema">✕</div>
     <h3>🎨 GANTI TEMA & LATAR</h3>
     <div class="garis-pemisah"></div>
     <div class="pilihan-tema" id="daftarTema"></div>
@@ -571,11 +601,13 @@ let gambarDefault = true;
 let penguatSuara = 1.0; // 100%
 
 /* =========================================================
-   🎛️ KONTROL LACI
+   🎛️ KONTROL LACI DAN TOMBOL TUTUP
    ========================================================= */
 const tutupLatar = $('tutupLatar');
 const laciUtama = $('laciUtama');
 const laciTema = $('laciTema');
+const tutupMenu = $('tutupMenu');
+const tutupTema = $('tutupTema');
 
 function bukaLaci(laci){
     laci.classList.add('buka');
@@ -589,6 +621,8 @@ function tutupSemuaLaci(){
 
 $('bukaMenu').onclick = () => bukaLaci(laciUtama);
 $('bukaTema').onclick = () => bukaLaci(laciTema);
+tutupMenu.onclick = tutupSemuaLaci;
+tutupTema.onclick = tutupSemuaLaci;
 tutupLatar.onclick = tutupSemuaLaci;
 
 /* =========================================================
