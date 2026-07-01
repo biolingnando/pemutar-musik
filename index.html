@@ -2,11 +2,13 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0a001a">
+<link rel="icon" href="https://i.ibb.co/mCJdjydg/FB-IMG-1779332724114.jpg">
+<link rel="apple-touch-icon" href="https://i.ibb.co/mCJdjydg/FB-IMG-1779332724114.jpg">
 
-<!-- 🖼️ GAMBAR SAAT DIBAGIKAN KE FACEBOOK / WA / DLL -->
+<!-- 🖼️ GAMBAR SAAT DIBAGIKAN / TAMBAH KE LAYAR UTAMA -->
 <title>🎵 WINORO MUSIC - Pemutar Lagu Offline</title>
 <meta name="description" content="Pemutar musik gratis 100% offline, bisa dipakai di HP maupun komputer.">
 <meta property="og:title" content="🎵 WINORO MUSIC">
@@ -21,9 +23,6 @@
 <meta name="twitter:image" content="https://i.ibb.co/mCJdjydg/FB-IMG-1779332724114.jpg">
 
 <style>
-/* =========================================================
-   🎨 VARIABEL WARNA & LATAR — GAMBAR SUDAH DIPASANG OTOMATIS
-   ========================================================= */
 :root{
     --gambar-latar: url('https://i.ibb.co/mCJdjydg/FB-IMG-1779332724114.jpg');
     --neon1:#ff00c8; --neon2:#00fff2; --neon3:#b700ff;
@@ -34,7 +33,6 @@
     --kanan: env(safe-area-inset-right, 12px);
 }
 
-/* 🎨 SETIAP TEMA — SEMUA PAKAI GAMBAR KAMU SEBAGAI LATAR */
 body.tema-pelangi{ --neon1:#ff00c8; --neon2:#00fff2; --neon3:#b700ff; --bg1:#050010; --bg2:#150030; }
 body.tema-ungu{   --neon1:#c300ff; --neon2:#7a00ff; --neon3:#ff00aa; --bg1:#0f0020; --bg2:#1e0040; }
 body.tema-biru{   --neon1:#00e5ff; --neon2:#0080ff; --neon3:#00ffd5; --bg1:#000814; --bg2:#001530; }
@@ -74,9 +72,7 @@ body{
     padding: var(--atas) var(--kanan) var(--bawah) var(--kiri);
 }
 
-/* =========================================================
-   🎯 HEADER & JUDUL
-   ========================================================= */
+/* ============== HEADER ============== */
 .header{
     position: fixed;
     top: var(--atas);
@@ -93,584 +89,313 @@ body{
     border-radius: 14px;
     margin: 8px 0;
 }
-
 .judul-aplikasi{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: clamp(20px, 5vw, 26px);
-    font-weight: 900;
+    display: flex; align-items: center; gap: 10px;
+    font-size: clamp(20px, 5vw, 26px); font-weight: 900;
     letter-spacing: 1px;
     text-shadow: 0 0 6px var(--neon1), 0 0 12px var(--neon2);
     animation: nyala 2s ease-in-out infinite alternate;
 }
-
 .judul-aplikasi .icon{
     font-size: 1.2em;
     filter: drop-shadow(0 0 8px var(--neon3));
     animation: goyang 1.5s ease-in-out infinite;
 }
-
 @keyframes nyala { from { filter: brightness(0.9); } to { filter: brightness(1.4); } }
 @keyframes goyang { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
 
-/* =========================================================
-   📱 TOMBOL & LACI
-   ========================================================= */
-.tombol-menu{
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
+.tombol-menu, .tombol-tema{
+    width: 42px; height: 42px; border-radius: 50%;
     background: rgba(255,255,255,0.08);
     border: 1.5px solid var(--neon2);
     box-shadow: 0 0 10px var(--neon1);
-    display: grid;
-    place-items: center;
-    font-size: 20px;
-    cursor: pointer;
+    display: grid; place-items: center;
+    font-size: 20px; cursor: pointer;
     backdrop-filter: blur(8px);
-    z-index: 10;
-    pointer-events: auto;
 }
-.tombol-menu:active{ transform: scale(0.9); box-shadow: 0 0 15px var(--neon2); }
+.tombol-tema{ border-color: var(--neon1); box-shadow: 0 0 10px var(--neon2); }
+.tombol-menu:active, .tombol-tema:active{ transform: scale(0.9); }
 
-.tombol-tema{
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.08);
-    border: 1.5px solid var(--neon1);
-    box-shadow: 0 0 10px var(--neon2);
-    display: grid;
-    place-items: center;
-    font-size: 20px;
-    cursor: pointer;
-    backdrop-filter: blur(8px);
-    z-index: 10;
-    pointer-events: auto;
-}
-.tombol-tema:active{ transform: scale(0.9); }
-
+/* ============== LACI ============== */
 .tombol-tutup{
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
+    position: absolute; top:15px; right:15px;
+    width:36px; height:36px; border-radius:50%;
     background: rgba(255,255,255,0.1);
-    border: 1.5px solid var(--neon1);
-    box-shadow: 0 0 8px var(--neon1);
-    display: grid;
-    place-items: center;
-    font-size: 18px;
-    cursor: pointer;
-    backdrop-filter: blur(8px);
-    transition: 0.2s;
-    pointer-events: auto;
+    border:1.5px solid var(--neon1);
+    box-shadow:0 0 8px var(--neon1);
+    display:grid; place-items:center; cursor:pointer;
 }
-.tombol-tutup:hover{ background: rgba(255,0,200,0.2); transform: scale(1.05); }
-.tombol-tutup:active{ transform: scale(0.9); }
-
 .laci{
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100dvh;
-    width: min(95vw, 550px);
+    position: fixed; top:0; right:0;
+    height:100dvh; width: min(95vw, 550px);
     background: linear-gradient(180deg, rgba(15,0,35,0.96), rgba(0,0,0,0.94));
-    border-left: 2px solid var(--neon1);
-    box-shadow: -12px 0 40px rgba(255,0,200,0.28);
+    border-left:2px solid var(--neon1);
+    box-shadow:-12px 0 40px rgba(255,0,200,0.28);
     backdrop-filter: blur(16px);
     transform: translateX(110%);
-    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: transform .35s cubic-bezier(.2,.8,.2,1);
     padding: calc(25px + var(--atas)) 20px;
-    overflow-y: auto;
-    z-index: 1000;
-    pointer-events: auto;
+    overflow-y:auto; z-index:1000;
 }
 .laci.buka{ transform: translateX(0); }
-
 .tutup-latar{
-    position: fixed;
-    inset: 0;
+    position:fixed; inset:0;
     background: rgba(0,0,0,0.65);
-    z-index: 999;
-    opacity: 0;
-    pointer-events: none;
-    transition: 0.3s;
+    z-index:999; opacity:0;
+    pointer-events:none; transition:.3s;
 }
-.tutup-latar.buka{ opacity: 1; pointer-events: auto; }
+.tutup-latar.buka{ opacity:1; pointer-events:auto; }
 
-.judul-bagian{
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 15px;
-    text-shadow: 0 0 8px var(--neon1);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
+.judul-bagian{ font-size:20px; font-weight:700; margin-bottom:15px; text-shadow:0 0 8px var(--neon1); }
 .garis-pemisah{
-    height: 2px;
+    height:2px; margin:12px 0 20px; border-radius:2px;
     background: linear-gradient(90deg, var(--neon1), var(--neon2), transparent);
-    margin: 12px 0 20px;
-    border-radius: 2px;
 }
-
 .tombol-bagian{
-    width: 100%;
-    padding: 14px 16px;
-    margin-bottom: 12px;
-    border-radius: 12px;
+    width:100%; padding:14px 16px; margin-bottom:12px;
+    border-radius:12px; text-align:left;
     background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.12);
-    text-align: left;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: 0.2s;
-    pointer-events: auto;
+    border:1px solid rgba(255,255,255,0.12);
+    font-size:16px; font-weight:500; cursor:pointer;
+    display:flex; justify-content:space-between; align-items:center;
 }
 .tombol-bagian:hover, .tombol-bagian.aktif{
     background: rgba(255,0,200,0.15);
     border-color: var(--neon1);
-    box-shadow: 0 0 10px rgba(255,0,200,0.2);
+    box-shadow:0 0 10px rgba(255,0,200,0.2);
 }
-.tombol-bagian .panah{ font-size: 18px; transition: transform 0.3s; }
-.tombol-bagian.aktif .panah{ transform: rotate(90deg); }
-
-.konten-bagian{
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease;
-    margin-bottom: 15px;
-}
-.konten-bagian.buka{ max-height: 80vh; }
+.konten-bagian{ max-height:0; overflow:hidden; transition: max-height .4s ease; margin-bottom:15px; }
+.konten-bagian.buka{ max-height:80vh; }
 
 .daftar-lagu-wrapper{
-    max-height: 60vh;
-    overflow-y: auto;
-    border-radius: 12px;
+    max-height:60vh; overflow-y:auto;
+    border-radius:12px; padding:8px;
     background: rgba(0,0,0,0.25);
-    border: 1px solid rgba(255,255,255,0.08);
-    padding: 8px;
+    border:1px solid rgba(255,255,255,0.08);
 }
-.daftar-lagu-wrapper::-webkit-scrollbar{ width: 6px; }
-.daftar-lagu-wrapper::-webkit-scrollbar-track{ background: rgba(255,255,255,0.05); border-radius: 10px; }
-.daftar-lagu-wrapper::-webkit-scrollbar-thumb{ background: linear-gradient(var(--neon1), var(--neon2)); border-radius: 10px; }
-
+.daftar-lagu-wrapper::-webkit-scrollbar{ width:6px; }
+.daftar-lagu-wrapper::-webkit-scrollbar-thumb{
+    background: linear-gradient(var(--neon1), var(--neon2)); border-radius:10px;
+}
 .daftar-lagu-item{
-    display: flex;
-    align-items: center;
-    padding: 12px 14px;
-    margin: 6px 0;
-    border-radius: 10px;
+    display:flex; align-items:center; gap:12px;
+    padding:12px 14px; margin:6px 0; border-radius:10px;
     background: rgba(255,255,255,0.05);
-    border-left: 3px solid transparent;
-    cursor: pointer;
-    transition: 0.2s;
-    gap: 12px;
-    pointer-events: auto;
+    border-left:3px solid transparent; cursor:pointer;
 }
 .daftar-lagu-item:hover, .daftar-lagu-item.aktif{
     background: rgba(255,0,200,0.18);
     border-left-color: var(--neon2);
-    box-shadow: 0 0 8px rgba(0,255,242,0.2);
 }
 .nomor-lagu{
-    min-width: 32px;
-    height: 32px;
-    border-radius: 50%;
+    min-width:32px; height:32px; border-radius:50%;
     background: linear-gradient(135deg, var(--neon1), var(--neon2));
-    display: grid;
-    place-items: center;
-    font-weight: 700;
-    font-size: 14px;
-    color: #000;
-    box-shadow: 0 0 6px var(--neon1);
+    color:#000; display:grid; place-items:center; font-weight:700;
 }
-.nama-lagu{
-    flex: 1;
-    font-size: 15px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+.nama-lagu{ flex:1; font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
-.pengaturan-blok{
-    padding: 16px;
-    border-radius: 12px;
-    background: rgba(0,0,0,0.25);
-    border: 1px solid rgba(255,255,255,0.08);
-}
-.judul-pengaturan{
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
+.pengaturan-blok{ padding:16px; border-radius:12px; background: rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.08); }
 .slider-booster{
-    width: 100%;
-    height: 8px;
-    border-radius: 99px;
+    width:100%; height:8px; border-radius:99px;
     background: rgba(255,255,255,0.15);
-    outline: none;
-    -webkit-appearance: none;
-    margin: 10px 0;
-    pointer-events: auto;
+    -webkit-appearance:none; outline:none; margin:10px 0;
 }
 .slider-booster::-webkit-slider-thumb{
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+    -webkit-appearance:none; width:20px; height:20px; border-radius:50%;
     background: linear-gradient(135deg, var(--neon1), var(--neon2));
-    box-shadow: 0 0 12px var(--neon1);
-    cursor: pointer;
-}
-.nilai-booster{
-    text-align: right;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--neon2);
+    box-shadow:0 0 12px var(--neon1); cursor:pointer;
 }
 .pilih-folder{
-    display: block;
-    width: 100%;
-    padding: 14px;
-    margin: 10px 0;
-    border-radius: 12px;
-    border: 1.5px dashed var(--neon2);
+    display:block; width:100%; padding:14px; margin:10px 0;
+    border-radius:12px; text-align:center; cursor:pointer; font-weight:500;
+    border:1.5px dashed var(--neon2);
     background: rgba(0,0,0,0.25);
-    text-align: center;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 15px;
-    pointer-events: auto;
 }
 .pilih-folder:active{
     background: linear-gradient(135deg, var(--neon1), var(--neon2));
-    color: #000;
-    border-style: solid;
+    color:#000; border-style:solid;
 }
 
-/* =========================================================
-   🎵 BAGIAN PEMUTAR
-   ========================================================= */
+/* ============== PEMUTAR ============== */
 .isi-tengah{
-    margin-top: 80px;
-    flex: 1;
-    overflow-y: auto;
-    padding: 15px 5% 95px; /* ⬅️ ADA RUANG BUAT TOMBOL BAWAH */
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    margin-top:80px; flex:1; overflow-y:auto;
+    padding:15px 5% 25px;
+    scrollbar-width:none;
 }
-.isi-tengah::-webkit-scrollbar{ display: none; }
+.isi-tengah::-webkit-scrollbar{ display:none; }
+/* ✅ RUANG BAWAH SAAT TOMBOL MASIH ADA */
+.isi-tengah.dengan-tombol{ padding-bottom: 110px; }
 
 .pemutar{
-    width: 100%;
-    max-width: 450px;
-    margin: 10px auto;
-    padding: clamp(18px, 5vw, 25px);
-    border-radius: 24px;
+    width:100%; max-width:450px; margin:10px auto;
+    padding: clamp(18px,5vw,25px);
+    border-radius:24px;
     background: linear-gradient(145deg, rgba(255,255,255,0.07), rgba(0,0,0,0.45));
-    border: 1.5px solid rgba(255,255,255,0.1);
+    border:1.5px solid rgba(255,255,255,0.1);
     backdrop-filter: blur(12px);
-    position: relative;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    pointer-events: auto;
-    z-index: 5;
+    position:relative; box-shadow:0 8px 32px rgba(0,0,0,0.3);
 }
 .pemutar::before{
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: 26px;
-    padding: 2px;
+    content:''; position:absolute; inset:-2px; border-radius:26px; padding:2px;
     background: linear-gradient(135deg, var(--neon1), var(--neon2), var(--neon3), var(--neon1));
-    background-size: 300% 300%;
-    animation: putarWarna 7s linear infinite;
+    background-size:300% 300%; animation: putarWarna 7s linear infinite;
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
+    -webkit-mask-composite:xor; mask-composite:exclude;
+    pointer-events:none;
 }
-@keyframes putarWarna { to { background-position: 300% 50%; } }
+@keyframes putarWarna { to { background-position:300% 50%; } }
 
 .wadah-gambar{
-    width: min(45vw, 190px);
-    aspect-ratio: 1/1;
-    margin: 10px auto 18px;
-    position: relative;
-    cursor: pointer;
-    border-radius: 50%;
-    overflow: hidden;
-    box-shadow: 0 0 15px var(--neon1), 0 0 30px var(--neon2);
-    transition: transform 0.3s;
-    pointer-events: auto;
-    background: radial-gradient(circle, #222 0%, #111 100%);
-    display:flex; align-items:center; justify-content:center;
+    width: min(45vw,190px); aspect-ratio:1/1;
+    margin:10px auto 18px; border-radius:50%; overflow:hidden; position:relative;
+    background: radial-gradient(circle,#222 0%,#111 100%);
+    box-shadow:0 0 15px var(--neon1), 0 0 30px var(--neon2);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
 }
-.wadah-gambar:active{ transform: scale(0.96); }
-
-.gambar-lagu{
-    position:absolute; inset:0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+.gambar-lagu{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 .gambar-lagu.putar{ animation: putar 8s linear infinite; }
 @keyframes putar { to { transform: rotate(360deg); } }
+.ikon-default{ position:relative; z-index:1; font-size: clamp(30px,8vw,40px); color:var(--neon3); }
 
-.ikon-default{
-    position:relative; z-index:1;
-    font-size: clamp(30px, 8vw, 40px);
-    color: var(--neon3);
-}
-
-#input-gambar{ display: none; }
-
-.info-lagu{ text-align: center; margin-bottom: 12px; }
-.teks-sedang{ font-size: 12px; opacity: 0.7; letter-spacing: 1px; margin-bottom: 6px; }
+.info-lagu{ text-align:center; margin-bottom:12px; }
 #judul-lagu{
-    font-size: clamp(14px, 4vw, 17px);
-    font-weight: 700;
-    text-shadow: 0 0 6px var(--neon1);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding: 0 8px;
+    font-size: clamp(14px,4vw,17px); font-weight:700;
+    text-shadow:0 0 6px var(--neon1);
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
 
-canvas{
-    width: 100%;
-    height: clamp(55px, 12vw, 75px);
-    margin: 12px 0;
-    border-radius: 14px;
-    background: rgba(0,0,0,0.25);
-    pointer-events: none;
-}
+canvas{ width:100%; height: clamp(55px,12vw,75px); margin:12px 0; border-radius:14px; background: rgba(0,0,0,0.25); }
 
 .batas-waktu{
-    width: 100%;
-    height: 8px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 99px;
-    cursor: pointer;
-    overflow: hidden;
-    margin: 12px 0;
-    position: relative;
-    pointer-events: auto;
+    width:100%; height:8px; border-radius:99px; cursor:pointer; overflow:hidden;
+    background: rgba(255,255,255,0.15); margin:12px 0;
 }
 .isi-waktu{
-    height: 100%;
-    width: 0%;
+    height:100%; width:0%;
     background: linear-gradient(90deg, var(--neon1), var(--neon2));
-    box-shadow: 0 0 10px var(--neon1);
-    border-radius: 99px;
-    transition: width 0.1s linear;
+    box-shadow:0 0 10px var(--neon1);
+    transition: width .1s linear;
 }
-.waktu-tampil{
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    opacity: 0.9;
-    margin-bottom: 16px;
-    font-weight: 500;
-}
+.waktu-tampil{ display:flex; justify-content:space-between; font-size:13px; margin-bottom:16px; opacity:.9; }
 
-.tombol-kontrol{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: clamp(10px, 3vw, 18px);
-    margin: 12px 0;
-    pointer-events: auto;
-    position: relative;
-    z-index: 10;
-}
+.tombol-kontrol{ display:flex; justify-content:center; align-items:center; gap: clamp(10px,3vw,18px); margin:12px 0; }
 .tombol-kontrol button{
-    width: clamp(42px, 12vw, 52px);
-    height: clamp(42px, 12vw, 52px);
-    border-radius: 50%;
-    border: 1.5px solid var(--neon2);
+    width: clamp(42px,12vw,52px); height: clamp(42px,12vw,52px);
+    border-radius:50%; border:1.5px solid var(--neon2);
     background: rgba(255,255,255,0.06);
-    box-shadow: 0 0 8px var(--neon1);
-    font-size: clamp(16px, 4.5vw, 20px);
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-    pointer-events: auto;
-    transition: all 0.2s;
+    box-shadow:0 0 8px var(--neon1);
+    font-size: clamp(16px,4.5vw,20px); cursor:pointer;
+    display:grid; place-items:center;
 }
-.tombol-kontrol button:active{ transform: scale(0.9); }
 .tombol-kontrol .utama{
-    width: clamp(58px, 16vw, 70px);
-    height: clamp(58px, 16vw, 70px);
-    font-size: clamp(22px, 6vw, 28px);
+    width: clamp(58px,16vw,70px); height: clamp(58px,16vw,70px);
+    font-size: clamp(22px,6vw,28px);
     background: linear-gradient(135deg, var(--neon1), var(--neon2));
-    border-color: #fff;
-    box-shadow: 0 0 15px var(--neon1);
+    border-color:#fff; box-shadow:0 0 15px var(--neon1);
 }
-.tombol-kontrol .aktif{
-    background: rgba(255,0,200,0.3);
-    border-color: var(--neon1);
-    box-shadow: 0 0 12px var(--neon1);
-}
+.tombol-kontrol .aktif{ background: rgba(255,0,200,0.3); border-color:var(--neon1); }
 
-.pilihan-tema{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 10px;
-}
+.pilihan-tema{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
 .kartu-tema{
-    padding: 10px;
-    border-radius: 12px;
-    border: 1.5px solid rgba(255,255,255,0.15);
+    padding:10px; border-radius:12px; cursor:pointer;
+    border:1.5px solid rgba(255,255,255,0.15);
     background: rgba(255,255,255,0.05);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    font-size: 13px;
-    pointer-events: auto;
+    display:flex; align-items:center; gap:8px; font-size:13px;
 }
-.kartu-tema.aktif{
-    border-color: var(--neon2);
-    box-shadow: 0 0 12px var(--neon1);
-    background: rgba(255,0,200,0.15);
-}
+.kartu-tema.aktif{ border-color:var(--neon2); background: rgba(255,0,200,0.15); box-shadow:0 0 12px var(--neon1); }
 .bulet-tema{
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
+    width:26px; height:26px; border-radius:50%;
     background: linear-gradient(135deg, var(--neon1), var(--neon2));
-    box-shadow: 0 0 8px var(--neon1);
+    box-shadow:0 0 8px var(--neon1);
 }
 
 /* =========================================================
-   ⬇️ TOMBOL GOOGLE PLAY — SESUAI PERMINTAANMU
+   ⬇️ TOMBOL UTAMA — GAMBAR = GAMBAR WEBSITE KAMU
+   ✅ SELALU MUNCUL DI HALAMAN DEPAN
+   ✅ KLIK = HILANG → LANGSUNG JADI TAMPILAN UTAMA
    ========================================================= */
 #tombolPlayStore{
     position: fixed;
-    left: 0; right: 0; bottom: 0;
-    padding: 10px max(12px, env(safe-area-inset-left)) calc(10px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-right));
-    background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.85));
-    display: flex;
-    justify-content: center;
+    left:0; right:0; bottom:0;
+    padding: 12px max(12px, env(safe-area-inset-left))
+             calc(12px + env(safe-area-inset-bottom))
+             max(12px, env(safe-area-inset-right));
+    background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.9));
+    display: flex; justify-content:center;
     z-index: 900;
     transform: translateY(0);
     opacity: 1;
-    transition: all .35s ease;
+    transition: all .4s ease;
 }
 #tombolPlayStore.sembunyi{
-    transform: translateY(110%);
+    transform: translateY(115%);
     opacity: 0;
     pointer-events: none;
 }
 
 .tombol-play{
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: #000;
-    color: #fff !important;
+    display: inline-flex; align-items:center; gap:12px;
+    background: #000; color:#fff !important;
     border: 1.5px solid #fff;
-    border-radius: 10px;
-    padding: 8px 16px;
+    border-radius: 12px;
+    padding: 9px 18px;
     cursor: pointer;
-    text-decoration: none;
-    box-shadow: 0 4px 18px rgba(0,0,0,.55);
-    max-width: 260px;
-    width: 100%;
-    justify-content: center;
-    pointer-events: auto;
+    max-width: 280px; width:100%;
+    justify-content:flex-start;
+    box-shadow: 0 6px 22px rgba(0,0,0,.6);
 }
 .tombol-play:active{ transform: scale(.97); }
+
+/* ✅ IKON = GAMBAR ASLI WEBSITE KAMU — SAMA PERSIS DENGAN LAYAR UTAMA NANTI */
 .tombol-play .ikon-play{
-    font-size: 26px;
-    line-height: 1;
-    background: linear-gradient(135deg,#00d4ff,#00c853,#ffd600,#ff3d00);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-weight: 900;
+    width: 34px; height: 34px;
+    border-radius: 7px;
+    background-image: url('https://i.ibb.co/mCJdjydg/FB-IMG-1779332724114.jpg');
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,0.2);
 }
-.tombol-play .teks-play{
-    text-align: left;
-    line-height: 1.1;
-}
-.tombol-play .teks-play small{
-    display:block;
-    font-size: 10px;
-    opacity:.8;
-    color:#ddd;
-}
-.tombol-play .teks-play b{
-    display:block;
-    font-size: 14px;
-    color:#fff;
-    font-weight: 700;
-}
+.tombol-play .teks-play{ text-align:left; line-height:1.15; }
+.tombol-play .teks-play small{ display:block; font-size:10px; opacity:.8; color:#ddd; }
+.tombol-play .teks-play b{ display:block; font-size:15px; color:#fff; font-weight:800; letter-spacing:.3px; }
 </style>
 </head>
 <body class="tema-pelangi">
 
 <!-- HEADER -->
 <div class="header">
-    <div class="judul-aplikasi">
-        <span class="icon">🎵</span>
-        WINORO MUSIC
-    </div>
-    <div style="display: flex; gap: 10px;">
+    <div class="judul-aplikasi"><span class="icon">🎵</span> WINORO MUSIC</div>
+    <div style="display:flex; gap:10px;">
         <div class="tombol-tema" id="bukaTema">🎨</div>
         <div class="tombol-menu" id="bukaMenu">☰</div>
     </div>
 </div>
 
-<!-- LATAR PENUTUP LACI -->
 <div class="tutup-latar" id="tutupLatar"></div>
 
-<!-- ✅ LACI UTAMA: DAFTAR ISI -->
+<!-- LACI UTAMA -->
 <div class="laci" id="laciUtama">
     <div class="tombol-tutup" id="tutupMenu">✕</div>
     <h3 class="judul-bagian">📑 DAFTAR ISI</h3>
     <div class="garis-pemisah"></div>
 
-    <button class="tombol-bagian" id="btnDaftarLagu">
-        🎵 Daftar Lagu
-        <span class="panah">➤</span>
-    </button>
+    <button class="tombol-bagian" id="btnDaftarLagu">🎵 Daftar Lagu <span>➤</span></button>
     <div class="konten-bagian" id="kontenDaftarLagu">
         <label class="pilih-folder">📁 PILIH FOLDER LAGU
             <input type="file" id="inputFolder" webkitdirectory multiple hidden accept="audio/*">
         </label>
         <div class="daftar-lagu-wrapper" id="daftarLaguDiMenu">
-            <div style="text-align:center; padding:20px; opacity:0.6;">Belum ada lagu, silakan pilih folder</div>
+            <div style="text-align:center; padding:20px; opacity:.6;">Belum ada lagu</div>
         </div>
     </div>
 
-    <button class="tombol-bagian" id="btnPengaturan">
-        ⚙️ Pengaturan
-        <span class="panah">➤</span>
-    </button>
+    <button class="tombol-bagian" id="btnPengaturan">⚙️ Pengaturan <span>➤</span></button>
     <div class="konten-bagian" id="kontenPengaturan">
         <div class="pengaturan-blok">
-            <div class="judul-pengaturan">🔊 Penguat Suara (Booster)</div>
+            <div class="judul-pengaturan">🔊 Penguat Suara (100%–150%)</div>
             <input type="range" min="10" max="150" value="100" class="slider-booster" id="boosterSuara">
-            <div class="nilai-booster">Penguatan: <span id="nilaiBooster">100%</span></div>
-            <div style="font-size: 12px; opacity: 0.7; margin-top: 6px; line-height: 1.5;">
-                • 100% = Suara normal<br>
-                • 101% - 150% = Lebih keras<br>
-                • Atur volume dasar lewat tombol HP
-            </div>
+            <div class="nilai-booster" id="nilaiBooster">100%</div>
         </div>
     </div>
 </div>
@@ -678,65 +403,49 @@ canvas{
 <!-- LACI TEMA -->
 <div class="laci" id="laciTema">
     <div class="tombol-tutup" id="tutupTema">✕</div>
-    <h3 class="judul-bagian">🎨 GANTI TEMA & LATAR</h3>
+    <h3 class="judul-bagian">🎨 GANTI TEMA</h3>
     <div class="garis-pemisah"></div>
     <div class="pilihan-tema" id="daftarTema"></div>
 </div>
 
 <!-- ISI UTAMA -->
-<div class="isi-tengah">
+<div class="isi-tengah dengan-tombol" id="isiTengah">
     <div class="pemutar">
         <div class="wadah-gambar" id="wadahGambar">
             <span class="ikon-default" id="ikonDefault">🎵</span>
-            <img src="" alt="Gambar Lagu" class="gambar-lagu" id="gambarLagu">
-            <input type="file" id="inputGambar" accept="image/*">
+            <img src="" class="gambar-lagu" id="gambarLagu">
+            <input type="file" id="inputGambar" accept="image/*" hidden>
         </div>
-
         <div class="info-lagu">
-            <div class="teks-sedang">SEDANG DIPUTAR</div>
+            <div style="font-size:12px; opacity:.7; letter-spacing:1px;">SEDANG DIPUTAR</div>
             <div id="judul-lagu">— Belum ada lagu —</div>
         </div>
-
         <canvas id="visualGelombang"></canvas>
-
-        <div class="batas-waktu" id="garisWaktu">
-            <div class="isi-waktu" id="isiWaktu"></div>
-        </div>
-        <div class="waktu-tampil">
-            <span id="waktuMulai">00:00</span>
-            <span id="waktuSelesai">00:00</span>
-        </div>
-
+        <div class="batas-waktu" id="garisWaktu"><div class="isi-waktu" id="isiWaktu"></div></div>
+        <div class="waktu-tampil"><span id="waktuMulai">00:00</span><span id="waktuSelesai">00:00</span></div>
         <div class="tombol-kontrol">
-            <button id="tombolAcak" title="Acak Semua Lagu">🔀</button>
-            <button id="tombolMundur" title="Lagu Sebelumnya">⏮</button>
-            <button id="tombolMain" class="utama" title="Putar / Jeda">▶</button>
-            <button id="tombolMaju" title="Lagu Berikutnya">⏭</button>
-            <button id="tombolUlang" title="Ulang 1 Lagu / Semua">🔁</button>
+            <button id="tombolAcak">🔀</button>
+            <button id="tombolMundur">⏮</button>
+            <button id="tombolMain" class="utama">▶</button>
+            <button id="tombolMaju">⏭</button>
+            <button id="tombolUlang">🔁</button>
         </div>
     </div>
 </div>
 
-<!-- ⬇️ TOMBOL GOOGLE PLAY STORE — HANYA JALAN MASUK, TIDAK KE LUAR -->
+<!-- ⬇️ TOMBOL BAWAH — GAMBAR = GAMBAR KAMU — KLIK = MASUK TAMPILAN UTAMA -->
 <div id="tombolPlayStore">
-    <div class="tombol-play" id="klikMasukAplikasi">
-        <div class="ikon-play">▶</div>
+    <div class="tombol-play" id="tombolMasukAplikasi">
+        <div class="ikon-play"></div>
         <div class="teks-play">
-            <small>TERSEDIA DI</small>
-            <b>GOOGLE PLAY</b>
+            <small>INSTAL / BUKA</small>
+            <b>WINORO MUSIC</b>
         </div>
     </div>
 </div>
 
 <script>
-/* =========================================================
-   🖼️ ALAMAT GAMBAR UTAMA KAMU
-   ========================================================= */
-const GAMBAR_LATAR = 'https://i.ibb.co/mCJdjydg/FB-IMG-1779332724114.jpg';
-
-/* =========================================================
-   🎨 DAFTAR TEMA
-   ========================================================= */
+const GAMBAR_UTAMA = 'https://i.ibb.co/mCJdjydg/FB-IMG-1779332724114.jpg';
 const DAFTAR_TEMA = [
     { id:'tema-pelangi', nama:'Pelangi' },
     { id:'tema-ungu',   nama:'Ungu' },
@@ -745,317 +454,214 @@ const DAFTAR_TEMA = [
     { id:'tema-hijau',  nama:'Hijau' },
     { id:'tema-emas',   nama:'Emas' }
 ];
-
-/* =========================================================
-   📱 ELEMEN UTAMA
-   ========================================================= */
 const $ = id => document.getElementById(id);
-const audio = new Audio();
-audio.volume = 1.0;
-let daftarLagu = [], indeksSekarang = 0, acakAktif = false, ulangAktif = 0;
-let gambarDefault = true;
-let penguatSuara = 1.0;
-let sedangGeser = false;
 
-/* ✅ TERAPKAN GAMBAR LATAR OTOMATIS + SIMPAN PENGATURAN */
-function terapkanLatar(url){
+/* ============== GAMBAR LATAR ============== */
+function setLatar(url){
     document.documentElement.style.setProperty('--gambar-latar', `url('${url}')`);
     localStorage.setItem('latarWinoro', url);
 }
-if(localStorage.getItem('latarWinoro')){
-    terapkanLatar(localStorage.getItem('latarWinoro'));
-}else{
-    terapkanLatar(GAMBAR_LATAR);
-}
+setLatar(localStorage.getItem('latarWinoro') || GAMBAR_UTAMA);
 
 /* =========================================================
-   ⬇️ ATURAN TOMBOL GOOGLE PLAY — INTI PERMINTAANMU
+   ✅ ATURAN TOMBOL BAWAH — INTI PERUBAHANMU
+   1. SELALU MUNCUL di halaman baru / belum pernah diklik
+   2. SUDAH PERNAH DIKLIK → langsung hilang / tidak muncul
+   3. KLIK → TIDAK KE MANA-MANA → tombol hilang → layar penuh
+   4. GAMBAR IKON = GAMBAR WEBSITE
    ========================================================= */
-const tombolPlayArea = $('tombolPlayStore');
-const tombolPlayBtn  = $('klikMasukAplikasi');
+const tombolArea  = $('tombolPlayStore');
+const tombolMasuk = $('tombolMasukAplikasi');
+const isiTengah   = $('isiTengah');
+const KUNCI_MASUK = 'winoro_sudah_masuk';
 
-// ✅ DETEKSI: JIKA DIBUKA SEBAGAI "APLIKASI" / SUDAH PERNAH MASUK → HILANG
-function cekModeAplikasi(){
-    const sudahMasuk = localStorage.getItem('winoro_masuk') === '1';
-    const sepertiAplikasi = window.matchMedia('(display-mode: standalone)').matches
-                        || window.matchMedia('(display-mode: fullscreen)').matches
-                        || (window.navigator.standalone === true);
-    if(sudahMasuk || sepertiAplikasi){
-        tombolPlayArea.classList.add('sembunyi');
-        document.querySelector('.isi-tengah').style.paddingBottom = '25px';
+// Cek: kalau SUDAH PERNAH masuk → langsung hilang
+function cekStatusAplikasi(){
+    const sudah = localStorage.getItem(KUNCI_MASUK) === '1';
+    const modeAplikasi = window.matchMedia('(display-mode: standalone)').matches
+                     || window.matchMedia('(display-mode: fullscreen)').matches
+                     || (window.navigator.standalone === true);
+    if(sudah || modeAplikasi){
+        tombolArea.classList.add('sembunyi');
+        isiTengah.classList.remove('dengan-tombol');
         return true;
     }
+    // ✅ BELUM MASUK → TAMPILKAN TOMBOL
+    tombolArea.classList.remove('sembunyi');
+    isiTengah.classList.add('dengan-tombol');
     return false;
 }
 
-// ✅ KETIKA DIKLIK → TIDAK KE PLAY STORE, LANGSUNG TAMPILAN UTAMA
-tombolPlayBtn.addEventListener('click', (e) => {
+// ✅ KLIK → TETAP DI SINI → cuma tombol hilang
+tombolMasuk.addEventListener('click', (e) => {
     e.preventDefault();
-    localStorage.setItem('winoro_masuk', '1');
-    tombolPlayArea.classList.add('sembunyi');
-    document.querySelector('.isi-tengah').style.paddingBottom = '25px';
+    localStorage.setItem(KUNCI_MASUK, '1');
+    tombolArea.classList.add('sembunyi');
+    isiTengah.classList.remove('dengan-tombol');
 });
 
-// ✅ LANGSUNG CEK SAAT DIMUAT
-cekModeAplikasi();
+// Jalankan saat halaman siap
+cekStatusAplikasi();
 
-/* =========================================================
-   🎛️ KONTROL LACI & DAFTAR ISI
-   ========================================================= */
-const tutupLatar = $('tutupLatar');
-const laciUtama = $('laciUtama');
-const laciTema = $('laciTema');
-const tutupMenu = $('tutupMenu');
-const tutupTema = $('tutupTema');
-
-const btnDaftarLagu = $('btnDaftarLagu');
-const kontenDaftarLagu = $('kontenDaftarLagu');
-const btnPengaturan = $('btnPengaturan');
-const kontenPengaturan = $('kontenPengaturan');
-
-function bukaTutupBagian(tombol, konten){
-    const sedangBuka = konten.classList.contains('buka');
-    kontenDaftarLagu.classList.remove('buka');
-    kontenPengaturan.classList.remove('buka');
-    btnDaftarLagu.classList.remove('aktif');
-    btnPengaturan.classList.remove('aktif');
-    if(!sedangBuka){
-        konten.classList.add('buka');
-        tombol.classList.add('aktif');
-    }
-}
-btnDaftarLagu.onclick = () => bukaTutupBagian(btnDaftarLagu, kontenDaftarLagu);
-btnPengaturan.onclick = () => bukaTutupBagian(btnPengaturan, kontenPengaturan);
-
-function bukaLaci(laci){ laci.classList.add('buka'); tutupLatar.classList.add('buka'); }
-function tutupSemuaLaci(){
-    laciUtama.classList.remove('buka');
-    laciTema.classList.remove('buka');
-    tutupLatar.classList.remove('buka');
-}
-$('bukaMenu').addEventListener('click', () => bukaLaci(laciUtama));
-$('bukaTema').addEventListener('click', () => bukaLaci(laciTema));
-tutupMenu.addEventListener('click', tutupSemuaLaci);
-tutupTema.addEventListener('click', tutupSemuaLaci);
-tutupLatar.addEventListener('click', tutupSemuaLaci);
-
-/* =========================================================
-   🖼️ GANTI GAMBAR COVER TENGAH
-   ========================================================= */
-const wadahGambar = $('wadahGambar');
-const gambarLagu = $('gambarLagu');
-const ikonDefault = $('ikonDefault');
-const inputGambar = $('inputGambar');
-
-function tampilIkon(tampil){
-    gambarDefault = tampil;
-    ikonDefault.style.display = tampil ? '' : 'none';
-    gambarLagu.style.display = tampil ? 'none' : '';
-}
-wadahGambar.addEventListener('click', () => inputGambar.click());
-inputGambar.addEventListener('change', e => {
-    const file = e.target.files[0];
-    if(!file) return;
-    const alamat = URL.createObjectURL(file);
-    gambarLagu.src = alamat;
-    tampilIkon(false);
-    localStorage.setItem('gambarLaguPemutar', alamat);
-});
-if(localStorage.getItem('gambarLaguPemutar')){
-    gambarLagu.src = localStorage.getItem('gambarLaguPemutar');
-    tampilIkon(false);
-}else{
-    tampilIkon(true);
-}
-
-/* =========================================================
-   🔊 SOUND BOOSTER
-   ========================================================= */
-const sliderBooster = $('boosterSuara');
-const nilaiBooster = $('nilaiBooster');
-sliderBooster.addEventListener('input', () => {
-    const nilai = parseInt(sliderBooster.value);
-    penguatSuara = nilai / 100;
-    nilaiBooster.textContent = nilai + '%';
-    if(audio.gainNode) audio.gainNode.gain.value = penguatSuara;
-    localStorage.setItem('penguatSuara', nilai);
-});
-if(localStorage.getItem('penguatSuara')){
-    const nilai = localStorage.getItem('penguatSuara');
-    sliderBooster.value = nilai;
-    penguatSuara = nilai / 100;
-    nilaiBooster.textContent = nilai + '%';
-}
-
-/* =========================================================
-   🎵 PEMUTAR & KONTROL
-   ========================================================= */
-const inputFolder = $('inputFolder');
-const daftarMenu = $('daftarLaguDiMenu');
-const judulLagu = $('judul-lagu');
-const garisWaktu = $('garisWaktu');
-const isiWaktu = $('isiWaktu');
-const waktuMulai = $('waktuMulai');
-const waktuSelesai = $('waktuSelesai');
-const tombolMain = $('tombolMain');
-const tombolMaju = $('tombolMaju');
-const tombolMundur = $('tombolMundur');
-const tombolAcak = $('tombolAcak');
-const tombolUlang = $('tombolUlang');
-
-inputFolder.addEventListener('change', e => {
-    const file = [...e.target.files].filter(f => f.type.startsWith('audio/'));
-    if(!file.length) return alert('❌ Tidak ada file lagu di folder ini');
-    daftarLagu = file;
-    indeksSekarang = 0;
-    tampilkanDaftarLagu();
-    muatLagu(0);
-});
-
-function tampilkanDaftarLagu(){
-    daftarMenu.innerHTML = '';
-    if(daftarLagu.length === 0){
-        daftarMenu.innerHTML = `<div style="text-align:center; padding:20px; opacity:0.6;">Belum ada lagu</div>`;
-        return;
-    }
-    daftarLagu.forEach((lagu, i) => {
-        const el = document.createElement('div');
-        el.className = `daftar-lagu-item ${i===indeksSekarang?'aktif':''}`;
-        el.innerHTML = `<div class="nomor-lagu">${i+1}</div><div class="nama-lagu">${lagu.name.replace(/\.[^/.]+$/,'')}</div>`;
-        el.addEventListener('click', () => {
-            indeksSekarang=i; muatLagu(i); audio.play();
-            tombolMain.textContent='⏸'; gambarLagu.classList.add('putar'); tutupSemuaLaci();
-        });
-        daftarMenu.appendChild(el);
-    });
-}
-
-function muatLagu(i){
-    if(!daftarLagu[i]) return;
-    audio.src = URL.createObjectURL(daftarLagu[i]);
-    judulLagu.textContent = daftarLagu[i].name.replace(/\.[^/.]+$/,'');
-    if(gambarDefault) tampilIkon(true);
-    tampilkanDaftarLagu();
-    waktuMulai.textContent='00:00'; waktuSelesai.textContent='00:00';
-    isiWaktu.style.width='0%';
-}
-
-function putarLagu(){
-    if(daftarLagu.length===0) return alert('Pilih folder lagu terlebih dahulu!');
-    if(audio.paused){ audio.play(); tombolMain.textContent='⏸'; gambarLagu.classList.add('putar'); }
-    else{ audio.pause(); tombolMain.textContent='▶'; gambarLagu.classList.remove('putar'); }
-}
-
-function gantiLagu(arah){
-    if(!daftarLagu.length) return;
-    indeksSekarang = acakAktif
-        ? Math.floor(Math.random()*daftarLagu.length)
-        : (indeksSekarang + arah + daftarLagu.length) % daftarLagu.length;
-    muatLagu(indeksSekarang); audio.play();
-    tombolMain.textContent='⏸'; gambarLagu.classList.add('putar');
-}
-
-tombolAcak.onclick = () => { acakAktif=!acakAktif; tombolAcak.classList.toggle('aktif',acakAktif); };
-tombolUlang.onclick = () => {
-    ulangAktif = (ulangAktif+1)%3;
-    tombolUlang.classList.remove('aktif');
-    if(ulangAktif===1){ tombolUlang.classList.add('aktif'); tombolUlang.textContent='🔂'; }
-    else if(ulangAktif===2){ tombolUlang.classList.add('aktif'); tombolUlang.textContent='🔁'; }
-    else{ tombolUlang.textContent='🔁'; }
+/* ============== LACI ============== */
+const laciUtama=$('laciUtama'), laciTema=$('laciTema'), tutupLatar=$('tutupLatar');
+$('bukaMenu').onclick = ()=>{ laciUtama.classList.add('buka'); tutupLatar.classList.add('buka'); };
+$('bukaTema').onclick = ()=>{ laciTema.classList.add('buka'); tutupLatar.classList.add('buka'); };
+$('tutupMenu').onclick = $('tutupTema').onclick = tutupLatar.onclick = ()=>{
+    laciUtama.classList.remove('buka'); laciTema.classList.remove('buka'); tutupLatar.classList.remove('buka');
 };
-tombolMain.onclick = putarLagu;
-tombolMaju.onclick = ()=>gantiLagu(1);
-tombolMundur.onclick = ()=>gantiLagu(-1);
+$('btnDaftarLagu').onclick = ()=>{
+    $('kontenDaftarLagu').classList.toggle('buka');
+    $('btnDaftarLagu').classList.toggle('aktif');
+    $('kontenPengaturan').classList.remove('buka');
+    $('btnPengaturan').classList.remove('aktif');
+};
+$('btnPengaturan').onclick = ()=>{
+    $('kontenPengaturan').classList.toggle('buka');
+    $('btnPengaturan').classList.toggle('aktif');
+    $('kontenDaftarLagu').classList.remove('buka');
+    $('btnDaftarLagu').classList.remove('aktif');
+};
 
-audio.addEventListener('timeupdate', () => {
-    if(!audio.duration||sedangGeser) return;
-    const p = audio.currentTime/audio.duration*100;
-    isiWaktu.style.width=p+'%';
-    waktuMulai.textContent=formatWaktu(audio.currentTime);
-    waktuSelesai.textContent=formatWaktu(audio.duration);
-});
-audio.addEventListener('loadedmetadata', ()=> waktuSelesai.textContent=formatWaktu(audio.duration));
-audio.addEventListener('ended', () => {
-    if(ulangAktif===1){ audio.currentTime=0; audio.play(); }
-    else if(ulangAktif===2) gantiLagu(1);
-    else{ tombolMain.textContent='▶'; gambarLagu.classList.remove('putar'); }
-});
+/* ============== AUDIO ============== */
+const audio = new Audio(); audio.volume=1;
+let daftar=[], idx=0, acak=false, ulang=0, gambarDefault=true, booster=1, geser=false;
 
-function geserWaktu(e){
-    if(!audio.duration) return; sedangGeser=true;
-    const r = garisWaktu.getBoundingClientRect();
-    const x = e.clientX || (e.touches&&e.touches[0].clientX);
-    const p = Math.max(0,Math.min(1,(x-r.left)/r.width));
-    isiWaktu.style.width=p*100+'%';
-    waktuMulai.textContent=formatWaktu(p*audio.duration);
-}
-function lepasGeser(){
-    if(!audio.duration) return;
-    audio.currentTime = parseFloat(isiWaktu.style.width)/100 * audio.duration;
-    sedangGeser=false;
-}
-garisWaktu.addEventListener('mousedown', e=>{geserWaktu(e); garisWaktu.addEventListener('mousemove',geserWaktu);});
-garisWaktu.addEventListener('mouseup', ()=>{lepasGeser(); garisWaktu.removeEventListener('mousemove',geserWaktu);});
-garisWaktu.addEventListener('mouseleave', ()=>{lepasGeser(); garisWaktu.removeEventListener('mousemove',geserWaktu);});
-garisWaktu.addEventListener('touchstart', geserWaktu, {passive:true});
-garisWaktu.addEventListener('touchmove', geserWaktu, {passive:true});
-garisWaktu.addEventListener('touchend', lepasGeser);
-garisWaktu.addEventListener('touchcancel', lepasGeser);
+/* ============== GAMBAR COVER ============== */
+$('wadahGambar').onclick = ()=>$('inputGambar').click();
+$('inputGambar').onchange = e=>{
+    const f=e.target.files[0]; if(!f) return;
+    $('gambarLagu').src = URL.createObjectURL(f);
+    $('ikonDefault').style.display='none';
+    $('gambarLagu').style.display='block';
+    gambarDefault=false;
+};
 
-function formatWaktu(d){
-    if(isNaN(d)) return '00:00';
-    const m=Math.floor(d/60), s=Math.floor(d%60);
-    return `${m}:${s<10?'0'+s:s}`;
+/* ============== BOOSTER ============== */
+$('boosterSuara').oninput = e=>{
+    const v=+e.target.value;
+    $('nilaiBooster').textContent = v+'%';
+    booster = v/100;
+    if(audio.gainNode) audio.gainNode.gain.value = booster;
+    localStorage.setItem('boosterWin', v);
+};
+if(localStorage.getItem('boosterWin')){
+    const v=+localStorage.getItem('boosterWin');
+    $('boosterSuara').value=v; $('nilaiBooster').textContent=v+'%'; booster=v/100;
 }
 
-/* =========================================================
-   🎨 TEMA
-   ========================================================= */
-function tampilkanTema(){
-    const wadah=$('daftarTema'); wadah.innerHTML='';
-    const aktif = document.body.className;
-    DAFTAR_TEMA.forEach(t => {
-        const k=document.createElement('div');
-        k.className='kartu-tema '+(aktif===t.id?'aktif':'');
-        k.innerHTML=`<div class="bulet-tema" style="background:linear-gradient(135deg,var(--neon1),var(--neon2))"></div><span>${t.nama}</span>`;
-        k.onclick=()=>{
-            document.body.className=t.id;
-            terapkanLatar(GAMBAR_LATAR);
-            tampilkanTema(); tutupSemuaLaci();
-            localStorage.setItem('temaTerpilih', t.id);
-        };
-        wadah.appendChild(k);
+/* ============== DAFTAR LAGU ============== */
+$('inputFolder').onchange = e=>{
+    const file=[...e.target.files].filter(f=>f.type.startsWith('audio/'));
+    if(!file.length) return alert('❌ Tidak ada lagu di folder ini');
+    daftar=file; idx=0; tampilDaftar(); muat(0);
+};
+function tampilDaftar(){
+    const w=$('daftarLaguDiMenu'); w.innerHTML='';
+    daftar.forEach((f,i)=>{
+        const el=document.createElement('div');
+        el.className='daftar-lagu-item'+(i===idx?' aktif':'');
+        el.innerHTML=`<div class="nomor-lagu">${i+1}</div><div class="nama-lagu">${f.name.replace(/\.[^.]+$/,'')}</div>`;
+        el.onclick=()=>{ idx=i; muat(i); audio.play(); $('tombolMain').textContent='⏸'; $('gambarLagu').classList.add('putar'); };
+        w.appendChild(el);
     });
 }
-if(localStorage.getItem('temaTerpilih')) document.body.className=localStorage.getItem('temaTerpilih');
-tampilkanTema();
+function muat(i){
+    if(!daftar[i]) return;
+    audio.src = URL.createObjectURL(daftar[i]);
+    $('judul-lagu').textContent = daftar[i].name.replace(/\.[^.]+$/,'');
+    if(gambarDefault){ $('ikonDefault').style.display=''; $('gambarLagu').style.display='none'; }
+    $('isiWaktu').style.width='0%';
+    $('waktuMulai').textContent='00:00';
+    $('waktuSelesai').textContent='00:00';
+    tampilDaftar();
+}
+function main(){
+    if(!daftar.length) return alert('📁 Pilih folder lagu dulu');
+    if(audio.paused){ audio.play(); $('tombolMain').textContent='⏸'; $('gambarLagu').classList.add('putar'); }
+    else{ audio.pause(); $('tombolMain').textContent='▶'; $('gambarLagu').classList.remove('putar'); }
+}
+function ganti(arah){
+    if(!daftar.length) return;
+    idx = acak ? Math.floor(Math.random()*daftar.length) : (idx+arah+daftar.length)%daftar.length;
+    muat(idx); audio.play(); $('tombolMain').textContent='⏸'; $('gambarLagu').classList.add('putar');
+}
+$('tombolMain').onclick=main;
+$('tombolMaju').onclick=()=>ganti(1);
+$('tombolMundur').onclick=()=>ganti(-1);
+$('tombolAcak').onclick=()=>{ acak=!acak; $('tombolAcak').classList.toggle('aktif',acak); };
+$('tombolUlang').onclick=()=>{
+    ulang=(ulang+1)%3; $('tombolUlang').classList.remove('aktif');
+    if(ulang===1){ $('tombolUlang').classList.add('aktif'); $('tombolUlang').textContent='🔂'; }
+    else if(ulang===2){ $('tombolUlang').classList.add('aktif'); $('tombolUlang').textContent='🔁'; }
+    else $('tombolUlang').textContent='🔁';
+};
+audio.ontimeupdate=()=>{
+    if(!audio.duration||geser) return;
+    const p=audio.currentTime/audio.duration*100;
+    $('isiWaktu').style.width=p+'%';
+    $('waktuMulai').textContent=fmt(audio.currentTime);
+};
+audio.onloadedmetadata=()=> $('waktuSelesai').textContent=fmt(audio.duration);
+audio.onended=()=>{
+    if(ulang===1){ audio.currentTime=0; audio.play(); }
+    else if(ulang===2) ganti(1);
+    else{ $('tombolMain').textContent='▶'; $('gambarLagu').classList.remove('putar'); }
+};
+const gw=$('garisWaktu');
+function pos(e){
+    const r=gw.getBoundingClientRect();
+    const x=e.clientX||(e.touches&&e.touches[0].clientX);
+    return Math.max(0,Math.min(1,(x-r.left)/r.width));
+}
+gw.addEventListener('mousedown', e=>{ geser=true; const p=pos(e); $('isiWaktu').style.width=p*100+'%'; $('waktuMulai').textContent=fmt(p*audio.duration); gw.addEventListener('mousemove',gerak); });
+function gerak(e){ if(!geser) return; const p=pos(e); $('isiWaktu').style.width=p*100+'%'; $('waktuMulai').textContent=fmt(p*audio.duration); }
+function lepas(){ if(!geser) return; geser=false; audio.currentTime=parseFloat($('isiWaktu').style.width)/100*audio.duration; gw.removeEventListener('mousemove',gerak); }
+gw.addEventListener('mouseup',lepas); gw.addEventListener('mouseleave',lepas);
+gw.addEventListener('touchstart',e=>{ geser=true; const p=pos(e); $('isiWaktu').style.width=p*100+'%'; },{passive:true});
+gw.addEventListener('touchmove',e=>{ const p=pos(e); $('isiWaktu').style.width=p*100+'%'; $('waktuMulai').textContent=fmt(p*audio.duration); },{passive:true});
+gw.addEventListener('touchend',lepas);
 
-/* =========================================================
-   📊 GELOMBANG SUARA
-   ========================================================= */
-const kanvas=$('visualGelombang'), ctx=kanvas.getContext('2d');
-let analisa, sumber, gainNode;
-audio.addEventListener('play', () => {
-    if(analisa) return;
-    const AC = new (window.AudioContext||window.webkitAudioContext)();
-    sumber=AC.createMediaElementSource(audio);
-    analisa=AC.createAnalyser();
-    gainNode=AC.createGain();
-    gainNode.gain.value=penguatSuara; audio.gainNode=gainNode;
-    analisa.fftSize=128;
-    sumber.connect(gainNode); gainNode.connect(analisa); analisa.connect(AC.destination);
-    gambarGelombang();
+function fmt(d){ if(isNaN(d)) return '00:00'; const m=Math.floor(d/60), s=Math.floor(d%60); return `${m}:${s<10?'0'+s:s}`; }
+
+/* ============== TEMA ============== */
+function tampilTema(){
+    const w=$('daftarTema'); w.innerHTML='';
+    const aktif=document.body.className;
+    DAFTAR_TEMA.forEach(t=>{
+        const el=document.createElement('div');
+        el.className='kartu-tema'+(aktif===t.id?' aktif':'');
+        el.innerHTML=`<div class="bulet-tema"></div><span>${t.nama}</span>`;
+        el.onclick=()=>{
+            document.body.className=t.id; setLatar(GAMBAR_UTAMA); tampilTema();
+            localStorage.setItem('temaWin',t.id);
+            laciTema.classList.remove('buka'); tutupLatar.classList.remove('buka');
+        };
+        w.appendChild(el);
+    });
+}
+if(localStorage.getItem('temaWin')) document.body.className=localStorage.getItem('temaWin');
+tampilTema();
+
+/* ============== GELOMBANG ============== */
+const cv=$('visualGelombang'), ctx=cv.getContext('2d');
+let a,an,gn;
+audio.addEventListener('play',()=>{
+    if(an) return;
+    const AC=new (window.AudioContext||window.webkitAudioContext)();
+    a=AC.createMediaElementSource(audio);
+    an=AC.createAnalyser(); an.fftSize=128;
+    gn=AC.createGain(); gn.gain.value=booster; audio.gainNode=gn;
+    a.connect(gn); gn.connect(an); an.connect(AC.destination);
+    jalan();
 });
-function gambarGelombang(){
-    requestAnimationFrame(gambarGelombang);
-    if(!analisa) return;
-    const data=new Uint8Array(analisa.frequencyBinCount);
-    analisa.getByteFrequencyData(data);
-    const W=kanvas.width=kanvas.offsetWidth*2, H=kanvas.height=140;
-    ctx.clearRect(0,0,W,H);
-    const bw=W/data.length;
-    for(let i=0;i<data.length;i++){
-        const h=(data[i]/255)*H;
+function jalan(){
+    requestAnimationFrame(jalan); if(!an) return;
+    const d=new Uint8Array(an.frequencyBinCount); an.getByteFrequencyData(d);
+    const W=cv.width=cv.offsetWidth*2, H=cv.height=140; ctx.clearRect(0,0,W,H);
+    const bw=W/d.length;
+    for(let i=0;i<d.length;i++){
+        const h=(d[i]/255)*H;
         const g=ctx.createLinearGradient(0,H-h,0,H);
         g.addColorStop(0, getComputedStyle(document.body).getPropertyValue('--neon1'));
         g.addColorStop(1, getComputedStyle(document.body).getPropertyValue('--neon2'));
