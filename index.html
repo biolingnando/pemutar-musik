@@ -65,16 +65,34 @@ body{
 .tombol-tutup{position:absolute;top:15px;right:15px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.1);border:1.5px solid var(--neon1);display:grid;place-items:center;cursor:pointer;box-shadow:0 0 8px var(--neon1);}
 .judul-bagian{font-size:22px;font-weight:700;margin-bottom:15px;text-shadow:0 0 8px var(--neon1)}
 .garis-pemisah{height:2px;margin:12px 0 20px;border-radius:2px;background:linear-gradient(90deg,var(--neon1),var(--neon2),transparent);}
+.garis-pemisah-tebal{height:3px;margin:25px 0;border-radius:3px;background:linear-gradient(90deg,transparent,var(--neon3),transparent);opacity:0.6;}
 .tombol-bagian{width:100%;padding:14px 16px;margin:0 0 12px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);text-align:left;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:.2s}
 .tombol-bagian:hover,.tombol-bagian.aktif{background:rgba(255,0,200,.15);border-color:var(--neon1);box-shadow:0 0 10px rgba(255,0,200,.2);}
 .konten-bagian{max-height:0;overflow:hidden;transition:max-height .4s ease;margin-bottom:15px}
 .konten-bagian.buka{max-height:80vh}
 
-/* ✅ PERBAIKAN TAMPILAN TEMA */
+/* ✅ TAMPILAN TEMA + TOMBOL UNDUH DALAM LACI */
 .pilihan-tema{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:15px}
 .kartu-tema{padding:16px;border-radius:16px;border:2px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);display:flex;align-items:center;gap:12px;cursor:pointer;transition:.3s;box-shadow:0 2px 8px rgba(0,0,0,.2);}
 .kartu-tema:hover,.kartu-tema.aktif{border-color:var(--neon2);background:rgba(255,0,200,.15);box-shadow:0 0 15px var(--neon1);transform:scale(1.03);}
 .bulet-tema{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--neon1),var(--neon2));box-shadow:0 0 10px var(--neon1);}
+
+.tombol-unduh-laci{
+    width:100%;padding:15px;border-radius:12px;
+    background:linear-gradient(135deg,rgba(0,255,242,0.15),rgba(255,0,200,0.15));
+    border:1.5px solid var(--neon2);
+    text-align:center;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 0 8px rgba(0,255,242,0.2);
+}
+.tombol-unduh-laci:hover{
+    border-color:var(--neon1);
+    box-shadow:0 0 16px var(--neon1);
+    transform:scale(1.02);
+}
 
 .daftar-lagu-wrapper{max-height:55vh;overflow-y:auto;border-radius:12px;background:rgba(0,0,0,.25);padding:8px}
 .daftar-lagu-item{display:flex;align-items:center;gap:12px;padding:12px 14px;margin:6px 0;border-radius:10px;background:rgba(255,255,255,.05);cursor:pointer;transition:.2s}
@@ -87,8 +105,7 @@ body{
 .slider-booster::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--neon1),var(--neon2));box-shadow:0 0 10px var(--neon1);cursor:pointer}
 
 /* PEMUTAR */
-.isi-tengah{margin-top:80px;flex:1;overflow-y:auto;padding:15px 5% 25px}
-.isi-tengah.dengan-bawah{padding-bottom:180px}
+.isi-tengah{margin-top:80px;flex:1;overflow-y:auto;padding:15px 5% 25px;padding-bottom:140px; /* Ruang untuk sosial media */}
 .pemutar{width:100%;max-width:450px;margin:10px auto;padding:clamp(18px,5vw,25px);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(0,0,0,.45));backdrop-filter:blur(12px);position:relative;border:1.5px solid rgba(255,255,255,.1);box-shadow:0 8px 32px rgba(0,0,0,.3);}
 .wadah-gambar{width:min(45vw,190px);aspect-ratio:1/1;margin:10px auto 18px;border-radius:50%;overflow:hidden;background:radial-gradient(circle,#222,#111);display:flex;align-items:center;justify-content:center;box-shadow:0 0 15px var(--neon1),0 0 30px var(--neon2);cursor:pointer}
 .gambar-lagu{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -106,18 +123,18 @@ canvas{width:100%;height:clamp(55px,12vw,75px);margin:12px 0;border-radius:14px;
 .tombol-kontrol .utama{width:clamp(58px,16vw,70px);height:clamp(58px,16vw,70px);background:linear-gradient(135deg,var(--neon1),var(--neon2));border-color:#fff;font-size:clamp(22px,6vw,28px);box-shadow:0 0 15px var(--neon1);}
 .tombol-kontrol .aktif{background:rgba(255,0,200,.3);border-color:var(--neon1);box-shadow:0 0 10px var(--neon1);}
 
-/* ✅ BAGIAN SOSIAL MEDIA - SELALU TAMPAK */
+/* ✅ SOSIAL MEDIA - DINAJIKAN POSISINYA */
 .media-sosial-wrapper{
-    position:fixed;left:0;right:0;bottom:70px;
-    padding:10px max(12px,env(safe-area-inset-left)) 10px max(12px,env(safe-area-inset-right));
-    background:linear-gradient(180deg,transparent,rgba(0,0,0,.9));
+    position:fixed;left:0;right:0;bottom:40px; /* Lebih tinggi dari sebelumnya */
+    padding:8px max(12px,env(safe-area-inset-left)) 8px max(12px,env(safe-area-inset-right));
+    background:linear-gradient(180deg,transparent,rgba(0,0,0,0.85));
     text-align:center;
     z-index:890;
 }
 .judul-sosial{
     font-size:13px;
     opacity:.85;
-    margin-bottom:10px;
+    margin-bottom:8px;
     color:var(--text);
     letter-spacing:0.5px;
 }
@@ -156,35 +173,6 @@ canvas{width:100%;height:clamp(55px,12vw,75px);margin:12px 0;border-radius:14px;
     object-fit:contain;
     border-radius:50%;
 }
-
-/* ✅ TOMBOL INSTAL - HANYA INI YANG BISA HILANG */
-#tombolInstal{
-    position:fixed;left:0;right:0;bottom:0;
-    padding:12px max(12px,env(safe-area-inset-left))
-             calc(12px + env(safe-area-inset-bottom))
-             max(12px,env(safe-area-inset-right));
-    background:linear-gradient(180deg,transparent,rgba(0,0,0,.92));
-    display:flex;justify-content:center;z-index:900;
-    transform:translateY(0);opacity:1;transition:all .4s
-}
-#tombolInstal.sembunyi{transform:translateY(115%);opacity:0;pointer-events:none}
-
-.tombol-play{
-    display:inline-flex;align-items:center;gap:12px;
-    background:#000;color:#fff;border:1.5px solid #fff;border-radius:12px;
-    padding:9px 18px;cursor:pointer;max-width:280px;width:100%;
-    box-shadow:0 6px 22px rgba(0,0,0,.6);transition:.2s
-}
-.tombol-play:active{transform:scale(.97)}
-.tombol-play .ikon{
-    width:34px;height:34px;border-radius:7px;flex-shrink:0;
-    background-image:url('https://i.ibb.co/mCJdjydg/FB-IMG-1779332724114.jpg');
-    background-size:cover;background-position:center;
-    border:1px solid rgba(255,255,255,.2)
-}
-.tombol-play .teks{line-height:1.15;text-align:left}
-.tombol-play .teks small{display:block;font-size:10px;opacity:.8;color:#ddd}
-.tombol-play .teks b{display:block;font-size:15px;color:#fff;font-weight:800}
 </style>
 </head>
 <body class="tema-pelangi">
@@ -221,16 +209,25 @@ canvas{width:100%;height:clamp(55px,12vw,75px);margin:12px 0;border-radius:14px;
   </div>
 </div>
 
-<!-- LACI TEMA -->
+<!-- LACI TEMA + TOMBOL UNDUH -->
 <div class="laci" id="laciTema">
   <div class="tombol-tutup" id="tutupTema">✕</div>
-  <h3 class="judul-bagian">🎨 PILIH TEMA WARNA</h3>
+  <h3 class="judul-bagian">🎨 PILIH TEMA</h3>
   <div class="garis-pemisah"></div>
+  
+  <!-- Bagian Tema -->
   <div class="pilihan-tema" id="pilihTema"></div>
+
+  <!-- Garis Pemisah Antara Tema & Unduh -->
+  <div class="garis-pemisah-tebal"></div>
+
+  <!-- Bagian Unduh -->
+  <h4 style="text-align:center;opacity:0.9;margin-bottom:12px;font-size:15px;">📥 Unduh Aplikasi</h4>
+  <button class="tombol-unduh-laci" id="klikPasang">✅ Pasang / Unduh ke Layar Utama</button>
 </div>
 
 <!-- ISI UTAMA -->
-<div class="isi-tengah dengan-bawah" id="isi">
+<div class="isi-tengah" id="isi">
   <div class="pemutar">
     <div class="wadah-gambar" id="wadah">
       <span style="font-size:40px;color:var(--neon3)">🎵</span>
@@ -251,7 +248,7 @@ canvas{width:100%;height:clamp(55px,12vw,75px);margin:12px 0;border-radius:14px;
   </div>
 </div>
 
-<!-- ✅ BAGIAN SOSIAL MEDIA - SELALU TAMPAK -->
+<!-- ✅ SOSIAL MEDIA - POSISI LEBIH TINGGI -->
 <div class="media-sosial-wrapper">
   <div class="judul-sosial">Ikuti Kami di Media Sosial</div>
   <div class="media-sosial">
@@ -282,61 +279,33 @@ canvas{width:100%;height:clamp(55px,12vw,75px);margin:12px 0;border-radius:14px;
   </div>
 </div>
 
-<!-- ✅ TOMBOL INSTAL - HANYA INI YANG HILANG SETELAH DIPASANG -->
-<div id="tombolInstal">
-  <div class="tombol-play" id="klikPasang">
-    <div class="ikon"></div>
-    <div class="teks">
-      <small>UNDUH DI</small>
-      <b>GOOGLE PLAY</b>
-    </div>
-  </div>
-</div>
-
 <script>
 /* ============ PWA SERVICE WORKER ============ */
 if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(()=>{});
 
 /* ============ PEMASANGAN APLIKASI ============ */
 let acaraPasang = null;
-const tombolInstal = document.getElementById('tombolInstal');
 const tombolPasang = document.getElementById('klikPasang');
-const isi = document.getElementById('isi');
 const KUNCI = 'winoro_terpasang';
 
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   acaraPasang = e;
-  if(localStorage.getItem(KUNCI) !== '1') tombolInstal.classList.remove('sembunyi');
+  // Tetap tampilkan tombol unduh di menu tema
 });
 
 tombolPasang.addEventListener('click', async () => {
-  if(!acaraPasang) return;
+  if(!acaraPasang) return alert('✅ Aplikasi sudah terpasang atau tidak mendukung pemasangan otomatis');
   const hasil = await acaraPasang.prompt();
   if(hasil && hasil.outcome === 'accepted'){
     localStorage.setItem(KUNCI, '1');
-    tombolInstal.classList.add('sembunyi');
+    alert('✅ Aplikasi berhasil dipasang ke layar utama!');
   }
   acaraPasang = null;
 });
 
-function cekMode(){
-  const sdhTerpasang = localStorage.getItem(KUNCI) === '1';
-  const modeAplikasi = window.matchMedia('(display-mode: standalone)').matches
-                    || window.matchMedia('(display-mode: fullscreen)').matches
-                    || window.navigator.standalone === true;
-
-  // ✅ HANYA tombol instal yang disembunyikan
-  if(sdhTerpasang || modeAplikasi){
-    tombolInstal.classList.add('sembunyi');
-  } else {
-    tombolInstal.classList.remove('sembunyi');
-  }
-}
-cekMode();
 window.addEventListener('appinstalled', () => {
   localStorage.setItem(KUNCI, '1');
-  tombolInstal.classList.add('sembunyi');
 });
 
 /* ============ FITUR SALIN TAUTAN SOSIAL ============ */
