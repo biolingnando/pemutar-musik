@@ -6,12 +6,11 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0a001a">
 
-<!-- 🖼️ BAGIAN INI AGAR GOOGLE & MEDIA SOSIAL MENAMPILKAN GAMBAR KAMU -->
+<!-- 🖼️ GAMBAR SAAT DIBAGIKAN KE FACEBOOK / WA / DLL -->
 <title>🎵 WINORO MUSIC - Pemutar Lagu Offline</title>
 <meta name="description" content="Pemutar musik gratis 100% offline, bisa dipakai di HP maupun komputer.">
 <meta property="og:title" content="🎵 WINORO MUSIC">
 <meta property="og:description" content="Pemutar lagu lokal tanpa internet, mudah digunakan.">
-<!-- ✅ GAMBAR KAMU SUDAH DIMASUKKAN -->
 <meta property="og:image" content="https://i.ibb.co/mCJdjydg/FB-IMG-1779332724114.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
@@ -23,10 +22,10 @@
 
 <style>
 /* =========================================================
-   🎨 VARIABEL WARNA & LATAR
+   🎨 VARIABEL WARNA & LATAR — GAMBAR SUDAH DIPASANG OTOMATIS
    ========================================================= */
 :root{
-    --gambar-latar: url('');
+    --gambar-latar: url('https://i.ibb.co/mCJdjydg/FB-IMG-1779332724114.jpg');
     --neon1:#ff00c8; --neon2:#00fff2; --neon3:#b700ff;
     --bg1:#050010; --bg2:#150030; --text:#ffffff;
     --atas: env(safe-area-inset-top, 12px);
@@ -35,13 +34,13 @@
     --kanan: env(safe-area-inset-right, 12px);
 }
 
-/* 🎨 SETIAP TEMA */
-body.tema-pelangi{ --gambar-latar: url(''); --neon1:#ff00c8; --neon2:#00fff2; --neon3:#b700ff; --bg1:#050010; --bg2:#150030; }
-body.tema-ungu{ --gambar-latar: url(''); --neon1:#c300ff; --neon2:#7a00ff; --neon3:#ff00aa; --bg1:#0f0020; --bg2:#1e0040; }
-body.tema-biru{ --gambar-latar: url(''); --neon1:#00e5ff; --neon2:#0080ff; --neon3:#00ffd5; --bg1:#000814; --bg2:#001530; }
-body.tema-merah{ --gambar-latar: url(''); --neon1:#ff0055; --neon2:#ff8800; --neon3:#ffff00; --bg1:#140005; --bg2:#2a0010; }
-body.tema-hijau{ --gambar-latar: url(''); --neon1:#00ff88; --neon2:#88ff00; --neon3:#00ffcc; --bg1:#001408; --bg2:#002a10; }
-body.tema-emas{ --gambar-latar: url(''); --neon1:#ffd700; --neon2:#ff8c00; --neon3:#fff200; --bg1:#140d00; --bg2:#2a1a00; }
+/* 🎨 SETIAP TEMA — SEMUA PAKAI GAMBAR KAMU SEBAGAI LATAR */
+body.tema-pelangi{ --neon1:#ff00c8; --neon2:#00fff2; --neon3:#b700ff; --bg1:#050010; --bg2:#150030; }
+body.tema-ungu{   --neon1:#c300ff; --neon2:#7a00ff; --neon3:#ff00aa; --bg1:#0f0020; --bg2:#1e0040; }
+body.tema-biru{   --neon1:#00e5ff; --neon2:#0080ff; --neon3:#00ffd5; --bg1:#000814; --bg2:#001530; }
+body.tema-merah{  --neon1:#ff0055; --neon2:#ff8800; --neon3:#ffff00; --bg1:#140005; --bg2:#2a0010; }
+body.tema-hijau{  --neon1:#00ff88; --neon2:#88ff00; --neon3:#00ffcc; --bg1:#001408; --bg2:#002a10; }
+body.tema-emas{   --neon1:#ffd700; --neon2:#ff8c00; --neon3:#fff200; --bg1:#140d00; --bg2:#2a1a00; }
 
 *{
     margin:0; padding:0; box-sizing:border-box;
@@ -170,13 +169,8 @@ body{
     transition: 0.2s;
     pointer-events: auto;
 }
-.tombol-tutup:hover{
-    background: rgba(255,0,200,0.2);
-    transform: scale(1.05);
-}
-.tombol-tutup:active{
-    transform: scale(0.9);
-}
+.tombol-tutup:hover{ background: rgba(255,0,200,0.2); transform: scale(1.05); }
+.tombol-tutup:active{ transform: scale(0.9); }
 
 .laci{
     position: fixed;
@@ -246,10 +240,7 @@ body{
     border-color: var(--neon1);
     box-shadow: 0 0 10px rgba(255,0,200,0.2);
 }
-.tombol-bagian .panah{
-    font-size: 18px;
-    transition: transform 0.3s;
-}
+.tombol-bagian .panah{ font-size: 18px; transition: transform 0.3s; }
 .tombol-bagian.aktif .panah{ transform: rotate(90deg); }
 
 .konten-bagian{
@@ -268,17 +259,9 @@ body{
     border: 1px solid rgba(255,255,255,0.08);
     padding: 8px;
 }
-.daftar-lagu-wrapper::-webkit-scrollbar{
-    width: 6px;
-}
-.daftar-lagu-wrapper::-webkit-scrollbar-track{
-    background: rgba(255,255,255,0.05);
-    border-radius: 10px;
-}
-.daftar-lagu-wrapper::-webkit-scrollbar-thumb{
-    background: linear-gradient(var(--neon1), var(--neon2));
-    border-radius: 10px;
-}
+.daftar-lagu-wrapper::-webkit-scrollbar{ width: 6px; }
+.daftar-lagu-wrapper::-webkit-scrollbar-track{ background: rgba(255,255,255,0.05); border-radius: 10px; }
+.daftar-lagu-wrapper::-webkit-scrollbar-thumb{ background: linear-gradient(var(--neon1), var(--neon2)); border-radius: 10px; }
 
 .daftar-lagu-item{
     display: flex;
@@ -384,7 +367,7 @@ body{
     margin-top: 80px;
     flex: 1;
     overflow-y: auto;
-    padding: 15px 5% 25px;
+    padding: 15px 5% 95px; /* ⬅️ ADA RUANG BUAT TOMBOL BAWAH */
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
 }
@@ -431,35 +414,30 @@ body{
     box-shadow: 0 0 15px var(--neon1), 0 0 30px var(--neon2);
     transition: transform 0.3s;
     pointer-events: auto;
+    background: radial-gradient(circle, #222 0%, #111 100%);
+    display:flex; align-items:center; justify-content:center;
 }
 .wadah-gambar:active{ transform: scale(0.96); }
 
 .gambar-lagu{
+    position:absolute; inset:0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    background: radial-gradient(circle, #222 0%, #111 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: clamp(30px, 8vw, 40px);
-    color: var(--neon3);
 }
 .gambar-lagu.putar{ animation: putar 8s linear infinite; }
 @keyframes putar { to { transform: rotate(360deg); } }
 
+.ikon-default{
+    position:relative; z-index:1;
+    font-size: clamp(30px, 8vw, 40px);
+    color: var(--neon3);
+}
+
 #input-gambar{ display: none; }
 
-.info-lagu{
-    text-align: center;
-    margin-bottom: 12px;
-}
-.teks-sedang{
-    font-size: 12px;
-    opacity: 0.7;
-    letter-spacing: 1px;
-    margin-bottom: 6px;
-}
+.info-lagu{ text-align: center; margin-bottom: 12px; }
+.teks-sedang{ font-size: 12px; opacity: 0.7; letter-spacing: 1px; margin-bottom: 6px; }
 #judul-lagu{
     font-size: clamp(14px, 4vw, 17px);
     font-weight: 700;
@@ -576,6 +554,71 @@ canvas{
     background: linear-gradient(135deg, var(--neon1), var(--neon2));
     box-shadow: 0 0 8px var(--neon1);
 }
+
+/* =========================================================
+   ⬇️ TOMBOL GOOGLE PLAY — SESUAI PERMINTAANMU
+   ========================================================= */
+#tombolPlayStore{
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    padding: 10px max(12px, env(safe-area-inset-left)) calc(10px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-right));
+    background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.85));
+    display: flex;
+    justify-content: center;
+    z-index: 900;
+    transform: translateY(0);
+    opacity: 1;
+    transition: all .35s ease;
+}
+#tombolPlayStore.sembunyi{
+    transform: translateY(110%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tombol-play{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #000;
+    color: #fff !important;
+    border: 1.5px solid #fff;
+    border-radius: 10px;
+    padding: 8px 16px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 4px 18px rgba(0,0,0,.55);
+    max-width: 260px;
+    width: 100%;
+    justify-content: center;
+    pointer-events: auto;
+}
+.tombol-play:active{ transform: scale(.97); }
+.tombol-play .ikon-play{
+    font-size: 26px;
+    line-height: 1;
+    background: linear-gradient(135deg,#00d4ff,#00c853,#ffd600,#ff3d00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 900;
+}
+.tombol-play .teks-play{
+    text-align: left;
+    line-height: 1.1;
+}
+.tombol-play .teks-play small{
+    display:block;
+    font-size: 10px;
+    opacity:.8;
+    color:#ddd;
+}
+.tombol-play .teks-play b{
+    display:block;
+    font-size: 14px;
+    color:#fff;
+    font-weight: 700;
+}
 </style>
 </head>
 <body class="tema-pelangi">
@@ -601,7 +644,6 @@ canvas{
     <h3 class="judul-bagian">📑 DAFTAR ISI</h3>
     <div class="garis-pemisah"></div>
 
-    <!-- BAGIAN DAFTAR LAGU -->
     <button class="tombol-bagian" id="btnDaftarLagu">
         🎵 Daftar Lagu
         <span class="panah">➤</span>
@@ -615,7 +657,6 @@ canvas{
         </div>
     </div>
 
-    <!-- BAGIAN PENGATURAN -->
     <button class="tombol-bagian" id="btnPengaturan">
         ⚙️ Pengaturan
         <span class="panah">➤</span>
@@ -646,6 +687,7 @@ canvas{
 <div class="isi-tengah">
     <div class="pemutar">
         <div class="wadah-gambar" id="wadahGambar">
+            <span class="ikon-default" id="ikonDefault">🎵</span>
             <img src="" alt="Gambar Lagu" class="gambar-lagu" id="gambarLagu">
             <input type="file" id="inputGambar" accept="image/*">
         </div>
@@ -675,17 +717,33 @@ canvas{
     </div>
 </div>
 
+<!-- ⬇️ TOMBOL GOOGLE PLAY STORE — HANYA JALAN MASUK, TIDAK KE LUAR -->
+<div id="tombolPlayStore">
+    <div class="tombol-play" id="klikMasukAplikasi">
+        <div class="ikon-play">▶</div>
+        <div class="teks-play">
+            <small>TERSEDIA DI</small>
+            <b>GOOGLE PLAY</b>
+        </div>
+    </div>
+</div>
+
 <script>
+/* =========================================================
+   🖼️ ALAMAT GAMBAR UTAMA KAMU
+   ========================================================= */
+const GAMBAR_LATAR = 'https://i.ibb.co/mCJdjydg/FB-IMG-1779332724114.jpg';
+
 /* =========================================================
    🎨 DAFTAR TEMA
    ========================================================= */
 const DAFTAR_TEMA = [
-    { id:'tema-pelangi', nama:'Pelangi', warna:['#ff00c8','#00fff2'] },
-    { id:'tema-ungu', nama:'Ungu', warna:['#c300ff','#7a00ff'] },
-    { id:'tema-biru', nama:'Biru', warna:['#00e5ff','#0080ff'] },
-    { id:'tema-merah', nama:'Merah', warna:['#ff0055','#ff8800'] },
-    { id:'tema-hijau', nama:'Hijau', warna:['#00ff88','#88ff00'] },
-    { id:'tema-emas', nama:'Emas', warna:['#ffd700','#ff8c00'] }
+    { id:'tema-pelangi', nama:'Pelangi' },
+    { id:'tema-ungu',   nama:'Ungu' },
+    { id:'tema-biru',   nama:'Biru' },
+    { id:'tema-merah',  nama:'Merah' },
+    { id:'tema-hijau',  nama:'Hijau' },
+    { id:'tema-emas',   nama:'Emas' }
 ];
 
 /* =========================================================
@@ -694,10 +752,52 @@ const DAFTAR_TEMA = [
 const $ = id => document.getElementById(id);
 const audio = new Audio();
 audio.volume = 1.0;
-let daftarLagu = [], indeksSekarang = 0, acakAktif = false, ulangAktif = 0; // 0 = mati, 1 = ulang 1, 2 = ulang semua
+let daftarLagu = [], indeksSekarang = 0, acakAktif = false, ulangAktif = 0;
 let gambarDefault = true;
 let penguatSuara = 1.0;
 let sedangGeser = false;
+
+/* ✅ TERAPKAN GAMBAR LATAR OTOMATIS + SIMPAN PENGATURAN */
+function terapkanLatar(url){
+    document.documentElement.style.setProperty('--gambar-latar', `url('${url}')`);
+    localStorage.setItem('latarWinoro', url);
+}
+if(localStorage.getItem('latarWinoro')){
+    terapkanLatar(localStorage.getItem('latarWinoro'));
+}else{
+    terapkanLatar(GAMBAR_LATAR);
+}
+
+/* =========================================================
+   ⬇️ ATURAN TOMBOL GOOGLE PLAY — INTI PERMINTAANMU
+   ========================================================= */
+const tombolPlayArea = $('tombolPlayStore');
+const tombolPlayBtn  = $('klikMasukAplikasi');
+
+// ✅ DETEKSI: JIKA DIBUKA SEBAGAI "APLIKASI" / SUDAH PERNAH MASUK → HILANG
+function cekModeAplikasi(){
+    const sudahMasuk = localStorage.getItem('winoro_masuk') === '1';
+    const sepertiAplikasi = window.matchMedia('(display-mode: standalone)').matches
+                        || window.matchMedia('(display-mode: fullscreen)').matches
+                        || (window.navigator.standalone === true);
+    if(sudahMasuk || sepertiAplikasi){
+        tombolPlayArea.classList.add('sembunyi');
+        document.querySelector('.isi-tengah').style.paddingBottom = '25px';
+        return true;
+    }
+    return false;
+}
+
+// ✅ KETIKA DIKLIK → TIDAK KE PLAY STORE, LANGSUNG TAMPILAN UTAMA
+tombolPlayBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.setItem('winoro_masuk', '1');
+    tombolPlayArea.classList.add('sembunyi');
+    document.querySelector('.isi-tengah').style.paddingBottom = '25px';
+});
+
+// ✅ LANGSUNG CEK SAAT DIMUAT
+cekModeAplikasi();
 
 /* =========================================================
    🎛️ KONTROL LACI & DAFTAR ISI
@@ -724,20 +824,15 @@ function bukaTutupBagian(tombol, konten){
         tombol.classList.add('aktif');
     }
 }
-
 btnDaftarLagu.onclick = () => bukaTutupBagian(btnDaftarLagu, kontenDaftarLagu);
 btnPengaturan.onclick = () => bukaTutupBagian(btnPengaturan, kontenPengaturan);
 
-function bukaLaci(laci){
-    laci.classList.add('buka');
-    tutupLatar.classList.add('buka');
-}
+function bukaLaci(laci){ laci.classList.add('buka'); tutupLatar.classList.add('buka'); }
 function tutupSemuaLaci(){
     laciUtama.classList.remove('buka');
     laciTema.classList.remove('buka');
     tutupLatar.classList.remove('buka');
 }
-
 $('bukaMenu').addEventListener('click', () => bukaLaci(laciUtama));
 $('bukaTema').addEventListener('click', () => bukaLaci(laciTema));
 tutupMenu.addEventListener('click', tutupSemuaLaci);
@@ -745,26 +840,32 @@ tutupTema.addEventListener('click', tutupSemuaLaci);
 tutupLatar.addEventListener('click', tutupSemuaLaci);
 
 /* =========================================================
-   🖼️ GAMBAR LAGU
+   🖼️ GANTI GAMBAR COVER TENGAH
    ========================================================= */
 const wadahGambar = $('wadahGambar');
 const gambarLagu = $('gambarLagu');
+const ikonDefault = $('ikonDefault');
 const inputGambar = $('inputGambar');
 
+function tampilIkon(tampil){
+    gambarDefault = tampil;
+    ikonDefault.style.display = tampil ? '' : 'none';
+    gambarLagu.style.display = tampil ? 'none' : '';
+}
 wadahGambar.addEventListener('click', () => inputGambar.click());
 inputGambar.addEventListener('change', e => {
     const file = e.target.files[0];
     if(!file) return;
-    gambarLagu.src = URL.createObjectURL(file);
-    gambarDefault = false;
-    localStorage.setItem('gambarLaguPemutar', gambarLagu.src);
+    const alamat = URL.createObjectURL(file);
+    gambarLagu.src = alamat;
+    tampilIkon(false);
+    localStorage.setItem('gambarLaguPemutar', alamat);
 });
-
 if(localStorage.getItem('gambarLaguPemutar')){
     gambarLagu.src = localStorage.getItem('gambarLaguPemutar');
-    gambarDefault = false;
+    tampilIkon(false);
 }else{
-    gambarLagu.textContent = '🎵';
+    tampilIkon(true);
 }
 
 /* =========================================================
@@ -772,7 +873,6 @@ if(localStorage.getItem('gambarLaguPemutar')){
    ========================================================= */
 const sliderBooster = $('boosterSuara');
 const nilaiBooster = $('nilaiBooster');
-
 sliderBooster.addEventListener('input', () => {
     const nilai = parseInt(sliderBooster.value);
     penguatSuara = nilai / 100;
@@ -780,7 +880,6 @@ sliderBooster.addEventListener('input', () => {
     if(audio.gainNode) audio.gainNode.gain.value = penguatSuara;
     localStorage.setItem('penguatSuara', nilai);
 });
-
 if(localStorage.getItem('penguatSuara')){
     const nilai = localStorage.getItem('penguatSuara');
     sliderBooster.value = nilai;
@@ -789,7 +888,7 @@ if(localStorage.getItem('penguatSuara')){
 }
 
 /* =========================================================
-   🎵 FUNGSI PEMUTAR & TOMBOL KONTROL
+   🎵 PEMUTAR & KONTROL
    ========================================================= */
 const inputFolder = $('inputFolder');
 const daftarMenu = $('daftarLaguDiMenu');
@@ -820,215 +919,149 @@ function tampilkanDaftarLagu(){
         return;
     }
     daftarLagu.forEach((lagu, i) => {
-        const elemen = document.createElement('div');
-        elemen.className = `daftar-lagu-item ${i === indeksSekarang ? 'aktif' : ''}`;
-        elemen.innerHTML = `
-            <div class="nomor-lagu">${i+1}</div>
-            <div class="nama-lagu">${lagu.name.replace(/\.[^/.]+$/, '')}</div>
-        `;
-        elemen.addEventListener('click', () => {
-            indeksSekarang = i;
-            muatLagu(i);
-            audio.play();
-            tombolMain.textContent = '⏸';
-            gambarLagu.classList.add('putar');
-            tutupSemuaLaci();
+        const el = document.createElement('div');
+        el.className = `daftar-lagu-item ${i===indeksSekarang?'aktif':''}`;
+        el.innerHTML = `<div class="nomor-lagu">${i+1}</div><div class="nama-lagu">${lagu.name.replace(/\.[^/.]+$/,'')}</div>`;
+        el.addEventListener('click', () => {
+            indeksSekarang=i; muatLagu(i); audio.play();
+            tombolMain.textContent='⏸'; gambarLagu.classList.add('putar'); tutupSemuaLaci();
         });
-        daftarMenu.appendChild(elemen);
+        daftarMenu.appendChild(el);
     });
 }
 
 function muatLagu(i){
     if(!daftarLagu[i]) return;
     audio.src = URL.createObjectURL(daftarLagu[i]);
-    judulLagu.textContent = daftarLagu[i].name.replace(/\.[^/.]+$/, '');
-    if(gambarDefault){
-        gambarLagu.textContent = '🎵';
-        gambarLagu.src = '';
-    }
+    judulLagu.textContent = daftarLagu[i].name.replace(/\.[^/.]+$/,'');
+    if(gambarDefault) tampilIkon(true);
     tampilkanDaftarLagu();
-    waktuMulai.textContent = '00:00';
-    waktuSelesai.textContent = '00:00';
-    isiWaktu.style.width = '0%';
+    waktuMulai.textContent='00:00'; waktuSelesai.textContent='00:00';
+    isiWaktu.style.width='0%';
 }
 
 function putarLagu(){
-    if(daftarLagu.length === 0) return alert('Pilih folder lagu terlebih dahulu!');
-    if(audio.paused){
-        audio.play();
-        tombolMain.textContent = '⏸';
-        gambarLagu.classList.add('putar');
-    }else{
-        audio.pause();
-        tombolMain.textContent = '▶';
-        gambarLagu.classList.remove('putar');
-    }
+    if(daftarLagu.length===0) return alert('Pilih folder lagu terlebih dahulu!');
+    if(audio.paused){ audio.play(); tombolMain.textContent='⏸'; gambarLagu.classList.add('putar'); }
+    else{ audio.pause(); tombolMain.textContent='▶'; gambarLagu.classList.remove('putar'); }
 }
 
 function gantiLagu(arah){
     if(!daftarLagu.length) return;
-    if(acakAktif){
-        indeksSekarang = Math.floor(Math.random() * daftarLagu.length);
-    }else{
-        indeksSekarang = (indeksSekarang + arah + daftarLagu.length) % daftarLagu.length;
-    }
-    muatLagu(indeksSekarang);
-    audio.play();
-    tombolMain.textContent = '⏸';
-    gambarLagu.classList.add('putar');
+    indeksSekarang = acakAktif
+        ? Math.floor(Math.random()*daftarLagu.length)
+        : (indeksSekarang + arah + daftarLagu.length) % daftarLagu.length;
+    muatLagu(indeksSekarang); audio.play();
+    tombolMain.textContent='⏸'; gambarLagu.classList.add('putar');
 }
 
-// ✅ FUNGSI TOMBOL ACAK & ULANG
-tombolAcak.addEventListener('click', () => {
-    acakAktif = !acakAktif;
-    tombolAcak.classList.toggle('aktif', acakAktif);
-    tombolAcak.title = acakAktif ? 'Acak Aktif' : 'Acak Mati';
-});
-
-tombolUlang.addEventListener('click', () => {
-    ulangAktif = (ulangAktif + 1) % 3;
+tombolAcak.onclick = () => { acakAktif=!acakAktif; tombolAcak.classList.toggle('aktif',acakAktif); };
+tombolUlang.onclick = () => {
+    ulangAktif = (ulangAktif+1)%3;
     tombolUlang.classList.remove('aktif');
-    if(ulangAktif === 1){
-        tombolUlang.classList.add('aktif');
-        tombolUlang.textContent = '🔂';
-        tombolUlang.title = 'Ulang 1 Lagu';
-    }else if(ulangAktif === 2){
-        tombolUlang.classList.add('aktif');
-        tombolUlang.textContent = '🔁';
-        tombolUlang.title = 'Ulang Semua Lagu';
-    }else{
-        tombolUlang.textContent = '🔁';
-        tombolUlang.title = 'Ulang Mati';
-    }
-});
+    if(ulangAktif===1){ tombolUlang.classList.add('aktif'); tombolUlang.textContent='🔂'; }
+    else if(ulangAktif===2){ tombolUlang.classList.add('aktif'); tombolUlang.textContent='🔁'; }
+    else{ tombolUlang.textContent='🔁'; }
+};
+tombolMain.onclick = putarLagu;
+tombolMaju.onclick = ()=>gantiLagu(1);
+tombolMundur.onclick = ()=>gantiLagu(-1);
 
-tombolMain.addEventListener('click', putarLagu);
-tombolMaju.addEventListener('click', () => gantiLagu(1));
-tombolMundur.addEventListener('click', () => gantiLagu(-1));
-
-// ✅ FUNGSI GARIS WAKTU
 audio.addEventListener('timeupdate', () => {
-    if(!audio.duration || sedangGeser) return;
-    const persen = (audio.currentTime / audio.duration) * 100;
-    isiWaktu.style.width = persen + '%';
-    waktuMulai.textContent = formatWaktu(audio.currentTime);
-    waktuSelesai.textContent = formatWaktu(audio.duration);
+    if(!audio.duration||sedangGeser) return;
+    const p = audio.currentTime/audio.duration*100;
+    isiWaktu.style.width=p+'%';
+    waktuMulai.textContent=formatWaktu(audio.currentTime);
+    waktuSelesai.textContent=formatWaktu(audio.duration);
 });
-
-audio.addEventListener('loadedmetadata', () => {
-    waktuSelesai.textContent = formatWaktu(audio.duration);
-});
-
+audio.addEventListener('loadedmetadata', ()=> waktuSelesai.textContent=formatWaktu(audio.duration));
 audio.addEventListener('ended', () => {
-    if(ulangAktif === 1){
-        audio.currentTime = 0;
-        audio.play();
-    }else if(ulangAktif === 2){
-        gantiLagu(1);
-    }else{
-        tombolMain.textContent = '▶';
-        gambarLagu.classList.remove('putar');
-    }
+    if(ulangAktif===1){ audio.currentTime=0; audio.play(); }
+    else if(ulangAktif===2) gantiLagu(1);
+    else{ tombolMain.textContent='▶'; gambarLagu.classList.remove('putar'); }
 });
 
 function geserWaktu(e){
-    if(!audio.duration) return;
-    sedangGeser = true;
-    const lebar = garisWaktu.getBoundingClientRect().width;
-    const posisiX = e.clientX || (e.touches && e.touches[0].clientX);
-    const posisiKiri = garisWaktu.getBoundingClientRect().left;
-    const persen = Math.max(0, Math.min(1, (posisiX - posisiKiri) / lebar));
-    isiWaktu.style.width = persen * 100 + '%';
-    waktuMulai.textContent = formatWaktu(persen * audio.duration);
+    if(!audio.duration) return; sedangGeser=true;
+    const r = garisWaktu.getBoundingClientRect();
+    const x = e.clientX || (e.touches&&e.touches[0].clientX);
+    const p = Math.max(0,Math.min(1,(x-r.left)/r.width));
+    isiWaktu.style.width=p*100+'%';
+    waktuMulai.textContent=formatWaktu(p*audio.duration);
 }
-
-function selesaiGeserWaktu(){
+function lepasGeser(){
     if(!audio.duration) return;
-    const persen = parseFloat(isiWaktu.style.width) / 100;
-    audio.currentTime = persen * audio.duration;
-    sedangGeser = false;
+    audio.currentTime = parseFloat(isiWaktu.style.width)/100 * audio.duration;
+    sedangGeser=false;
 }
+garisWaktu.addEventListener('mousedown', e=>{geserWaktu(e); garisWaktu.addEventListener('mousemove',geserWaktu);});
+garisWaktu.addEventListener('mouseup', ()=>{lepasGeser(); garisWaktu.removeEventListener('mousemove',geserWaktu);});
+garisWaktu.addEventListener('mouseleave', ()=>{lepasGeser(); garisWaktu.removeEventListener('mousemove',geserWaktu);});
+garisWaktu.addEventListener('touchstart', geserWaktu, {passive:true});
+garisWaktu.addEventListener('touchmove', geserWaktu, {passive:true});
+garisWaktu.addEventListener('touchend', lepasGeser);
+garisWaktu.addEventListener('touchcancel', lepasGeser);
 
-garisWaktu.addEventListener('mousedown', (e) => { geserWaktu(e); garisWaktu.addEventListener('mousemove', geserWaktu); });
-garisWaktu.addEventListener('mouseup', () => { selesaiGeserWaktu(); garisWaktu.removeEventListener('mousemove', geserWaktu); });
-garisWaktu.addEventListener('mouseleave', () => { selesaiGeserWaktu(); garisWaktu.removeEventListener('mousemove', geserWaktu); });
-
-garisWaktu.addEventListener('touchstart', (e) => geserWaktu(e), { passive: true });
-garisWaktu.addEventListener('touchmove', (e) => geserWaktu(e), { passive: true });
-garisWaktu.addEventListener('touchend', selesaiGeserWaktu);
-garisWaktu.addEventListener('touchcancel', selesaiGeserWaktu);
-
-function formatWaktu(detik){
-    if(isNaN(detik)) return '00:00';
-    const m = Math.floor(detik / 60);
-    const d = Math.floor(detik % 60);
-    return `${m}:${d < 10 ? '0' + d : d}`;
+function formatWaktu(d){
+    if(isNaN(d)) return '00:00';
+    const m=Math.floor(d/60), s=Math.floor(d%60);
+    return `${m}:${s<10?'0'+s:s}`;
 }
 
 /* =========================================================
-   🎨 TAMPILKAN TEMA
+   🎨 TEMA
    ========================================================= */
 function tampilkanTema(){
-    const daftarTema = $('daftarTema');
-    daftarTema.innerHTML = '';
-    const temaAktif = document.body.className;
-    DAFTAR_TEMA.forEach(tema => {
-        const kartu = document.createElement('div');
-        kartu.className = `kartu-tema ${temaAktif === tema.id ? ' aktif' : ''}`;
-        kartu.innerHTML = `<div class="bulet-tema" style="background: linear-gradient(135deg, ${tema.warna[0]}, ${tema.warna[1]})"></div><span>${tema.nama}</span>`;
-        kartu.addEventListener('click', () => {
-            document.body.className = tema.id;
-            tampilkanTema();
-            tutupSemuaLaci();
-            localStorage.setItem('temaTerpilih', tema.id);
-        });
-        daftarTema.appendChild(kartu);
+    const wadah=$('daftarTema'); wadah.innerHTML='';
+    const aktif = document.body.className;
+    DAFTAR_TEMA.forEach(t => {
+        const k=document.createElement('div');
+        k.className='kartu-tema '+(aktif===t.id?'aktif':'');
+        k.innerHTML=`<div class="bulet-tema" style="background:linear-gradient(135deg,var(--neon1),var(--neon2))"></div><span>${t.nama}</span>`;
+        k.onclick=()=>{
+            document.body.className=t.id;
+            terapkanLatar(GAMBAR_LATAR);
+            tampilkanTema(); tutupSemuaLaci();
+            localStorage.setItem('temaTerpilih', t.id);
+        };
+        wadah.appendChild(k);
     });
 }
-
-if(localStorage.getItem('temaTerpilih')) document.body.className = localStorage.getItem('temaTerpilih');
+if(localStorage.getItem('temaTerpilih')) document.body.className=localStorage.getItem('temaTerpilih');
 tampilkanTema();
 
 /* =========================================================
-   📊 VISUAL GELOMBANG SUARA
+   📊 GELOMBANG SUARA
    ========================================================= */
-const kanvas = $('visualGelombang');
-const konteks = kanvas.getContext('2d');
+const kanvas=$('visualGelombang'), ctx=kanvas.getContext('2d');
 let analisa, sumber, gainNode;
-
 audio.addEventListener('play', () => {
     if(analisa) return;
-    const konteksAudio = new (window.AudioContext || window.webkitAudioContext)();
-    sumber = konteksAudio.createMediaElementSource(audio);
-    analisa = konteksAudio.createAnalyser();
-    gainNode = konteksAudio.createGain();
-    gainNode.gain.value = penguatSuara;
-    audio.gainNode = gainNode;
-    analisa.fftSize = 128;
-    sumber.connect(gainNode);
-    gainNode.connect(analisa);
-    analisa.connect(konteksAudio.destination);
+    const AC = new (window.AudioContext||window.webkitAudioContext)();
+    sumber=AC.createMediaElementSource(audio);
+    analisa=AC.createAnalyser();
+    gainNode=AC.createGain();
+    gainNode.gain.value=penguatSuara; audio.gainNode=gainNode;
+    analisa.fftSize=128;
+    sumber.connect(gainNode); gainNode.connect(analisa); analisa.connect(AC.destination);
     gambarGelombang();
 });
-
 function gambarGelombang(){
     requestAnimationFrame(gambarGelombang);
     if(!analisa) return;
-    const data = new Uint8Array(analisa.frequencyBinCount);
+    const data=new Uint8Array(analisa.frequencyBinCount);
     analisa.getByteFrequencyData(data);
-    const lebar = kanvas.width = kanvas.offsetWidth * 2;
-    const tinggi = kanvas.height = 140;
-    konteks.clearRect(0, 0, lebar, tinggi);
-    const lebarBatang = lebar / data.length;
-    for(let i = 0; i < data.length; i++){
-        const tinggiBatang = (data[i] / 255) * tinggi;
-        const gradasi = konteks.createLinearGradient(0, tinggi - tinggiBatang, 0, tinggi);
-        gradasi.addColorStop(0, getComputedStyle(document.body).getPropertyValue('--neon1'));
-        gradasi.addColorStop(1, getComputedStyle(document.body).getPropertyValue('--neon2'));
-        konteks.fillStyle = gradasi;
-        konteks.shadowBlur = 10;
-        konteks.shadowColor = getComputedStyle(document.body).getPropertyValue('--neon1');
-        konteks.fillRect(i * lebarBatang + 2, tinggi - tinggiBatang, lebarBatang - 4, tinggiBatang);
+    const W=kanvas.width=kanvas.offsetWidth*2, H=kanvas.height=140;
+    ctx.clearRect(0,0,W,H);
+    const bw=W/data.length;
+    for(let i=0;i<data.length;i++){
+        const h=(data[i]/255)*H;
+        const g=ctx.createLinearGradient(0,H-h,0,H);
+        g.addColorStop(0, getComputedStyle(document.body).getPropertyValue('--neon1'));
+        g.addColorStop(1, getComputedStyle(document.body).getPropertyValue('--neon2'));
+        ctx.fillStyle=g; ctx.shadowBlur=10;
+        ctx.shadowColor=getComputedStyle(document.body).getPropertyValue('--neon1');
+        ctx.fillRect(i*bw+2, H-h, bw-4, h);
     }
 }
 </script>
