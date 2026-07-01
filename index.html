@@ -135,44 +135,52 @@ canvas{width:100%;height:clamp(55px,12vw,75px);margin:12px 0;border-radius:14px;
 .tombol-play .teks small{display:block;font-size:10px;opacity:.8;color:#ddd}
 .tombol-play .teks b{display:block;font-size:15px;color:#fff;font-weight:800}
 
-/* ✅ BAGIAN SOSIAL MEDIA */
-.media-sosial-wrapper{
-    text-align:center;
-    padding:8px 0;
+/* ✅ GAYA SOSIAL MEDIA DENGAN GAMBAR */
+.media-sosial-wrapper {
+  text-align: center;
+  padding: 10px 0;
 }
-.judul-sosial{
-    font-size:13px;
-    opacity:.8;
-    margin-bottom:8px;
-    color:var(--text);
+.judul-sosial {
+  font-size: 13px;
+  opacity: 0.8;
+  margin-bottom: 12px;
+  color: var(--text);
 }
-.media-sosial{
-    display:flex;
-    justify-content:center;
-    gap:18px;
+.media-sosial {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
-.media-sosial a{
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    background:rgba(255,255,255,.1);
-    display:grid;
-    place-items:center;
-    font-size:20px;
-    border:1.5px solid transparent;
-    cursor:pointer;
-    transition:.3s;
-    color:var(--neon2);
-    box-shadow:0 0 6px rgba(0,0,0,.4);
+.media-sosial a {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  display: grid;
+  place-items: center;
+  padding: 7px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 }
-.media-sosial a:hover{
-    background:rgba(255,255,255,.15);
-    border-color:var(--neon1);
-    box-shadow:0 0 12px var(--neon1);
-    transform:scale(1.1);
-    color:var(--neon1);
+.media-sosial a:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: var(--neon1);
+  box-shadow: 0 0 14px var(--neon1);
+  transform: scale(1.15);
 }
-.media-sosial a:active{transform:scale(.95);}
+.media-sosial a:active {
+  transform: scale(0.95);
+}
+.media-sosial a img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+}
 </style>
 </head>
 <body class="tema-pelangi">
@@ -249,19 +257,36 @@ canvas{width:100%;height:clamp(55px,12vw,75px);margin:12px 0;border-radius:14px;
     </div>
   </div>
 
-  <!-- ✅ SOSIAL MEDIA - MUDAH DIGANTI TAUTANNYA -->
-  <div class="media-sosial-wrapper">
-    <div class="judul-sosial">Ikuti Kami di Media Sosial</div>
-    <div class="media-sosial">
-      <!-- GANTI TAUTAN DI BAWAH SESUAI AKUNMU -->
-      <a href="https://wa.me/628123456789" target="_blank" title="WhatsApp" data-link="https://wa.me/628123456789">💬</a>
-      <a href="https://t.me/namaakun" target="_blank" title="Telegram" data-link="https://t.me/namaakun">✈️</a>
-      <a href="https://instagram.com/namaakun" target="_blank" title="Instagram" data-link="https://instagram.com/namaakun">📸</a>
-      <a href="https://tiktok.com/@namaakun" target="_blank" title="TikTok" data-link="https://tiktok.com/@namaakun">🎵</a>
-      <a href="https://youtube.com/@namaakun" target="_blank" title="YouTube" data-link="https://youtube.com/@namaakun">▶️</a>
-      <a href="https://facebook.com/namaakun" target="_blank" title="Facebook" data-link="https://facebook.com/namaakun">f</a>
-    </div>
+  <!-- ✅ SOSIAL MEDIA - MENGGUNAKAN GAMBAR, MUDAH DIGANTI -->
+<div class="media-sosial-wrapper">
+  <div class="judul-sosial">Ikuti Kami di Media Sosial</div>
+  <div class="media-sosial">
+    <!-- WhatsApp -->
+    <a href="https://wa.me/628123456789" target="_blank" title="WhatsApp" data-link="https://wa.me/628123456789">
+      <img src="https://i.ibb.co.com/WWkxxmpZ/37986-removebg-preview.png" alt="WhatsApp" loading="lazy">
+    </a>
+    <!-- Telegram -->
+    <a href="https://t.me/namaakun" target="_blank" title="Telegram" data-link="https://t.me/namaakun">
+      <img src="https://i.ibb.co.com/Rp7cyvVd/37990-removebg-preview.png" alt="Telegram" loading="lazy">
+    </a>
+    <!-- Instagram -->
+    <a href="https://instagram.com/namaakun" target="_blank" title="Instagram" data-link="https://instagram.com/namaakun">
+      <img src="https://i.ibb.co.com/C5LPSP8r/37987-removebg-preview.png" alt="Instagram" loading="lazy">
+    </a>
+    <!-- TikTok -->
+    <a href="https://tiktok.com/@namaakun" target="_blank" title="TikTok" data-link="https://tiktok.com/@namaakun">
+      <img src="https://i.ibb.co.com/jvLWv7BX/37985-removebg-preview.png" alt="TikTok" loading="lazy">
+    </a>
+    <!-- YouTube -->
+    <a href="https://youtube.com/@namaakun" target="_blank" title="YouTube" data-link="https://youtube.com/@namaakun">
+      <img src="https://i.ibb.co.com/fGGCfTF5/37989-removebg-preview.png" alt="YouTube" loading="lazy">
+    </a>
+    <!-- Facebook -->
+    <a href="https://facebook.com/namaakun" target="_blank" title="Facebook" data-link="https://facebook.com/namaakun">
+      <img src="https://i.ibb.co.com/Z6h4y5Y2/37988-removebg-preview.png" alt="Facebook" loading="lazy">
+    </a>
   </div>
+</div>
 </div>
 
 <script>
