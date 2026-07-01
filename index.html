@@ -9,7 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 <style>
 /* =========================================================
-   🖼️ TEMPAT TEMPEL LINK GAMBAR LATAR DARI IMGBB
+   🎨 VARIABEL WARNA & LATAR
    ========================================================= */
 :root{
     --gambar-latar: url('');
@@ -62,7 +62,7 @@ body{
 }
 
 /* =========================================================
-   🎯 HEADER & JUDUL APLIKASI
+   🎯 HEADER & JUDUL
    ========================================================= */
 .header{
     position: fixed;
@@ -102,7 +102,7 @@ body{
 @keyframes goyang { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
 
 /* =========================================================
-   📱 TOMBOL MENU & LACI
+   📱 TOMBOL & LACI
    ========================================================= */
 .tombol-menu{
     width: 42px;
@@ -116,6 +116,8 @@ body{
     font-size: 20px;
     cursor: pointer;
     backdrop-filter: blur(8px);
+    z-index: 10;
+    pointer-events: auto;
 }
 .tombol-menu:active{ transform: scale(0.9); box-shadow: 0 0 15px var(--neon2); }
 
@@ -131,10 +133,11 @@ body{
     font-size: 20px;
     cursor: pointer;
     backdrop-filter: blur(8px);
+    z-index: 10;
+    pointer-events: auto;
 }
 .tombol-tema:active{ transform: scale(0.9); }
 
-/* ✅ TOMBOL TUTUP SILANG DI LACI */
 .tombol-tutup{
     position: absolute;
     top: 15px;
@@ -151,6 +154,7 @@ body{
     cursor: pointer;
     backdrop-filter: blur(8px);
     transition: 0.2s;
+    pointer-events: auto;
 }
 .tombol-tutup:hover{
     background: rgba(255,0,200,0.2);
@@ -165,8 +169,8 @@ body{
     top: 0;
     right: 0;
     height: 100dvh;
-    width: min(85vw, 340px);
-    background: linear-gradient(180deg, rgba(15,0,35,0.94), rgba(0,0,0,0.92));
+    width: min(95vw, 550px);
+    background: linear-gradient(180deg, rgba(15,0,35,0.96), rgba(0,0,0,0.94));
     border-left: 2px solid var(--neon1);
     box-shadow: -12px 0 40px rgba(255,0,200,0.28);
     backdrop-filter: blur(16px);
@@ -175,6 +179,7 @@ body{
     padding: calc(25px + var(--atas)) 20px;
     overflow-y: auto;
     z-index: 1000;
+    pointer-events: auto;
 }
 .laci.buka{ transform: translateX(0); }
 
@@ -189,9 +194,10 @@ body{
 }
 .tutup-latar.buka{ opacity: 1; pointer-events: auto; }
 
-.laci h3{
-    font-size: 19px;
-    margin-bottom: 12px;
+.judul-bagian{
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
     text-shadow: 0 0 8px var(--neon1);
     display: flex;
     align-items: center;
@@ -200,12 +206,165 @@ body{
 .garis-pemisah{
     height: 2px;
     background: linear-gradient(90deg, var(--neon1), var(--neon2), transparent);
-    margin: 12px 0 18px;
+    margin: 12px 0 20px;
     border-radius: 2px;
 }
 
+.tombol-bagian{
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    text-align: left;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: 0.2s;
+    pointer-events: auto;
+}
+.tombol-bagian:hover, .tombol-bagian.aktif{
+    background: rgba(255,0,200,0.15);
+    border-color: var(--neon1);
+    box-shadow: 0 0 10px rgba(255,0,200,0.2);
+}
+.tombol-bagian .panah{
+    font-size: 18px;
+    transition: transform 0.3s;
+}
+.tombol-bagian.aktif .panah{ transform: rotate(90deg); }
+
+.konten-bagian{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    margin-bottom: 15px;
+}
+.konten-bagian.buka{ max-height: 80vh; }
+
+.daftar-lagu-wrapper{
+    max-height: 60vh;
+    overflow-y: auto;
+    border-radius: 12px;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 8px;
+}
+.daftar-lagu-wrapper::-webkit-scrollbar{
+    width: 6px;
+}
+.daftar-lagu-wrapper::-webkit-scrollbar-track{
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+}
+.daftar-lagu-wrapper::-webkit-scrollbar-thumb{
+    background: linear-gradient(var(--neon1), var(--neon2));
+    border-radius: 10px;
+}
+
+.daftar-lagu-item{
+    display: flex;
+    align-items: center;
+    padding: 12px 14px;
+    margin: 6px 0;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    border-left: 3px solid transparent;
+    cursor: pointer;
+    transition: 0.2s;
+    gap: 12px;
+    pointer-events: auto;
+}
+.daftar-lagu-item:hover, .daftar-lagu-item.aktif{
+    background: rgba(255,0,200,0.18);
+    border-left-color: var(--neon2);
+    box-shadow: 0 0 8px rgba(0,255,242,0.2);
+}
+.nomor-lagu{
+    min-width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--neon1), var(--neon2));
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: #000;
+    box-shadow: 0 0 6px var(--neon1);
+}
+.nama-lagu{
+    flex: 1;
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pengaturan-blok{
+    padding: 16px;
+    border-radius: 12px;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+.judul-pengaturan{
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.slider-booster{
+    width: 100%;
+    height: 8px;
+    border-radius: 99px;
+    background: rgba(255,255,255,0.15);
+    outline: none;
+    -webkit-appearance: none;
+    margin: 10px 0;
+    pointer-events: auto;
+}
+.slider-booster::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--neon1), var(--neon2));
+    box-shadow: 0 0 12px var(--neon1);
+    cursor: pointer;
+}
+.nilai-booster{
+    text-align: right;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--neon2);
+}
+.pilih-folder{
+    display: block;
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    border-radius: 12px;
+    border: 1.5px dashed var(--neon2);
+    background: rgba(0,0,0,0.25);
+    text-align: center;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    pointer-events: auto;
+}
+.pilih-folder:active{
+    background: linear-gradient(135deg, var(--neon1), var(--neon2));
+    color: #000;
+    border-style: solid;
+}
+
 /* =========================================================
-   🎵 PEMUTAR MUSIK
+   🎵 BAGIAN PEMUTAR
    ========================================================= */
 .isi-tengah{
     margin-top: 80px;
@@ -228,6 +387,8 @@ body{
     backdrop-filter: blur(12px);
     position: relative;
     box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    pointer-events: auto;
+    z-index: 5;
 }
 .pemutar::before{
     content: '';
@@ -241,10 +402,10 @@ body{
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
+    pointer-events: none;
 }
 @keyframes putarWarna { to { background-position: 300% 50%; } }
 
-/* 🖼️ GAMBAR PIRINGAN BISA DIKLIK */
 .wadah-gambar{
     width: min(45vw, 190px);
     aspect-ratio: 1/1;
@@ -255,6 +416,7 @@ body{
     overflow: hidden;
     box-shadow: 0 0 15px var(--neon1), 0 0 30px var(--neon2);
     transition: transform 0.3s;
+    pointer-events: auto;
 }
 .wadah-gambar:active{ transform: scale(0.96); }
 
@@ -300,16 +462,19 @@ canvas{
     margin: 12px 0;
     border-radius: 14px;
     background: rgba(0,0,0,0.25);
+    pointer-events: none;
 }
 
 .batas-waktu{
     width: 100%;
-    height: 6px;
+    height: 8px;
     background: rgba(255,255,255,0.15);
     border-radius: 99px;
     cursor: pointer;
     overflow: hidden;
-    margin: 8px 0;
+    margin: 12px 0;
+    position: relative;
+    pointer-events: auto;
 }
 .isi-waktu{
     height: 100%;
@@ -317,13 +482,15 @@ canvas{
     background: linear-gradient(90deg, var(--neon1), var(--neon2));
     box-shadow: 0 0 10px var(--neon1);
     border-radius: 99px;
+    transition: width 0.1s linear;
 }
 .waktu-tampil{
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
-    opacity: 0.8;
-    margin-bottom: 12px;
+    font-size: 13px;
+    opacity: 0.9;
+    margin-bottom: 16px;
+    font-weight: 500;
 }
 
 .tombol-kontrol{
@@ -332,6 +499,9 @@ canvas{
     align-items: center;
     gap: clamp(10px, 3vw, 18px);
     margin: 12px 0;
+    pointer-events: auto;
+    position: relative;
+    z-index: 10;
 }
 .tombol-kontrol button{
     width: clamp(42px, 12vw, 52px);
@@ -344,6 +514,8 @@ canvas{
     cursor: pointer;
     display: grid;
     place-items: center;
+    pointer-events: auto;
+    transition: all 0.2s;
 }
 .tombol-kontrol button:active{ transform: scale(0.9); }
 .tombol-kontrol .utama{
@@ -354,80 +526,10 @@ canvas{
     border-color: #fff;
     box-shadow: 0 0 15px var(--neon1);
 }
-
-/* =========================================================
-   📋 DAFTAR LAGU & SOUND BOOSTER
-   ========================================================= */
-.daftar-lagu-item{
-    padding: 12px 14px;
-    margin: 6px 0;
-    border-radius: 12px;
-    background: rgba(255,255,255,0.05);
-    border-left: 3px solid var(--neon1);
-    cursor: pointer;
-    font-size: 14px;
-    transition: 0.2s;
-}
-.daftar-lagu-item:hover, .daftar-lagu-item.aktif{
-    background: rgba(255,0,200,0.18);
-    border-left-color: var(--neon2);
-    text-shadow: 0 0 5px var(--neon2);
-}
-
-.pengaturan-blok{
-    margin-top: 20px;
-    padding: 14px;
-    border-radius: 14px;
-    background: rgba(255,255,255,0.05);
-}
-.judul-pengaturan{
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-.slider-booster{
-    width: 100%;
-    height: 6px;
-    border-radius: 99px;
-    background: rgba(255,255,255,0.15);
-    outline: none;
-    -webkit-appearance: none;
-    margin: 8px 0;
-}
-.slider-booster::-webkit-slider-thumb{
-    -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--neon1), var(--neon2));
-    box-shadow: 0 0 10px var(--neon1);
-    cursor: pointer;
-}
-.nilai-booster{
-    text-align: right;
-    font-size: 13px;
-    opacity: 0.9;
-}
-
-.pilih-folder{
-    display: block;
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 12px;
-    border: 1.5px dashed var(--neon2);
-    background: rgba(0,0,0,0.25);
-    text-align: center;
-    cursor: pointer;
-    font-weight: 500;
-}
-.pilih-folder:active{
-    background: linear-gradient(135deg, var(--neon1), var(--neon2));
-    color: #000;
-    border-style: solid;
+.tombol-kontrol .aktif{
+    background: rgba(255,0,200,0.3);
+    border-color: var(--neon1);
+    box-shadow: 0 0 12px var(--neon1);
 }
 
 .pilihan-tema{
@@ -446,6 +548,7 @@ canvas{
     gap: 8px;
     cursor: pointer;
     font-size: 13px;
+    pointer-events: auto;
 }
 .kartu-tema.aktif{
     border-color: var(--neon2);
@@ -478,35 +581,49 @@ canvas{
 <!-- LATAR PENUTUP LACI -->
 <div class="tutup-latar" id="tutupLatar"></div>
 
-<!-- LACI UTAMA (☰) -->
+<!-- ✅ LACI UTAMA: DAFTAR ISI -->
 <div class="laci" id="laciUtama">
-    <!-- ✅ TOMBOL TUTUP SILANG -->
     <div class="tombol-tutup" id="tutupMenu">✕</div>
-    <h3>📋 DAFTAR & PENGATURAN</h3>
+    <h3 class="judul-bagian">📑 DAFTAR ISI</h3>
     <div class="garis-pemisah"></div>
 
-    <label class="pilih-folder">📁 PILIH FOLDER LAGU
-        <input type="file" id="inputFolder" webkitdirectory multiple hidden accept="audio/*">
-    </label>
+    <!-- BAGIAN DAFTAR LAGU -->
+    <button class="tombol-bagian" id="btnDaftarLagu">
+        🎵 Daftar Lagu
+        <span class="panah">➤</span>
+    </button>
+    <div class="konten-bagian" id="kontenDaftarLagu">
+        <label class="pilih-folder">📁 PILIH FOLDER LAGU
+            <input type="file" id="inputFolder" webkitdirectory multiple hidden accept="audio/*">
+        </label>
+        <div class="daftar-lagu-wrapper" id="daftarLaguDiMenu">
+            <div style="text-align:center; padding:20px; opacity:0.6;">Belum ada lagu, silakan pilih folder</div>
+        </div>
+    </div>
 
-    <h4 style="margin: 15px 0 8px; opacity: 0.7;">🎵 DAFTAR LAGU</h4>
-    <div id="daftarLaguDiMenu"></div>
-
-    <div class="pengaturan-blok">
-        <div class="judul-pengaturan">🔊 SOUND BOOSTER</div>
-        <input type="range" min="10" max="150" value="100" class="slider-booster" id="boosterSuara">
-        <div class="nilai-booster">Penguatan: <span id="nilaiBooster">100%</span></div>
-        <div style="font-size: 11px; opacity: 0.6; margin-top: 4px;">
-            100% = Suara normal | 101% - 150% = Lebih keras | Atur volume dasar lewat tombol HP
+    <!-- BAGIAN PENGATURAN -->
+    <button class="tombol-bagian" id="btnPengaturan">
+        ⚙️ Pengaturan
+        <span class="panah">➤</span>
+    </button>
+    <div class="konten-bagian" id="kontenPengaturan">
+        <div class="pengaturan-blok">
+            <div class="judul-pengaturan">🔊 Penguat Suara (Booster)</div>
+            <input type="range" min="10" max="150" value="100" class="slider-booster" id="boosterSuara">
+            <div class="nilai-booster">Penguatan: <span id="nilaiBooster">100%</span></div>
+            <div style="font-size: 12px; opacity: 0.7; margin-top: 6px; line-height: 1.5;">
+                • 100% = Suara normal<br>
+                • 101% - 150% = Lebih keras<br>
+                • Atur volume dasar lewat tombol HP
+            </div>
         </div>
     </div>
 </div>
 
 <!-- LACI TEMA -->
 <div class="laci" id="laciTema">
-    <!-- ✅ TOMBOL TUTUP SILANG -->
     <div class="tombol-tutup" id="tutupTema">✕</div>
-    <h3>🎨 GANTI TEMA & LATAR</h3>
+    <h3 class="judul-bagian">🎨 GANTI TEMA & LATAR</h3>
     <div class="garis-pemisah"></div>
     <div class="pilihan-tema" id="daftarTema"></div>
 </div>
@@ -514,7 +631,6 @@ canvas{
 <!-- ISI UTAMA -->
 <div class="isi-tengah">
     <div class="pemutar">
-        <!-- GAMBAR LAGU BISA DIKLIK -->
         <div class="wadah-gambar" id="wadahGambar">
             <img src="" alt="Gambar Lagu" class="gambar-lagu" id="gambarLagu">
             <input type="file" id="inputGambar" accept="image/*">
@@ -536,11 +652,11 @@ canvas{
         </div>
 
         <div class="tombol-kontrol">
-            <button id="tombolAcak" title="Acak">🔀</button>
-            <button id="tombolMundur">⏮</button>
-            <button id="tombolMain" class="utama">▶</button>
-            <button id="tombolMaju">⏭</button>
-            <button id="tombolUlang" title="Ulang">🔁</button>
+            <button id="tombolAcak" title="Acak Semua Lagu">🔀</button>
+            <button id="tombolMundur" title="Lagu Sebelumnya">⏮</button>
+            <button id="tombolMain" class="utama" title="Putar / Jeda">▶</button>
+            <button id="tombolMaju" title="Lagu Berikutnya">⏭</button>
+            <button id="tombolUlang" title="Ulang 1 Lagu / Semua">🔁</button>
         </div>
     </div>
 </div>
@@ -563,19 +679,40 @@ const DAFTAR_TEMA = [
    ========================================================= */
 const $ = id => document.getElementById(id);
 const audio = new Audio();
-audio.volume = 1.0; // Tetap 100% agar ikut tombol HP
-let daftarLagu = [], indeksSekarang = 0, acakAktif = false, ulangAktif = false;
+audio.volume = 1.0;
+let daftarLagu = [], indeksSekarang = 0, acakAktif = false, ulangAktif = 0; // 0 = mati, 1 = ulang 1, 2 = ulang semua
 let gambarDefault = true;
-let penguatSuara = 1.0; // 100% = normal
+let penguatSuara = 1.0;
+let sedangGeser = false;
 
 /* =========================================================
-   🎛️ KONTROL LACI DAN TOMBOL TUTUP
+   🎛️ KONTROL LACI & DAFTAR ISI
    ========================================================= */
 const tutupLatar = $('tutupLatar');
 const laciUtama = $('laciUtama');
 const laciTema = $('laciTema');
 const tutupMenu = $('tutupMenu');
 const tutupTema = $('tutupTema');
+
+const btnDaftarLagu = $('btnDaftarLagu');
+const kontenDaftarLagu = $('kontenDaftarLagu');
+const btnPengaturan = $('btnPengaturan');
+const kontenPengaturan = $('kontenPengaturan');
+
+function bukaTutupBagian(tombol, konten){
+    const sedangBuka = konten.classList.contains('buka');
+    kontenDaftarLagu.classList.remove('buka');
+    kontenPengaturan.classList.remove('buka');
+    btnDaftarLagu.classList.remove('aktif');
+    btnPengaturan.classList.remove('aktif');
+    if(!sedangBuka){
+        konten.classList.add('buka');
+        tombol.classList.add('aktif');
+    }
+}
+
+btnDaftarLagu.onclick = () => bukaTutupBagian(btnDaftarLagu, kontenDaftarLagu);
+btnPengaturan.onclick = () => bukaTutupBagian(btnPengaturan, kontenPengaturan);
 
 function bukaLaci(laci){
     laci.classList.add('buka');
@@ -587,29 +724,28 @@ function tutupSemuaLaci(){
     tutupLatar.classList.remove('buka');
 }
 
-$('bukaMenu').onclick = () => bukaLaci(laciUtama);
-$('bukaTema').onclick = () => bukaLaci(laciTema);
-tutupMenu.onclick = tutupSemuaLaci;
-tutupTema.onclick = tutupSemuaLaci;
-tutupLatar.onclick = tutupSemuaLaci;
+$('bukaMenu').addEventListener('click', () => bukaLaci(laciUtama));
+$('bukaTema').addEventListener('click', () => bukaLaci(laciTema));
+tutupMenu.addEventListener('click', tutupSemuaLaci);
+tutupTema.addEventListener('click', tutupSemuaLaci);
+tutupLatar.addEventListener('click', tutupSemuaLaci);
 
 /* =========================================================
-   🖼️ GAMBAR LAGU BISA DIGANTI MEMBER
+   🖼️ GAMBAR LAGU
    ========================================================= */
 const wadahGambar = $('wadahGambar');
 const gambarLagu = $('gambarLagu');
 const inputGambar = $('inputGambar');
 
-wadahGambar.onclick = () => inputGambar.click();
-inputGambar.onchange = e => {
+wadahGambar.addEventListener('click', () => inputGambar.click());
+inputGambar.addEventListener('change', e => {
     const file = e.target.files[0];
     if(!file) return;
     gambarLagu.src = URL.createObjectURL(file);
     gambarDefault = false;
     localStorage.setItem('gambarLaguPemutar', gambarLagu.src);
-};
+});
 
-// Pulihkan gambar terakhir
 if(localStorage.getItem('gambarLaguPemutar')){
     gambarLagu.src = localStorage.getItem('gambarLaguPemutar');
     gambarDefault = false;
@@ -618,21 +754,19 @@ if(localStorage.getItem('gambarLaguPemutar')){
 }
 
 /* =========================================================
-   🔊 SOUND BOOSTER (TANPA VOLUME DI APLIKASI)
+   🔊 SOUND BOOSTER
    ========================================================= */
 const sliderBooster = $('boosterSuara');
 const nilaiBooster = $('nilaiBooster');
 
-// Atur penguatan suara sampai 150%
-sliderBooster.oninput = () => {
+sliderBooster.addEventListener('input', () => {
     const nilai = parseInt(sliderBooster.value);
     penguatSuara = nilai / 100;
     nilaiBooster.textContent = nilai + '%';
     if(audio.gainNode) audio.gainNode.gain.value = penguatSuara;
     localStorage.setItem('penguatSuara', nilai);
-};
+});
 
-// Pulihkan pengaturan terakhir
 if(localStorage.getItem('penguatSuara')){
     const nilai = localStorage.getItem('penguatSuara');
     sliderBooster.value = nilai;
@@ -641,7 +775,7 @@ if(localStorage.getItem('penguatSuara')){
 }
 
 /* =========================================================
-   🎵 FUNGSI PEMUTAR LAGU
+   🎵 FUNGSI PEMUTAR & TOMBOL KONTROL
    ========================================================= */
 const inputFolder = $('inputFolder');
 const daftarMenu = $('daftarLaguDiMenu');
@@ -656,27 +790,36 @@ const tombolMundur = $('tombolMundur');
 const tombolAcak = $('tombolAcak');
 const tombolUlang = $('tombolUlang');
 
-inputFolder.onchange = e => {
+inputFolder.addEventListener('change', e => {
     const file = [...e.target.files].filter(f => f.type.startsWith('audio/'));
     if(!file.length) return alert('❌ Tidak ada file lagu di folder ini');
     daftarLagu = file;
     indeksSekarang = 0;
     tampilkanDaftarLagu();
     muatLagu(0);
-};
+});
 
 function tampilkanDaftarLagu(){
     daftarMenu.innerHTML = '';
+    if(daftarLagu.length === 0){
+        daftarMenu.innerHTML = `<div style="text-align:center; padding:20px; opacity:0.6;">Belum ada lagu</div>`;
+        return;
+    }
     daftarLagu.forEach((lagu, i) => {
         const elemen = document.createElement('div');
-        elemen.className = 'daftar-lagu-item' + (i === indeksSekarang ? ' aktif' : '');
-        elemen.textContent = `${i+1}. ${lagu.name.replace(/\.[^/.]+$/, '')}`;
-        elemen.onclick = () => {
+        elemen.className = `daftar-lagu-item ${i === indeksSekarang ? 'aktif' : ''}`;
+        elemen.innerHTML = `
+            <div class="nomor-lagu">${i+1}</div>
+            <div class="nama-lagu">${lagu.name.replace(/\.[^/.]+$/, '')}</div>
+        `;
+        elemen.addEventListener('click', () => {
             indeksSekarang = i;
             muatLagu(i);
             audio.play();
+            tombolMain.textContent = '⏸';
+            gambarLagu.classList.add('putar');
             tutupSemuaLaci();
-        };
+        });
         daftarMenu.appendChild(elemen);
     });
 }
@@ -690,9 +833,13 @@ function muatLagu(i){
         gambarLagu.src = '';
     }
     tampilkanDaftarLagu();
+    waktuMulai.textContent = '00:00';
+    waktuSelesai.textContent = '00:00';
+    isiWaktu.style.width = '0%';
 }
 
 function putarLagu(){
+    if(daftarLagu.length === 0) return alert('Pilih folder lagu terlebih dahulu!');
     if(audio.paused){
         audio.play();
         tombolMain.textContent = '⏸';
@@ -704,45 +851,108 @@ function putarLagu(){
     }
 }
 
-tombolMain.onclick = () => daftarLagu.length ? putarLagu() : alert('Pilih folder lagu terlebih dahulu!');
-tombolMaju.onclick = () => gantiLagu(1);
-tombolMundur.onclick = () => gantiLagu(-1);
-tombolAcak.onclick = () => { acakAktif = !acakAktif; tombolAcak.style.opacity = acakAktif ? 1 : 0.4; };
-tombolUlang.onclick = () => { ulangAktif = !ulangAktif; tombolUlang.style.opacity = ulangAktif ? 1 : 0.4; };
-
 function gantiLagu(arah){
     if(!daftarLagu.length) return;
-    indeksSekarang = acakAktif ? Math.floor(Math.random() * daftarLagu.length) : (indeksSekarang + arah + daftarLagu.length) % daftarLagu.length;
+    if(acakAktif){
+        indeksSekarang = Math.floor(Math.random() * daftarLagu.length);
+    }else{
+        indeksSekarang = (indeksSekarang + arah + daftarLagu.length) % daftarLagu.length;
+    }
     muatLagu(indeksSekarang);
     audio.play();
     tombolMain.textContent = '⏸';
     gambarLagu.classList.add('putar');
 }
 
-audio.ontimeupdate = () => {
-    if(!audio.duration) return;
+// ✅ FUNGSI TOMBOL ACAK & ULANG
+tombolAcak.addEventListener('click', () => {
+    acakAktif = !acakAktif;
+    tombolAcak.classList.toggle('aktif', acakAktif);
+    tombolAcak.title = acakAktif ? 'Acak Aktif' : 'Acak Mati';
+});
+
+tombolUlang.addEventListener('click', () => {
+    ulangAktif = (ulangAktif + 1) % 3;
+    tombolUlang.classList.remove('aktif');
+    if(ulangAktif === 1){
+        tombolUlang.classList.add('aktif');
+        tombolUlang.textContent = '🔂';
+        tombolUlang.title = 'Ulang 1 Lagu';
+    }else if(ulangAktif === 2){
+        tombolUlang.classList.add('aktif');
+        tombolUlang.textContent = '🔁';
+        tombolUlang.title = 'Ulang Semua Lagu';
+    }else{
+        tombolUlang.textContent = '🔁';
+        tombolUlang.title = 'Ulang Mati';
+    }
+});
+
+tombolMain.addEventListener('click', putarLagu);
+tombolMaju.addEventListener('click', () => gantiLagu(1));
+tombolMundur.addEventListener('click', () => gantiLagu(-1));
+
+// ✅ FUNGSI GARIS WAKTU
+audio.addEventListener('timeupdate', () => {
+    if(!audio.duration || sedangGeser) return;
     const persen = (audio.currentTime / audio.duration) * 100;
     isiWaktu.style.width = persen + '%';
     waktuMulai.textContent = formatWaktu(audio.currentTime);
     waktuSelesai.textContent = formatWaktu(audio.duration);
-};
+});
 
-audio.onended = () => ulangAktif ? audio.currentTime = 0 : gantiLagu(1);
+audio.addEventListener('loadedmetadata', () => {
+    waktuSelesai.textContent = formatWaktu(audio.duration);
+});
 
-garisWaktu.onclick = e => {
+audio.addEventListener('ended', () => {
+    if(ulangAktif === 1){
+        audio.currentTime = 0;
+        audio.play();
+    }else if(ulangAktif === 2){
+        gantiLagu(1);
+    }else{
+        tombolMain.textContent = '▶';
+        gambarLagu.classList.remove('putar');
+    }
+});
+
+function geserWaktu(e){
+    if(!audio.duration) return;
+    sedangGeser = true;
     const lebar = garisWaktu.getBoundingClientRect().width;
-    const posisi = (e.offsetX / lebar) * audio.duration;
-    audio.currentTime = posisi;
-};
+    const posisiX = e.clientX || (e.touches && e.touches[0].clientX);
+    const posisiKiri = garisWaktu.getBoundingClientRect().left;
+    const persen = Math.max(0, Math.min(1, (posisiX - posisiKiri) / lebar));
+    isiWaktu.style.width = persen * 100 + '%';
+    waktuMulai.textContent = formatWaktu(persen * audio.duration);
+}
+
+function selesaiGeserWaktu(){
+    if(!audio.duration) return;
+    const persen = parseFloat(isiWaktu.style.width) / 100;
+    audio.currentTime = persen * audio.duration;
+    sedangGeser = false;
+}
+
+garisWaktu.addEventListener('mousedown', (e) => { geserWaktu(e); garisWaktu.addEventListener('mousemove', geserWaktu); });
+garisWaktu.addEventListener('mouseup', () => { selesaiGeserWaktu(); garisWaktu.removeEventListener('mousemove', geserWaktu); });
+garisWaktu.addEventListener('mouseleave', () => { selesaiGeserWaktu(); garisWaktu.removeEventListener('mousemove', geserWaktu); });
+
+garisWaktu.addEventListener('touchstart', (e) => geserWaktu(e), { passive: true });
+garisWaktu.addEventListener('touchmove', (e) => geserWaktu(e), { passive: true });
+garisWaktu.addEventListener('touchend', selesaiGeserWaktu);
+garisWaktu.addEventListener('touchcancel', selesaiGeserWaktu);
 
 function formatWaktu(detik){
+    if(isNaN(detik)) return '00:00';
     const m = Math.floor(detik / 60);
     const d = Math.floor(detik % 60);
     return `${m}:${d < 10 ? '0' + d : d}`;
 }
 
 /* =========================================================
-   🎨 TAMPILKAN PILIHAN TEMA
+   🎨 TAMPILKAN TEMA
    ========================================================= */
 function tampilkanTema(){
     const daftarTema = $('daftarTema');
@@ -750,30 +960,29 @@ function tampilkanTema(){
     const temaAktif = document.body.className;
     DAFTAR_TEMA.forEach(tema => {
         const kartu = document.createElement('div');
-        kartu.className = 'kartu-tema' + (temaAktif === tema.id ? ' aktif' : '');
+        kartu.className = `kartu-tema ${temaAktif === tema.id ? ' aktif' : ''}`;
         kartu.innerHTML = `<div class="bulet-tema" style="background: linear-gradient(135deg, ${tema.warna[0]}, ${tema.warna[1]})"></div><span>${tema.nama}</span>`;
-        kartu.onclick = () => {
+        kartu.addEventListener('click', () => {
             document.body.className = tema.id;
             tampilkanTema();
             tutupSemuaLaci();
             localStorage.setItem('temaTerpilih', tema.id);
-        };
+        });
         daftarTema.appendChild(kartu);
     });
 }
 
-// Pulihkan tema terakhir
 if(localStorage.getItem('temaTerpilih')) document.body.className = localStorage.getItem('temaTerpilih');
 tampilkanTema();
 
 /* =========================================================
-   📊 VISUAL GELOMBANG SUARA & PENGUAT SUARA
+   📊 VISUAL GELOMBANG SUARA
    ========================================================= */
 const kanvas = $('visualGelombang');
 const konteks = kanvas.getContext('2d');
 let analisa, sumber, gainNode;
 
-audio.onplay = () => {
+audio.addEventListener('play', () => {
     if(analisa) return;
     const konteksAudio = new (window.AudioContext || window.webkitAudioContext)();
     sumber = konteksAudio.createMediaElementSource(audio);
@@ -786,7 +995,7 @@ audio.onplay = () => {
     gainNode.connect(analisa);
     analisa.connect(konteksAudio.destination);
     gambarGelombang();
-};
+});
 
 function gambarGelombang(){
     requestAnimationFrame(gambarGelombang);
