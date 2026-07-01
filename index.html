@@ -355,36 +355,6 @@ canvas{
     box-shadow: 0 0 15px var(--neon1);
 }
 
-.baris-volume{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 15px;
-}
-#tombolBisukan{
-    font-size: 22px;
-    cursor: pointer;
-    color: var(--neon2);
-    text-shadow: 0 0 6px var(--neon2);
-}
-#garisVolume{
-    flex: 1;
-    height: 5px;
-    border-radius: 99px;
-    background: rgba(255,255,255,0.15);
-    outline: none;
-    -webkit-appearance: none;
-}
-#garisVolume::-webkit-slider-thumb{
-    -webkit-appearance: none;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #fff;
-    box-shadow: 0 0 8px var(--neon1);
-    cursor: pointer;
-}
-
 /* =========================================================
    📋 DAFTAR LAGU & SOUND BOOSTER
    ========================================================= */
@@ -524,9 +494,11 @@ canvas{
 
     <div class="pengaturan-blok">
         <div class="judul-pengaturan">🔊 SOUND BOOSTER</div>
-        <input type="range" min="1" max="150" value="100" class="slider-booster" id="boosterSuara">
+        <input type="range" min="10" max="150" value="100" class="slider-booster" id="boosterSuara">
         <div class="nilai-booster">Penguatan: <span id="nilaiBooster">100%</span></div>
-        <div style="font-size: 11px; opacity: 0.6; margin-top: 4px;">Bisa sampai 150% lebih keras dari normal</div>
+        <div style="font-size: 11px; opacity: 0.6; margin-top: 4px;">
+            100% = Suara normal | 101% - 150% = Lebih keras | Atur volume dasar lewat tombol HP
+        </div>
     </div>
 </div>
 
@@ -570,11 +542,6 @@ canvas{
             <button id="tombolMaju">⏭</button>
             <button id="tombolUlang" title="Ulang">🔁</button>
         </div>
-
-        <div class="baris-volume">
-            <span id="tombolBisukan" title="Klik untuk bisukan/nyalakan">🔊</span>
-            <input type="range" id="garisVolume" min="0" max="1" step="0.01" value="0.7">
-        </div>
     </div>
 </div>
 
@@ -596,9 +563,10 @@ const DAFTAR_TEMA = [
    ========================================================= */
 const $ = id => document.getElementById(id);
 const audio = new Audio();
+audio.volume = 1.0; // Tetap 100% agar ikut tombol HP
 let daftarLagu = [], indeksSekarang = 0, acakAktif = false, ulangAktif = false;
 let gambarDefault = true;
-let penguatSuara = 1.0; // 100%
+let penguatSuara = 1.0; // 100% = normal
 
 /* =========================================================
    🎛️ KONTROL LACI DAN TOMBOL TUTUP
@@ -650,36 +618,17 @@ if(localStorage.getItem('gambarLaguPemutar')){
 }
 
 /* =========================================================
-   🔊 VOLUME & SOUND BOOSTER
+   🔊 SOUND BOOSTER (TANPA VOLUME DI APLIKASI)
    ========================================================= */
-const tombolBisukan = $('tombolBisukan');
-const garisVolume = $('garisVolume');
 const sliderBooster = $('boosterSuara');
 const nilaiBooster = $('nilaiBooster');
-let statusBisukan = false;
 
-// Bisukan / Nyalakan
-tombolBisukan.onclick = () => {
-    statusBisukan = !statusBisukan;
-    audio.muted = statusBisukan;
-    tombolBisukan.textContent = statusBisukan ? '🔇' : '🔊';
-    tombolBisukan.style.color = statusBisukan ? '#ff5555' : 'var(--neon2)';
-};
-
-// Ikuti volume HP + kontrol manual
-garisVolume.oninput = () => {
-    audio.volume = garisVolume.value;
-    statusBisukan = false;
-    tombolBisukan.textContent = '🔊';
-    tombolBisukan.style.color = 'var(--neon2)';
-};
-
-// Sound Booster sampai 150%
+// Atur penguatan suara sampai 150%
 sliderBooster.oninput = () => {
-    const nilai = sliderBooster.value;
+    const nilai = parseInt(sliderBooster.value);
     penguatSuara = nilai / 100;
     nilaiBooster.textContent = nilai + '%';
-    if(audio.sourceNode && audio.gainNode) audio.gainNode.gain.value = penguatSuara;
+    if(audio.gainNode) audio.gainNode.gain.value = penguatSuara;
     localStorage.setItem('penguatSuara', nilai);
 };
 
@@ -818,24 +767,23 @@ if(localStorage.getItem('temaTerpilih')) document.body.className = localStorage.
 tampilkanTema();
 
 /* =========================================================
-   📊 VISUAL GELOMBANG SUARA
+   📊 VISUAL GELOMBANG SUARA & PENGUAT SUARA
    ========================================================= */
 const kanvas = $('visualGelombang');
 const konteks = kanvas.getContext('2d');
-let analisa, sumber;
+let analisa, sumber, gainNode;
 
 audio.onplay = () => {
     if(analisa) return;
     const konteksAudio = new (window.AudioContext || window.webkitAudioContext)();
     sumber = konteksAudio.createMediaElementSource(audio);
     analisa = konteksAudio.createAnalyser();
-    const penguat = konteksAudio.createGain();
-    penguat.gain.value = penguatSuara;
-    audio.gainNode = penguat;
-    audio.sourceNode = sumber;
+    gainNode = konteksAudio.createGain();
+    gainNode.gain.value = penguatSuara;
+    audio.gainNode = gainNode;
     analisa.fftSize = 128;
-    sumber.connect(penguat);
-    penguat.connect(analisa);
+    sumber.connect(gainNode);
+    gainNode.connect(analisa);
     analisa.connect(konteksAudio.destination);
     gambarGelombang();
 };
