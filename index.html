@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="#0b0420" />
+<meta name="description" content="Winoro Musick - Pemutar Musik PWA" />
+<title>Winoro Musick</title>
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>" />
+<style>
+:root{
+  --bg1:#0b0420;--bg2:#2a0a5e;--bg3:#ff00aa;
+  --text:#fff;--muted:#cfc6ff;--accent:#ff2bd6;
+  --card:rgba(255,255,255,.06);--border:rgba(255,255,255,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--text);
+  background:
+    radial-gradient(1200px 700px at 20% 10%, var(--bg3) 0%, transparent 55%),
+    radial-gradient(900px 600px at 90% 90%, var(--bg2) 0%, transparent 55%),
+    linear-gradient(180deg, var(--bg1), #05010f 70%);
+  overflow:hidden;
+}
+[data-tema="1"]{--bg1:#0b0420;--bg2:#2a0a5e;--bg3:#ff00aa;--accent:#ff2bd6}
+[data-tema="2"]{--bg1:#050a1f;--bg2:#002a66;--bg3:#00e5ff;--accent:#00e5ff}
+[data-tema="3"]{--bg1:#001410;--bg2:#004d3d;--bg3:#00ffb3;--accent:#00ffb3}
+[data-tema="4"]{--bg1:#1a0500;--bg2:#7a1d00;--bg3:#ff9500;--accent:#ff9500}
+[data-tema="5"]{--bg1:#000820;--bg2:#003380;--bg3:#ffd500;--accent:#ffd500}
+[data-tema="6"]{--bg1:#140008;--bg2:#520020;--bg3:#ff0055;--accent:#ff0055}
+
+header{position:fixed;top:0;left:0;right:0;height:60px;z-index:50;
+  display:flex;align-items:center;gap:12px;padding:0 14px;
+  background:linear-gradient(180deg, rgba(0,0,0,.45), transparent);
+  backdrop-filter:blur(10px);
+}
+#btnMenu{width:42px;height:42px;border:none;background:var(--card);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:22px;cursor:pointer}
+.ikon{width:34px;height:34px;display:grid;place-items:center;
+  background:conic-gradient(from 0deg, var(--accent), #fff, var(--accent));
+  border-radius:50%;color:#000;font-weight:900}
+.judul{font-size:18px;font-weight:800;letter-spacing:.4px}
+.judul span{color:var(--accent)}
+
+#drawer{position:fixed;top:0;left:-82%;width:78%;max-width:320px;height:100%;z-index:200;
+  background:linear-gradient(180deg, rgba(10,0,25,.96), rgba(30,0,50,.96));
+  border-right:1px solid var(--border);backdrop-filter:blur(14px);
+  transition:left .3s ease;overflow-y:auto;padding:18px 14px 100px;
+}
+#drawer.buka{left:0}
+#drawer h3{margin:18px 4px 8px;color:var(--accent);font-size:13px;letter-spacing:1px;text-transform:uppercase}
+.menuitem{display:flex;align-items:center;gap:12px;padding:12px 10px;margin:3px 0;
+  background:var(--card);border:1px solid var(--border);border-radius:10px;cursor:pointer;
+}
+.menuitem:hover{background:var(--accent);color:#000}
+#tutupDrawer{position:absolute;top:10px;right:10px;background:transparent;border:none;color:#fff;font-size:22px;cursor:pointer}
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:190;display:none}
+#overlay.buka{display:block}
+
+main{position:fixed;inset:60px 0 66px;overflow-y:auto;padding:16px}
+.halaman{display:none}
+.halaman.aktif{display:block}
+
+.panggung{display:grid;place-items:center;padding:20px 0}
+.piringan{
+  width:min(78vw, 320px);aspect-ratio:1;border-radius:50%;position:relative;
+  background:
+    radial-gradient(circle at 50% 50%, #111 0 14%, var(--accent) 15% 17%, #111 18% 28%,
+      #222 29% 30%, #111 31% 44%, #222 45% 46%, #111 47% 62%, #222 63% 64%, #111 65% 80%, #000 81% 100%);
+  box-shadow:0 20px 60px rgba(0,0,0,.6), 0 0 0 6px rgba(255,255,255,.04), 0 0 80px var(--accent);
+}
+.piringan.putar{animation:muter 8s linear infinite}
+@keyframes muter{to{transform:rotate(360deg)}}
+.titik{position:absolute;inset:0;display:grid;place-items:center}
+.titik::after{content:"";width:14%;aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle, #fff 0 30%, #222 35% 100%);
+}
+[data-piringan="2"] .piringan{background:
+  radial-gradient(circle at 50% 50%, #fff0 0 14%, #00e5ff 15% 17%, #001030 18% 100%),
+  repeating-conic-gradient(#001030 0 6deg, #002a66 6deg 12deg)}
+[data-piringan="3"] .piringan{background:
+  radial-gradient(circle at 50% 50%, #fff0 0 14%, #00ffb3 15% 17%, #001a14 18% 100%),
+  repeating-conic-gradient(#001a14 0 5deg, #00523d 5deg 10deg)}
+[data-piringan="4"] .piringan{background:
+  radial-gradient(circle at 50% 50%, #fff0 0 14%, #ff9500 15% 17%, #2a0d00 18% 100%),
+  repeating-conic-gradient(#2a0d00 0 7deg, #6b2400 7deg 14deg)}
+[data-piringan="5"] .piringan{background:
+  radial-gradient(circle at 50% 50%, #fff0 0 14%, #ffd500 15% 17%, #001033 18% 100%),
+  repeating-conic-gradient(#001033 0 4deg, #003380 4deg 8deg)}
+[data-piringan="6"] .piringan{background:
+  radial-gradient(circle at 50% 50%, #fff0 0 14%, #ff0055 15% 17%, #2a0010 18% 100%),
+  repeating-conic-gradient(#2a0010 0 6deg, #7a0029 6deg 12deg)}
+
+.infoLagu{text-align:center;margin-top:18px}
+.infoLagu .judulLagu{font-size:20px;font-weight:800}
+.infoLagu .artis{color:var(--muted);margin-top:4px}
+
+.kontrol{display:grid;gap:10px;margin-top:20px;max-width:360px;margin-inline:auto}
+.bar{width:100%;height:6px;background:var(--card);border-radius:99px;overflow:hidden;cursor:pointer}
+.bar>div{height:100%;width:0%;background:linear-gradient(90deg, var(--accent), #fff)}
+.waktu{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.tombol{display:flex;justify-content:center;align-items:center;gap:18px;margin-top:6px}
+.tombol button{width:48px;height:48px;border-radius:50%;border:none;cursor:pointer;
+  background:var(--card);color:var(--text);border:1px solid var(--border);font-size:18px}
+.tombol button.utama{width:60px;height:60px;background:var(--accent);color:#000;font-size:22px;font-weight:900}
+
+.laguItem{display:flex;align-items:center;gap:12px;padding:10px;margin:6px 0;
+  background:var(--card);border:1px solid var(--border);border-radius:10px;cursor:pointer}
+.laguItem.aktif{border-color:var(--accent)}
+.laguItem .no{width:26px;color:var(--muted)}
+.laguItem .nama{flex:1;min-width:0}
+.laguItem .nama div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.laguItem .nama small{color:var(--muted)}
+.laguItem .dur{color:var(--muted);font-size:12px}
+#pilihBerkas{display:block;width:100%;padding:14px;text-align:center;margin:8px 0 16px;
+  border:2px dashed var(--accent);border-radius:12px;background:var(--card);cursor:pointer;color:var(--accent);font-weight:700}
+
+.set{display:grid;gap:12px;margin-top:8px}
+.set label{display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.set input[type=range]{width:55%}
+.pilihGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pilihGrid button{padding:10px 4px;border-radius:10px;border:1px solid var(--border);
+  background:var(--card);color:var(--text);cursor:pointer;font-size:12px}
+.pilihGrid button.on{background:var(--accent);color:#000;border-color:var(--accent)}
+.cek{display:flex;align-items:center;gap:8px;font-size:13px}
+
+#ytLink{width:100%;padding:10px;border-radius:8px;border:1px solid var(--border);background:#0a0014;color:#fff;margin:8px 0}
+#ytPlay{width:100%;padding:10px;border-radius:8px;border:none;background:var(--accent);color:#000;font-weight:800;cursor:pointer}
+
+nav{position:fixed;bottom:0;left:0;right:0;height:66px;z-index:60;
+  display:grid;grid-template-columns:1fr 1fr;
+  background:linear-gradient(0deg, rgba(0,0,0,.7), rgba(0,0,0,.2));
+  backdrop-filter:blur(12px);border-top:1px solid var(--border)}
+nav button{background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:12px;display:grid;place-items:center;gap:2px}
+nav button.aktif{color:var(--accent)}
+nav button b{font-size:20px}
+.hidden{display:none !important}
+</style>
+</head>
+<body data-tema="1" data-piringan="1">
+
+<header>
+  <button id="btnMenu">☰</button>
+  <div class="ikon">♪</div>
+  <div class="judul">Winoro <span>Musick</span></div>
+</header>
+
+<div id="overlay"></div>
+<aside id="drawer">
+  <button id="tutupDrawer">✕</button>
+  <div style="display:flex;align-items:center;gap:10px;margin-top:10px">
+    <div class="ikon">♪</div>
+    <div><b>Winoro Musick</b><div style="font-size:11px;color:var(--muted)">PWA • GitHub → Vercel</div></div>
+  </div>
+
+  <h3>🎧 Sumber Musik</h3>
+  <div class="menuitem" id="bukaYT">▶ Putar dari Link YouTube</div>
+  <div class="menuitem" data-buka="daftar">📁 Buka Berkas Musik Lokal</div>
+
+  <h3>⚙️ Pengaturan</h3>
+  <div class="menuitem" data-buka="set">🔊 Sound Booster & Tema</div>
+
+  <div id="panelYT" class="hidden">
+    <h3 style="margin-top:14px">YouTube</h3>
+    <input id="ytLink" placeholder="Tempel link YouTube di sini…" />
+    <button id="ytPlay">PUTAR LANGSUNG</button>
+    <p style="font-size:11px;color:var(--muted);margin-top:6px">Audio diputar langsung — tidak pindah ke YouTube.</p>
+  </div>
+
+  <div id="panelSet" class="hidden">
+    <div class="set">
+      <label>🔊 Sound Booster <span id="nilaiGain">100%</span></label>
+      <input id="gain" type="range" min="100" max="300" value="100" />
+
+      <label class="cek"><input type="checkbox" id="autoTema" /> Otomatis ganti tema tiap lagu</label>
+      <div>🎨 Tema Tampilan</div>
+      <div class="pilihGrid" id="gridTema"></div>
+
+      <label class="cek"><input type="checkbox" id="autoPiringan" checked /> Otomatis ganti piringan tiap lagu</label>
+      <div>💿 Model Piringan</div>
+      <div class="pilihGrid" id="gridPiringan"></div>
+
+      <div>🎼 Filter Genre</div>
+      <div class="pilihGrid" id="gridGenre"></div>
+    </div>
+  </div>
+</aside>
+
+<main>
+  <section id="halPlayer" class="halaman aktif">
+    <div class="panggung"><div class="piringan" id="piringan"><div class="titik"></div></div></div>
+    <div class="infoLagu">
+      <div class="judulLagu" id="jdl">— Belum ada lagu —</div>
+      <div class="artis" id="artis">Pilih berkas atau tempel link YouTube</div>
+    </div>
+    <div class="kontrol">
+      <div class="bar" id="bar"><div id="isiBar"></div></div>
+      <div class="waktu"><span id="w0">0:00</span><span id="w1">0:00</span></div>
+      <div class="tombol">
+        <button id="prev">⏮</button>
+        <button class="utama" id="play">▶</button>
+        <button id="next">⏭</button>
+      </div>
+    </div>
+  </section>
+  <section id="halDaftar" class="halaman">
+    <label id="pilihBerkas">📂 + PILIH BERKAS / FOLDER MUSIK
+      <input type="file" id="fileInput" accept="audio/*" multiple hidden />
+    </label>
+    <div id="daftar"></div>
+  </section>
+</main>
+
+<nav>
+  <button data-hal="halPlayer" class="aktif"><b>💿</b>Pemutar</button>
+  <button data-hal="halDaftar"><b>📜</b>Daftar Lagu</button>
+</nav>
+
+<audio id="audio" crossorigin="anonymous">
+
+<script>
+const state = {
+  playlist:[], index:-1,
+  tema:1, piringan:1,
+  autoTema:false, autoPiringan:true,
+  gain:1, genre:'SEMUA',
+  genres:['SEMUA','POP','ROCK','DANGDUT','JAZZ','DANGKUT','EDM','DAERAH']
+};
+const audio = document.getElementById('audio');
+const AC = window.AudioContext || window.webkitAudioContext;
+let ctx, srcNode, gainNode;
+function siapkanAudio(){
+  if(ctx) return; ctx = new AC();
+  srcNode = ctx.createMediaElementSource(audio);
+  gainNode = ctx.createGain(); gainNode.gain.value = state.gain;
+  srcNode.connect(gainNode).connect(ctx.destination);
+}
+document.getElementById('gain').oninput = e => {
+  state.gain = +e.target.value/100;
+  document.getElementById('nilaiGain').textContent = e.target.value+'%';
+  if(gainNode) gainNode.gain.value = state.gain;
+  simpan();
+};
+
+const drawer = document.getElementById('drawer'), overlay = document.getElementById('overlay');
+const bukaD = ()=>{drawer.classList.add('buka');overlay.classList.add('buka')};
+const tutupD = ()=>{drawer.classList.remove('buka');overlay.classList.remove('buka')};
+document.getElementById('btnMenu').onclick = bukaD;
+document.getElementById('tutupDrawer').onclick = tutupD;
+overlay.onclick = tutupD;
+
+document.querySelectorAll('[data-buka]').forEach(b=>b.onclick=()=>{
+  const id=b.dataset.buka;
+  document.getElementById('panelSet').classList.toggle('hidden',id!=='set');
+  document.getElementById('panelYT').classList.add('hidden');
+  if(id==='daftar'){ tutupD(); pindah('halDaftar'); }
+});
+document.getElementById('bukaYT').onclick=()=>{
+  document.getElementById('panelYT').classList.toggle('hidden');
+  document.getElementById('panelSet').classList.add('hidden');
+};
+
+function terapkan(){
+  document.body.dataset.tema = state.tema;
+  document.body.dataset.piringan = state.piringan;
+  simpan();
+}
+function grid(id, arr, cb){
+  const el=document.getElementById(id); el.innerHTML='';
+  arr.forEach((v,i)=>{
+    const b=document.createElement('button'); b.textContent=v;
+    b.onclick=()=>{ cb(i+1); el.querySelectorAll('button').forEach(x=>x.classList.remove('on')); b.classList.add('on'); };
+    el.appendChild(b);
+  });
+}
+grid('gridTema',['Tema 1','Tema 2','Tema 3','Tema 4','Tema 5','Tema 6'],i=>{state.tema=i;terapkan()});
+grid('gridPiringan',['Piringan 1','Piringan 2','Piringan 3','Piringan 4','Piringan 5','Piringan 6'],i=>{state.piringan=i;terapkan()});
+grid('gridGenre',state.genres,i=>{state.genre=state.genres[i-1];render()});
+document.getElementById('autoTema').onchange=e=>{state.autoTema=e.target.checked;simpan()};
+document.getElementById('autoPiringan').onchange=e=>{state.autoPiringan=e.target.checked;simpan()};
+
+function acak(){
+  if(state.autoTema) state.tema = 1+Math.floor(Math.random()*6);
+  if(state.autoPiringan) state.piringan = 1+Math.floor(Math.random()*6);
+  terapkan();
+  document.querySelectorAll('#gridTema button').forEach((b,i)=>b.classList.toggle('on',i+1===state.tema));
+  document.querySelectorAll('#gridPiringan button').forEach((b,i)=>b.classList.toggle('on',i+1===state.piringan));
+}
+function simpan(){ try{ localStorage.winoro=JSON.stringify(state) }catch(e){} }
+
+const fi = document.getElementById('fileInput');
+document.getElementById('pilihBerkas').onclick=()=>fi.click();
+fi.onchange=e=>{
+  [...e.target.files].filter(f=>f.type.startsWith('audio/')).forEach(f=>
+    state.playlist.push({judul:f.name.replace(/\.[^.]+$/,''),artis:'Lokal',url:URL.createObjectURL(f),dur:0})
+  );
+  render();
+  if(state.index<0 && state.playlist.length) putar(0);
+};
+function render(){
+  const d=document.getElementById('daftar'); d.innerHTML='';
+  const list = state.genre==='SEMUA' ? state.playlist
+    : state.playlist.filter(l=>(l.judul+' '+l.artis).toUpperCase().includes(state.genre));
+  if(!list.length){ d.innerHTML='<p style="text-align:center;color:var(--muted);margin-top:30px">Belum ada lagu</p>'; return; }
+  list.forEach((l,i)=>{
+    const asli=state.playlist.indexOf(l);
+    const it=document.createElement('div');
+    it.className='laguItem'+(asli===state.index?' aktif':'');
+    it.innerHTML=`<div class="no">${i+1}</div><div class="nama"><div>${l.judul}</div><small>${l.artis}</small></div>`;
+    it.onclick=()=>putar(asli); d.appendChild(it);
+  });
+}
+
+const pir = document.getElementById('piringan');
+const jdl=document.getElementById('jdl'), ar=document.getElementById('artis');
+const bp=document.getElementById('play'), ib=document.getElementById('isiBar');
+const w0=document.getElementById('w0'),w1=document.getElementById('w1');
+const fmt=s=>{if(!isFinite(s))return'0:00';const m=Math.floor(s/60);return m+':'+String(Math.floor(s%60)).padStart(2,'0')};
+
+function putar(i){
+  if(i<0||i>=state.playlist.length) return;
+  state.index=i; const l=state.playlist[i];
+  audio.src=l.url; jdl.textContent=l.judul; ar.textContent=l.artis;
+  siapkanAudio(); acak();
+  audio.play().catch(()=>{}); render(); pindah('halPlayer');
+}
+bp.onclick=()=>{
+  if(!state.playlist.length) return; siapkanAudio();
+  if(audio.paused) audio.play(); else audio.pause();
+};
+audio.onplay=()=>{pir.classList.add('putar');bp.textContent='⏸'};
+audio.onpause=()=>{pir.classList.remove('putar');bp.textContent='▶'};
+audio.ontimeupdate=()=>{
+  const p=audio.currentTime/audio.duration*100;
+  ib.style.width=(isFinite(p)?p:0)+'%'; w0.textContent=fmt(audio.currentTime);
+};
+audio.onloadedmetadata=()=>w1.textContent=fmt(audio.duration);
+audio.onended=()=>state.index<state.playlist.length-1?putar(state.index+1):(pir.classList.remove('putar'),bp.textContent='▶');
+document.getElementById('bar').onclick=e=>{
+  const r=e.currentTarget.getBoundingClientRect();
+  audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;
+};
+document.getElementById('next').onclick=()=>putar((state.index+1)%state.playlist.length);
+document.getElementById('prev').onclick=()=>putar((state.index-1+state.playlist.length)%state.playlist.length);
+
+document.getElementById('ytPlay').onclick=async()=>{
+  const link=document.getElementById('ytLink').value.trim(); if(!link) return;
+  const m=link.match(/(?:v=|youtu\.be\/|shorts\/|embed\/)([A-Za-z0-9_-]{11})/);
+  if(!m){ alert('Link YouTube tidak dikenali'); return; }
+  const id=m[1]; let au='';
+  for(const u of [`https://pipedapi.kavin.rocks/streams/${id}`,`https://api.invidious.io/api/v1/videos/${id}`]){
+    try{ const r=await fetch(u); if(!r.ok) continue; const j=await r.json();
+      if(j.audioStreams) au=(j.audioStreams.find(x=>x.mimeType?.includes('mp4'))||j.audioStreams[0]).url;
+      else if(j.adaptiveFormats) au=j.adaptiveFormats.filter(x=>x.type?.includes('audio')).sort((a,b)=>b.bitrate-a.bitrate)[0].url;
+      if(au) break;
+    }catch(e){}
+  }
+  if(!au){ alert('Belum bisa ambil audio ini'); return; }
+  siapkanAudio();
+  state.playlist.push({judul:'YouTube • '+id,artis:'Dari link',url:au,dur:0});
+  putar(state.playlist.length-1); tutupD();
+};
+
+function pindah(id){
+  document.querySelectorAll('.halaman').forEach(h=>h.classList.remove('aktif'));
+  document.getElementById(id).classList.add('aktif');
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('aktif',b.dataset.hal===id));
+}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>pindah(b.dataset.hal));
+
+try{
+  const s=JSON.parse(localStorage.winoro||'{}'); Object.assign(state,s); terapkan();
+  document.getElementById('gain').value=state.gain*100;
+  document.getElementById('nilaiGain').textContent=Math.round(state.gain*100)+'%';
+  document.getElementById('autoTema').checked=!!state.autoTema;
+  document.getElementById('autoPiringan').checked=state.autoPiringan!==false;
+  setTimeout(()=>{
+    document.querySelectorAll('#gridTema button')[state.tema-1]?.classList.add('on');
+    document.querySelectorAll('#gridPiringan button')[state.piringan-1]?.classList.add('on');
+  },50);
+}catch(e){}
+
+if('serviceWorker'in navigator) navigator.serviceWorker.register('sw.js');
+</script>
+</body>
+</html>
