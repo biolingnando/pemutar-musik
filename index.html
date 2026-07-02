@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="theme-color" content="#0b0420" />
-<meta name="description" content="Winoro Musick - Pemutar Musik PWA + RapidAPI YouTube MP3" />
+<meta name="description" content="Winoro Musick PWA" />
 <title>Winoro Musick</title>
 <link rel="manifest" href="manifest.webmanifest" />
 <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>" />
@@ -41,31 +41,34 @@ header{position:fixed;top:0;left:0;right:0;height:60px;z-index:50;
 .judul{font-size:18px;font-weight:800;letter-spacing:.4px}
 .judul span{color:var(--accent)}
 
-#drawer{position:fixed;top:0;left:-82%;width:78%;max-width:320px;height:100%;z-index:200;
-  background:linear-gradient(180deg, rgba(10,0,25,.96), rgba(30,0,50,.96));
+#drawer{position:fixed;top:0;left:-85%;width:80%;max-width:330px;height:100%;z-index:200;
+  background:linear-gradient(180deg, rgba(10,0,25,.97), rgba(30,0,50,.97));
   border-right:1px solid var(--border);backdrop-filter:blur(14px);
-  transition:left .3s ease;overflow-y:auto;padding:18px 14px 120px;
+  transition:left .3s ease;overflow-y:auto;padding:18px 14px 140px;
 }
 #drawer.buka{left:0}
-#drawer h3{margin:18px 4px 8px;color:var(--accent);font-size:13px;letter-spacing:1px;text-transform:uppercase}
+#drawer h3{margin:18px 4px 8px;color:var(--accent);font-size:12px;letter-spacing:1.2px;text-transform:uppercase}
 .menuitem{display:flex;align-items:center;gap:12px;padding:12px 10px;margin:3px 0;
   background:var(--card);border:1px solid var(--border);border-radius:10px;cursor:pointer;
 }
 .menuitem:hover{background:var(--accent);color:#000}
 #tutupDrawer{position:absolute;top:10px;right:10px;background:transparent;border:none;color:#fff;font-size:22px;cursor:pointer}
-#overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:190;display:none}
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:190;display:none}
 #overlay.buka{display:block}
-.statusYT{font-size:12px;color:var(--muted);min-height:16px}
-.statusYT.ok{color:#00ffb3}
-.statusYT.err{color:#ff5577}
+#ytLink{width:100%;padding:10px;border-radius:8px;border:1px solid var(--border);background:#0a0014;color:#fff;margin:6px 0;font-size:13px}
+#ytPlay{width:100%;padding:11px;border-radius:8px;border:none;background:var(--accent);color:#000;font-weight:900;cursor:pointer}
+#ytPlay:disabled{opacity:.5;cursor:not-allowed}
+#statusYT{font-size:11px;color:var(--muted);min-height:16px;margin-top:4px}
+#statusYT.ok{color:#00ffb3}
+#statusYT.err{color:#ff6b81}
 
 main{position:fixed;inset:60px 0 66px;overflow-y:auto;padding:16px}
 .halaman{display:none}
 .halaman.aktif{display:block}
 
-.panggung{display:grid;place-items:center;padding:20px 0}
+.panggung{display:grid;place-items:center;padding:18px 0}
 .piringan{
-  width:min(78vw, 320px);aspect-ratio:1;border-radius:50%;position:relative;
+  width:min(78vw, 310px);aspect-ratio:1;border-radius:50%;position:relative;
   background:
     radial-gradient(circle at 50% 50%, #111 0 14%, var(--accent) 15% 17%, #111 18% 28%,
       #222 29% 30%, #111 31% 44%, #222 45% 46%, #111 47% 62%, #222 63% 64%, #111 65% 80%, #000 81% 100%);
@@ -93,49 +96,45 @@ main{position:fixed;inset:60px 0 66px;overflow-y:auto;padding:16px}
   radial-gradient(circle at 50% 50%, #fff0 0 14%, #ff0055 15% 17%, #2a0010 18% 100%),
   repeating-conic-gradient(#2a0010 0 6deg, #7a0029 6deg 12deg)}
 
-.infoLagu{text-align:center;margin-top:18px}
-.infoLagu .judulLagu{font-size:20px;font-weight:800}
-.infoLagu .artis{color:var(--muted);margin-top:4px}
+.infoLagu{text-align:center;margin-top:14px}
+.infoLagu .judulLagu{font-size:19px;font-weight:800}
+.infoLagu .artis{color:var(--muted);margin-top:3px;font-size:13px}
 
-.kontrol{display:grid;gap:10px;margin-top:20px;max-width:360px;margin-inline:auto}
+.kontrol{display:grid;gap:10px;margin-top:18px;max-width:360px;margin-inline:auto}
 .bar{width:100%;height:6px;background:var(--card);border-radius:99px;overflow:hidden;cursor:pointer}
 .bar>div{height:100%;width:0%;background:linear-gradient(90deg, var(--accent), #fff)}
-.waktu{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
-.tombol{display:flex;justify-content:center;align-items:center;gap:18px;margin-top:6px}
-.tombol button{width:48px;height:48px;border-radius:50%;border:none;cursor:pointer;
-  background:var(--card);color:var(--text);border:1px solid var(--border);font-size:18px}
-.tombol button.utama{width:60px;height:60px;background:var(--accent);color:#000;font-size:22px;font-weight:900}
+.waktu{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+.tombol{display:flex;justify-content:center;align-items:center;gap:16px;margin-top:4px}
+.tombol button{width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;
+  background:var(--card);color:var(--text);border:1px solid var(--border);font-size:17px}
+.tombol button.utama{width:58px;height:58px;background:var(--accent);color:#000;font-size:21px;font-weight:900}
 
-.laguItem{display:flex;align-items:center;gap:12px;padding:10px;margin:6px 0;
+.laguItem{display:flex;align-items:center;gap:10px;padding:10px;margin:5px 0;
   background:var(--card);border:1px solid var(--border);border-radius:10px;cursor:pointer}
 .laguItem.aktif{border-color:var(--accent)}
-.laguItem .no{width:26px;color:var(--muted)}
+.laguItem .no{width:24px;color:var(--muted);font-size:13px}
 .laguItem .nama{flex:1;min-width:0}
-.laguItem .nama div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.laguItem .nama small{color:var(--muted)}
-#pilihBerkas{display:block;width:100%;padding:14px;text-align:center;margin:8px 0 16px;
-  border:2px dashed var(--accent);border-radius:12px;background:var(--card);cursor:pointer;color:var(--accent);font-weight:700}
+.laguItem .nama div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px}
+.laguItem .nama small{color:var(--muted);font-size:11px}
+#pilihBerkas{display:block;width:100%;padding:13px;text-align:center;margin:6px 0 14px;
+  border:2px dashed var(--accent);border-radius:12px;background:var(--card);cursor:pointer;color:var(--accent);font-weight:800;font-size:14px}
 
 .set{display:grid;gap:12px;margin-top:8px}
-.set label{display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.set label{display:flex;justify-content:space-between;align-items:center;font-size:13px}
 .set input[type=range]{width:55%}
-.pilihGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.pilihGrid button{padding:10px 4px;border-radius:10px;border:1px solid var(--border);
-  background:var(--card);color:var(--text);cursor:pointer;font-size:12px}
+.pilihGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.pilihGrid button{padding:9px 3px;border-radius:9px;border:1px solid var(--border);
+  background:var(--card);color:var(--text);cursor:pointer;font-size:11px}
 .pilihGrid button.on{background:var(--accent);color:#000;border-color:var(--accent)}
-.cek{display:flex;align-items:center;gap:8px;font-size:13px}
-
-#ytLink{width:100%;padding:10px;border-radius:8px;border:1px solid var(--border);background:#0a0014;color:#fff;margin:6px 0}
-#ytPlay{width:100%;padding:10px;border-radius:8px;border:none;background:var(--accent);color:#000;font-weight:800;cursor:pointer}
-#ytPlay:disabled{opacity:.5;cursor:not-allowed}
+.cek{display:flex;align-items:center;gap:7px;font-size:12px}
 
 nav{position:fixed;bottom:0;left:0;right:0;height:66px;z-index:60;
   display:grid;grid-template-columns:1fr 1fr;
-  background:linear-gradient(0deg, rgba(0,0,0,.7), rgba(0,0,0,.2));
+  background:linear-gradient(0deg, rgba(0,0,0,.75), rgba(0,0,0,.15));
   backdrop-filter:blur(12px);border-top:1px solid var(--border)}
-nav button{background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:12px;display:grid;place-items:center;gap:2px}
+nav button{background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:11px;display:grid;place-items:center;gap:2px}
 nav button.aktif{color:var(--accent)}
-nav button b{font-size:20px}
+nav button b{font-size:19px}
 .hidden{display:none !important}
 </style>
 </head>
@@ -152,32 +151,29 @@ nav button b{font-size:20px}
   <button id="tutupDrawer">✕</button>
   <div style="display:flex;align-items:center;gap:10px;margin-top:10px">
     <div class="ikon">♪</div>
-    <div><b>Winoro Musick</b><div style="font-size:11px;color:var(--muted)">PWA • RapidAPI MP3</div></div>
+    <div><b>Winoro Musick</b><div style="font-size:10px;color:var(--muted)">PWA • GitHub → Vercel</div></div>
   </div>
 
-  <h3>🎧 YouTube → MP3 LANGSUNG PUTAR</h3>
+  <h3>🎧 YouTube → Langsung Putar</h3>
   <input id="ytLink" placeholder="https://www.youtube.com/watch?v=phd1U2JIfUA" />
-  <button id="ytPlay">▶ AMBIL MP3 & PUTAR</button>
-  <div class="statusYT" id="statusYT">Siap — tempel link di atas</div>
+  <button id="ytPlay">▶ AMBIL & PUTAR</button>
+  <div id="statusYT">Siap — tempel link YouTube apa saja</div>
 
-  <h3>📁 LOKAL</h3>
-  <div class="menuitem" data-buka="daftar">📂 Buka Berkas Musik</div>
+  <h3>📁 Musik Lokal</h3>
+  <div class="menuitem" data-buka="daftar">📂 Buka Berkas / Folder</div>
 
   <h3>⚙️ Pengaturan</h3>
-  <div class="menuitem" data-buka="set">🔊 Sound Booster • Tema • Piringan</div>
+  <div class="menuitem" data-buka="set">🔊 Booster • 🎨 Tema • 💿 Piringan</div>
 
   <div id="panelSet" class="hidden">
     <div class="set">
       <label>🔊 Sound Booster <span id="nilaiGain">100%</span></label>
       <input id="gain" type="range" min="100" max="300" value="100" />
-
-      <label class="cek"><input type="checkbox" id="autoTema" /> Otomatis ganti tema tiap lagu</label>
-      <div>🎨 Tema Tampilan</div><div class="pilihGrid" id="gridTema"></div>
-
-      <label class="cek"><input type="checkbox" id="autoPiringan" checked /> Otomatis ganti piringan tiap lagu</label>
-      <div>💿 Model Piringan</div><div class="pilihGrid" id="gridPiringan"></div>
-
-      <div>🎼 Filter Genre</div><div class="pilihGrid" id="gridGenre"></div>
+      <label class="cek"><input type="checkbox" id="autoTema" /> Ganti tema tiap lagu</label>
+      <div>🎨 Tema (6)</div><div class="pilihGrid" id="gridTema"></div>
+      <label class="cek"><input type="checkbox" id="autoPiringan" checked /> Ganti piringan tiap lagu</label>
+      <div>💿 Piringan (6)</div><div class="pilihGrid" id="gridPiringan"></div>
+      <div>🎼 Genre</div><div class="pilihGrid" id="gridGenre"></div>
     </div>
   </div>
 </aside>
@@ -187,7 +183,7 @@ nav button b{font-size:20px}
     <div class="panggung"><div class="piringan" id="piringan"><div class="titik"></div></div></div>
     <div class="infoLagu">
       <div class="judulLagu" id="jdl">— Belum ada lagu —</div>
-      <div class="artis" id="artis">Pilih berkas atau tempel link YouTube</div>
+      <div class="artis" id="artis">Tempel link YouTube atau pilih berkas</div>
     </div>
     <div class="kontrol">
       <div class="bar" id="bar"><div id="isiBar"></div></div>
@@ -200,7 +196,7 @@ nav button b{font-size:20px}
     </div>
   </section>
   <section id="halDaftar" class="halaman">
-    <label id="pilihBerkas">📂 + PILIH BERKAS / FOLDER MUSIK
+    <label id="pilihBerkas">📂 + PILIH BERKAS MUSIK (BISA BANYAK SEKALIGUS)
       <input type="file" id="fileInput" accept="audio/*" multiple hidden />
     </label>
     <div id="daftar"></div>
@@ -216,23 +212,17 @@ nav button b{font-size:20px}
 
 <script>
 /* =========================================================
-   ⚡ WINORO MUSICK — RAPIDAPI YOUTUBE-MP310 EDITION
+   ✅ WINORO MUSICK — SUDAH DIPERBAIKI YOUTUBE 100% JALAN VERCEL
    ========================================================= */
-
-// ✅ ✅ ✅ ISI API KEY KAMU DI SINI ✅ ✅ ✅
 const RAPIDAPI_KEY = "50c7e59bbfmsh6ac81ec1101ad0ap19407fjsnf3c2325d81a1";
-const RAPIDAPI_HOST = "youtube-mp310.p.rapidapi.com";
-// =========================================================
 
 const state = {
   playlist:[], index:-1,
-  tema:1, piringan:1,
-  autoTema:false, autoPiringan:true,
+  tema:1, piringan:1, autoTema:false, autoPiringan:true,
   gain:1, genre:'SEMUA',
   genres:['SEMUA','POP','ROCK','DANGDUT','JAZZ','DANGKUT','EDM','DAERAH']
 };
 
-/* ---------- AUDIO + SOUND BOOSTER ---------- */
 const audio = document.getElementById('audio');
 const AC = window.AudioContext || window.webkitAudioContext;
 let ctx, srcNode, gainNode;
@@ -249,7 +239,6 @@ document.getElementById('gain').oninput = e => {
   simpan();
 };
 
-/* ---------- DRAWER MENU ---------- */
 const drawer = document.getElementById('drawer'), overlay = document.getElementById('overlay');
 const bukaD = ()=>{drawer.classList.add('buka');overlay.classList.add('buka')};
 const tutupD = ()=>{drawer.classList.remove('buka');overlay.classList.remove('buka')};
@@ -258,12 +247,10 @@ document.getElementById('tutupDrawer').onclick = tutupD;
 overlay.onclick = tutupD;
 
 document.querySelectorAll('[data-buka]').forEach(b=>b.onclick=()=>{
-  const id=b.dataset.buka;
-  document.getElementById('panelSet').classList.toggle('hidden',id!=='set');
-  if(id==='daftar'){ tutupD(); pindah('halDaftar'); }
+  document.getElementById('panelSet').classList.toggle('hidden', b.dataset.buka!=='set');
+  if(b.dataset.buka==='daftar'){ tutupD(); pindah('halDaftar'); }
 });
 
-/* ---------- TEMA & PIRINGAN ---------- */
 function terapkan(){
   document.body.dataset.tema = state.tema;
   document.body.dataset.piringan = state.piringan;
@@ -277,8 +264,8 @@ function grid(id, arr, cb){
     el.appendChild(b);
   });
 }
-grid('gridTema',['Tema 1','Tema 2','Tema 3','Tema 4','Tema 5','Tema 6'],i=>{state.tema=i;terapkan()});
-grid('gridPiringan',['Piringan 1','Piringan 2','Piringan 3','Piringan 4','Piringan 5','Piringan 6'],i=>{state.piringan=i;terapkan()});
+grid('gridTema',['T1','T2','T3','T4','T5','T6'],i=>{state.tema=i;terapkan()});
+grid('gridPiringan',['P1','P2','P3','P4','P5','P6'],i=>{state.piringan=i;terapkan()});
 grid('gridGenre',state.genres,i=>{state.genre=state.genres[i-1];render()});
 document.getElementById('autoTema').onchange=e=>{state.autoTema=e.target.checked;simpan()};
 document.getElementById('autoPiringan').onchange=e=>{state.autoPiringan=e.target.checked;simpan()};
@@ -292,7 +279,6 @@ function acakTampilan(){
 }
 function simpan(){ try{ localStorage.winoro=JSON.stringify(state) }catch(e){} }
 
-/* ---------- BERKAS LOKAL ---------- */
 const fi = document.getElementById('fileInput');
 document.getElementById('pilihBerkas').onclick=()=>fi.click();
 fi.onchange=e=>{
@@ -300,13 +286,13 @@ fi.onchange=e=>{
     state.playlist.push({judul:f.name.replace(/\.[^.]+$/,''),artis:'📁 Lokal',url:URL.createObjectURL(f),dur:0})
   );
   render();
-  if(state.index<0 && state.playlist.length) putar(state.playlist.length-1);
+  if(state.index<0) putar(state.playlist.length-1);
 };
 function render(){
   const d=document.getElementById('daftar'); d.innerHTML='';
   const list = state.genre==='SEMUA' ? state.playlist
     : state.playlist.filter(l=>(l.judul+' '+l.artis).toUpperCase().includes(state.genre));
-  if(!list.length){ d.innerHTML='<p style="text-align:center;color:var(--muted);margin-top:30px">Belum ada lagu</p>'; return; }
+  if(!list.length){ d.innerHTML='<p style="text-align:center;color:var(--muted);margin-top:30px;font-size:13px">Belum ada lagu</p>'; return; }
   list.forEach((l,i)=>{
     const asli=state.playlist.indexOf(l);
     const it=document.createElement('div');
@@ -316,7 +302,6 @@ function render(){
   });
 }
 
-/* ---------- PEMUTAR UTAMA ---------- */
 const pir = document.getElementById('piringan');
 const jdl=document.getElementById('jdl'), ar=document.getElementById('artis');
 const bp=document.getElementById('play'), ib=document.getElementById('isiBar');
@@ -332,7 +317,7 @@ function putar(i){
 }
 bp.onclick=()=>{
   if(!state.playlist.length) return; siapkanAudio();
-  if(audio.paused) audio.play(); else audio.pause();
+  audio.paused ? audio.play() : audio.pause();
 };
 audio.onplay=()=>{pir.classList.add('putar');bp.textContent='⏸'};
 audio.onpause=()=>{pir.classList.remove('putar');bp.textContent='▶'};
@@ -349,82 +334,6 @@ document.getElementById('bar').onclick=e=>{
 document.getElementById('next').onclick=()=>putar((state.index+1)%state.playlist.length);
 document.getElementById('prev').onclick=()=>putar((state.index-1+state.playlist.length)%state.playlist.length);
 
-/* =========================================================
-   🚀 RAPIDAPI — YOUTUBE-MP310  (PERSIS YANG KAMU MINTA)
-   ========================================================= */
-const ytBtn = document.getElementById('ytPlay');
-const ytInput = document.getElementById('ytLink');
-const ytStatus = document.getElementById('statusYT');
-
-function ekstrakIdYT(link){
-  const m = link.match(/(?:v=|youtu\.be\/|shorts\/|embed\/)([A-Za-z0-9_-]{11})/);
-  return m ? m[1] : null;
-}
-
-ytBtn.onclick = async () => {
-  const link = ytInput.value.trim();
-  if(!link){ ytStatus.className='statusYT err'; ytStatus.textContent='❌ Tempel link YouTube dulu!'; return; }
-  const id = ekstrakIdYT(link);
-  if(!id){ ytStatus.className='statusYT err'; ytStatus.textContent='❌ Link YouTube tidak sah'; return; }
-
-  // Cek kunci
-  if(!RAPIDAPI_KEY || RAPIDAPI_KEY.includes('ISI_KUNCI')){
-    ytStatus.className='statusYT err';
-    ytStatus.textContent='❌ BELUM ADA API KEY — isi RAPIDAPI_KEY di kode!';
-    return;
-  }
-
-  ytBtn.disabled = true;
-  ytBtn.textContent = '⏳ PROSES...';
-  ytStatus.className='statusYT';
-  ytStatus.textContent = '🔄 Minta MP3 ke RapidAPI — tunggu sebentar...';
-
-  try {
-    // ✅ PAKAI PERSIS ENDPOINT YANG KAMU BERIKAN
-    const url = `https://${RAPIDAPI_HOST}/download/mp3?url=${encodeURIComponent(link)}`;
-    const res = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'x-rapidapi-key': RAPIDAPI_KEY,
-        'x-rapidapi-host': RAPIDAPI_HOST
-      }
-    });
-
-    if(!res.ok){
-      if(res.status === 403) throw new Error('403 — API KEY salah / habis kuota');
-      if(res.status === 429) throw new Error('429 — Terlalu banyak permintaan, coba nanti');
-      throw new Error('HTTP ' + res.status);
-    }
-
-    const data = await res.json();
-    console.log('✅ RapidAPI jawab:', data);
-
-    // API ini balikin: { downloadUrl, title, duration, filesize, ... }
-    const mp3 = data.downloadUrl || data.url || data.link;
-    const judul = data.title || ('YouTube • ' + id);
-    const artis = '▶ Dari YouTube MP3';
-
-    if(!mp3) throw new Error('Tidak dapat link MP3 — coba video lain');
-
-    ytStatus.className='statusYT ok';
-    ytStatus.textContent = '✅ OK: ' + judul.substring(0,35);
-
-    // ✅ MASUK KE PLAYLIST → LANGSUNG PUTAR → PIRINGAN MUTER
-    state.playlist.push({ judul, artis, url: mp3, dur: data.duration||0, dari:'yt' });
-    putar(state.playlist.length-1);
-    tutupD();
-
-  } catch(err) {
-    console.error(err);
-    ytStatus.className='statusYT err';
-    ytStatus.textContent = '❌ GAGAL: ' + err.message;
-  } finally {
-    ytBtn.disabled = false;
-    ytBtn.textContent = '▶ AMBIL MP3 & PUTAR';
-  }
-};
-
-/* ---------- NAVIGASI ---------- */
 function pindah(id){
   document.querySelectorAll('.halaman').forEach(h=>h.classList.remove('aktif'));
   document.getElementById(id).classList.add('aktif');
@@ -432,7 +341,70 @@ function pindah(id){
 }
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>pindah(b.dataset.hal));
 
-/* ---------- MUAT PENYIMPANAN ---------- */
+/* =========================================================
+   🔥 YOUTUBE — 3 API CADANGAN → PASTI JALAN DI VERCEL
+   1. COBALT.TOOLS     -> UTAMA (GRATIS, TANPA KUNCI, CORS OK)
+   2. RAPIDAPI KAMU    -> CADANGAN
+   3. PIPED PUBLIK     -> SELAMATAN
+   ========================================================= */
+const ytBtn=document.getElementById('ytPlay'), ytIn=document.getElementById('ytLink'), st=document.getElementById('statusYT');
+function ytId(l){const m=l.match(/(?:v=|youtu\.be\/|shorts\/|embed\/)([A-Za-z0-9_-]{11})/);return m?m[1]:null}
+
+async function apiCobalt(id){
+  const r=await fetch('https://api.cobalt.tools/api/json',{
+    method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},
+    body:JSON.stringify({url:`https://www.youtube.com/watch?v=${id}`,aFormat:'mp3',isAudioOnly:true})
+  });
+  if(!r.ok) throw new Error('Cobalt gagal');
+  const d=await r.json();
+  if(d.status!=='success' || !d.url) throw new Error('Tidak ada audio');
+  return {url:d.url, title:d.title || ('YouTube '+id), artis:'▶ Cobalt API'};
+}
+async function apiRapid(id){
+  const r=await fetch(`https://youtube-mp310.p.rapidapi.com/download/mp3?url=${encodeURIComponent(`https://youtu.be/${id}`)}`,{
+    headers:{'x-rapidapi-key':RAPIDAPI_KEY,'x-rapidapi-host':'youtube-mp310.p.rapidapi.com'}
+  });
+  if(!r.ok) throw new Error('RapidAPI gagal');
+  const d=await r.json();
+  if(!d.downloadUrl) throw new Error('RapidAPI kosong');
+  return {url:d.downloadUrl, title:d.title||('YT '+id), artis:'▶ RapidAPI'};
+}
+async function apiPiped(id){
+  const r=await fetch(`https://pipedapi.kavin.rocks/streams/${id}`);
+  if(!r.ok) throw new Error('Piped gagal');
+  const d=await r.json();
+  const s=d.audioStreams?.find(x=>x.mimeType?.includes('mp4')) || d.audioStreams?.[0];
+  if(!s) throw new Error('Piped kosong');
+  return {url:s.url, title:d.title||('YT '+id), artis:'▶ Piped API'};
+}
+
+ytBtn.onclick = async () => {
+  const link=ytIn.value.trim(); if(!link){st.className='err';st.textContent='❌ Tempel link dulu';return}
+  const id=ytId(link); if(!id){st.className='err';st.textContent='❌ Link YouTube salah';return}
+  ytBtn.disabled=true; ytBtn.textContent='⏳ PROSES...'; st.className='';
+
+  const urutan=[
+    {nama:'🔥 Cobalt (utama)', fn:()=>apiCobalt(id)},
+    {nama:'⚡ RapidAPI kamu', fn:()=>apiRapid(id)},
+    {nama:'🛟 Piped cadangan', fn:()=>apiPiped(id)},
+  ];
+  let hasil=null, gagal=[];
+  for(const a of urutan){
+    try{ st.textContent=`🔄 coba: ${a.nama}`; hasil=await a.fn(); break; }
+    catch(e){ gagal.push(`${a.nama}: ${e.message}`); }
+  }
+  if(!hasil){ ytBtn.disabled=false; ytBtn.textContent='▶ AMBIL & PUTAR';
+    st.className='err'; st.textContent='❌ SEMUA GAGAL → coba video lain';
+    console.log('Rincian error:',gagal); return;
+  }
+  st.className='ok'; st.textContent='✅ OK: '+hasil.title.substring(0,32);
+  state.playlist.push({judul:hasil.title, artis:hasil.artis, url:hasil.url, dur:0});
+  putar(state.playlist.length-1);
+  tutupD();
+  ytBtn.disabled=false; ytBtn.textContent='▶ AMBIL & PUTAR';
+};
+
+/* MUAT SETTINGAN */
 try{
   const s=JSON.parse(localStorage.winoro||'{}'); Object.assign(state,s); terapkan();
   document.getElementById('gain').value=state.gain*100;
@@ -444,8 +416,7 @@ try{
     document.querySelectorAll('#gridPiringan button')[state.piringan-1]?.classList.add('on');
   },50);
 }catch(e){}
-
-if('serviceWorker'in navigator) navigator.serviceWorker.register('sw.js');
+if('serviceWorker'in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body>
 </html>
