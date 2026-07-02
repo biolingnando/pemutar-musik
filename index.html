@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="theme-color" content="#0b0420" />
-<meta name="description" content="Winoro Musick - Pemutar Musik PWA" />
+<meta name="description" content="Winoro Musick - Pemutar Musik PWA + RapidAPI YouTube MP3" />
 <title>Winoro Musick</title>
 <link rel="manifest" href="manifest.webmanifest" />
 <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>" />
@@ -44,7 +44,7 @@ header{position:fixed;top:0;left:0;right:0;height:60px;z-index:50;
 #drawer{position:fixed;top:0;left:-82%;width:78%;max-width:320px;height:100%;z-index:200;
   background:linear-gradient(180deg, rgba(10,0,25,.96), rgba(30,0,50,.96));
   border-right:1px solid var(--border);backdrop-filter:blur(14px);
-  transition:left .3s ease;overflow-y:auto;padding:18px 14px 100px;
+  transition:left .3s ease;overflow-y:auto;padding:18px 14px 120px;
 }
 #drawer.buka{left:0}
 #drawer h3{margin:18px 4px 8px;color:var(--accent);font-size:13px;letter-spacing:1px;text-transform:uppercase}
@@ -55,6 +55,9 @@ header{position:fixed;top:0;left:0;right:0;height:60px;z-index:50;
 #tutupDrawer{position:absolute;top:10px;right:10px;background:transparent;border:none;color:#fff;font-size:22px;cursor:pointer}
 #overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:190;display:none}
 #overlay.buka{display:block}
+.statusYT{font-size:12px;color:var(--muted);min-height:16px}
+.statusYT.ok{color:#00ffb3}
+.statusYT.err{color:#ff5577}
 
 main{position:fixed;inset:60px 0 66px;overflow-y:auto;padding:16px}
 .halaman{display:none}
@@ -110,7 +113,6 @@ main{position:fixed;inset:60px 0 66px;overflow-y:auto;padding:16px}
 .laguItem .nama{flex:1;min-width:0}
 .laguItem .nama div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .laguItem .nama small{color:var(--muted)}
-.laguItem .dur{color:var(--muted);font-size:12px}
 #pilihBerkas{display:block;width:100%;padding:14px;text-align:center;margin:8px 0 16px;
   border:2px dashed var(--accent);border-radius:12px;background:var(--card);cursor:pointer;color:var(--accent);font-weight:700}
 
@@ -123,8 +125,9 @@ main{position:fixed;inset:60px 0 66px;overflow-y:auto;padding:16px}
 .pilihGrid button.on{background:var(--accent);color:#000;border-color:var(--accent)}
 .cek{display:flex;align-items:center;gap:8px;font-size:13px}
 
-#ytLink{width:100%;padding:10px;border-radius:8px;border:1px solid var(--border);background:#0a0014;color:#fff;margin:8px 0}
+#ytLink{width:100%;padding:10px;border-radius:8px;border:1px solid var(--border);background:#0a0014;color:#fff;margin:6px 0}
 #ytPlay{width:100%;padding:10px;border-radius:8px;border:none;background:var(--accent);color:#000;font-weight:800;cursor:pointer}
+#ytPlay:disabled{opacity:.5;cursor:not-allowed}
 
 nav{position:fixed;bottom:0;left:0;right:0;height:66px;z-index:60;
   display:grid;grid-template-columns:1fr 1fr;
@@ -149,22 +152,19 @@ nav button b{font-size:20px}
   <button id="tutupDrawer">✕</button>
   <div style="display:flex;align-items:center;gap:10px;margin-top:10px">
     <div class="ikon">♪</div>
-    <div><b>Winoro Musick</b><div style="font-size:11px;color:var(--muted)">PWA • GitHub → Vercel</div></div>
+    <div><b>Winoro Musick</b><div style="font-size:11px;color:var(--muted)">PWA • RapidAPI MP3</div></div>
   </div>
 
-  <h3>🎧 Sumber Musik</h3>
-  <div class="menuitem" id="bukaYT">▶ Putar dari Link YouTube</div>
-  <div class="menuitem" data-buka="daftar">📁 Buka Berkas Musik Lokal</div>
+  <h3>🎧 YouTube → MP3 LANGSUNG PUTAR</h3>
+  <input id="ytLink" placeholder="https://www.youtube.com/watch?v=phd1U2JIfUA" />
+  <button id="ytPlay">▶ AMBIL MP3 & PUTAR</button>
+  <div class="statusYT" id="statusYT">Siap — tempel link di atas</div>
+
+  <h3>📁 LOKAL</h3>
+  <div class="menuitem" data-buka="daftar">📂 Buka Berkas Musik</div>
 
   <h3>⚙️ Pengaturan</h3>
-  <div class="menuitem" data-buka="set">🔊 Sound Booster & Tema</div>
-
-  <div id="panelYT" class="hidden">
-    <h3 style="margin-top:14px">YouTube</h3>
-    <input id="ytLink" placeholder="Tempel link YouTube di sini…" />
-    <button id="ytPlay">PUTAR LANGSUNG</button>
-    <p style="font-size:11px;color:var(--muted);margin-top:6px">Audio diputar langsung — tidak pindah ke YouTube.</p>
-  </div>
+  <div class="menuitem" data-buka="set">🔊 Sound Booster • Tema • Piringan</div>
 
   <div id="panelSet" class="hidden">
     <div class="set">
@@ -172,15 +172,12 @@ nav button b{font-size:20px}
       <input id="gain" type="range" min="100" max="300" value="100" />
 
       <label class="cek"><input type="checkbox" id="autoTema" /> Otomatis ganti tema tiap lagu</label>
-      <div>🎨 Tema Tampilan</div>
-      <div class="pilihGrid" id="gridTema"></div>
+      <div>🎨 Tema Tampilan</div><div class="pilihGrid" id="gridTema"></div>
 
       <label class="cek"><input type="checkbox" id="autoPiringan" checked /> Otomatis ganti piringan tiap lagu</label>
-      <div>💿 Model Piringan</div>
-      <div class="pilihGrid" id="gridPiringan"></div>
+      <div>💿 Model Piringan</div><div class="pilihGrid" id="gridPiringan"></div>
 
-      <div>🎼 Filter Genre</div>
-      <div class="pilihGrid" id="gridGenre"></div>
+      <div>🎼 Filter Genre</div><div class="pilihGrid" id="gridGenre"></div>
     </div>
   </div>
 </aside>
@@ -218,6 +215,15 @@ nav button b{font-size:20px}
 <audio id="audio" crossorigin="anonymous">
 
 <script>
+/* =========================================================
+   ⚡ WINORO MUSICK — RAPIDAPI YOUTUBE-MP310 EDITION
+   ========================================================= */
+
+// ✅ ✅ ✅ ISI API KEY KAMU DI SINI ✅ ✅ ✅
+const RAPIDAPI_KEY = "50c7e59bbfmsh6ac81ec1101ad0ap19407fjsnf3c2325d81a1";
+const RAPIDAPI_HOST = "youtube-mp310.p.rapidapi.com";
+// =========================================================
+
 const state = {
   playlist:[], index:-1,
   tema:1, piringan:1,
@@ -225,6 +231,8 @@ const state = {
   gain:1, genre:'SEMUA',
   genres:['SEMUA','POP','ROCK','DANGDUT','JAZZ','DANGKUT','EDM','DAERAH']
 };
+
+/* ---------- AUDIO + SOUND BOOSTER ---------- */
 const audio = document.getElementById('audio');
 const AC = window.AudioContext || window.webkitAudioContext;
 let ctx, srcNode, gainNode;
@@ -241,6 +249,7 @@ document.getElementById('gain').oninput = e => {
   simpan();
 };
 
+/* ---------- DRAWER MENU ---------- */
 const drawer = document.getElementById('drawer'), overlay = document.getElementById('overlay');
 const bukaD = ()=>{drawer.classList.add('buka');overlay.classList.add('buka')};
 const tutupD = ()=>{drawer.classList.remove('buka');overlay.classList.remove('buka')};
@@ -251,14 +260,10 @@ overlay.onclick = tutupD;
 document.querySelectorAll('[data-buka]').forEach(b=>b.onclick=()=>{
   const id=b.dataset.buka;
   document.getElementById('panelSet').classList.toggle('hidden',id!=='set');
-  document.getElementById('panelYT').classList.add('hidden');
   if(id==='daftar'){ tutupD(); pindah('halDaftar'); }
 });
-document.getElementById('bukaYT').onclick=()=>{
-  document.getElementById('panelYT').classList.toggle('hidden');
-  document.getElementById('panelSet').classList.add('hidden');
-};
 
+/* ---------- TEMA & PIRINGAN ---------- */
 function terapkan(){
   document.body.dataset.tema = state.tema;
   document.body.dataset.piringan = state.piringan;
@@ -278,7 +283,7 @@ grid('gridGenre',state.genres,i=>{state.genre=state.genres[i-1];render()});
 document.getElementById('autoTema').onchange=e=>{state.autoTema=e.target.checked;simpan()};
 document.getElementById('autoPiringan').onchange=e=>{state.autoPiringan=e.target.checked;simpan()};
 
-function acak(){
+function acakTampilan(){
   if(state.autoTema) state.tema = 1+Math.floor(Math.random()*6);
   if(state.autoPiringan) state.piringan = 1+Math.floor(Math.random()*6);
   terapkan();
@@ -287,14 +292,15 @@ function acak(){
 }
 function simpan(){ try{ localStorage.winoro=JSON.stringify(state) }catch(e){} }
 
+/* ---------- BERKAS LOKAL ---------- */
 const fi = document.getElementById('fileInput');
 document.getElementById('pilihBerkas').onclick=()=>fi.click();
 fi.onchange=e=>{
   [...e.target.files].filter(f=>f.type.startsWith('audio/')).forEach(f=>
-    state.playlist.push({judul:f.name.replace(/\.[^.]+$/,''),artis:'Lokal',url:URL.createObjectURL(f),dur:0})
+    state.playlist.push({judul:f.name.replace(/\.[^.]+$/,''),artis:'📁 Lokal',url:URL.createObjectURL(f),dur:0})
   );
   render();
-  if(state.index<0 && state.playlist.length) putar(0);
+  if(state.index<0 && state.playlist.length) putar(state.playlist.length-1);
 };
 function render(){
   const d=document.getElementById('daftar'); d.innerHTML='';
@@ -310,6 +316,7 @@ function render(){
   });
 }
 
+/* ---------- PEMUTAR UTAMA ---------- */
 const pir = document.getElementById('piringan');
 const jdl=document.getElementById('jdl'), ar=document.getElementById('artis');
 const bp=document.getElementById('play'), ib=document.getElementById('isiBar');
@@ -320,7 +327,7 @@ function putar(i){
   if(i<0||i>=state.playlist.length) return;
   state.index=i; const l=state.playlist[i];
   audio.src=l.url; jdl.textContent=l.judul; ar.textContent=l.artis;
-  siapkanAudio(); acak();
+  siapkanAudio(); acakTampilan();
   audio.play().catch(()=>{}); render(); pindah('halPlayer');
 }
 bp.onclick=()=>{
@@ -342,24 +349,82 @@ document.getElementById('bar').onclick=e=>{
 document.getElementById('next').onclick=()=>putar((state.index+1)%state.playlist.length);
 document.getElementById('prev').onclick=()=>putar((state.index-1+state.playlist.length)%state.playlist.length);
 
-document.getElementById('ytPlay').onclick=async()=>{
-  const link=document.getElementById('ytLink').value.trim(); if(!link) return;
-  const m=link.match(/(?:v=|youtu\.be\/|shorts\/|embed\/)([A-Za-z0-9_-]{11})/);
-  if(!m){ alert('Link YouTube tidak dikenali'); return; }
-  const id=m[1]; let au='';
-  for(const u of [`https://pipedapi.kavin.rocks/streams/${id}`,`https://api.invidious.io/api/v1/videos/${id}`]){
-    try{ const r=await fetch(u); if(!r.ok) continue; const j=await r.json();
-      if(j.audioStreams) au=(j.audioStreams.find(x=>x.mimeType?.includes('mp4'))||j.audioStreams[0]).url;
-      else if(j.adaptiveFormats) au=j.adaptiveFormats.filter(x=>x.type?.includes('audio')).sort((a,b)=>b.bitrate-a.bitrate)[0].url;
-      if(au) break;
-    }catch(e){}
+/* =========================================================
+   🚀 RAPIDAPI — YOUTUBE-MP310  (PERSIS YANG KAMU MINTA)
+   ========================================================= */
+const ytBtn = document.getElementById('ytPlay');
+const ytInput = document.getElementById('ytLink');
+const ytStatus = document.getElementById('statusYT');
+
+function ekstrakIdYT(link){
+  const m = link.match(/(?:v=|youtu\.be\/|shorts\/|embed\/)([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
+
+ytBtn.onclick = async () => {
+  const link = ytInput.value.trim();
+  if(!link){ ytStatus.className='statusYT err'; ytStatus.textContent='❌ Tempel link YouTube dulu!'; return; }
+  const id = ekstrakIdYT(link);
+  if(!id){ ytStatus.className='statusYT err'; ytStatus.textContent='❌ Link YouTube tidak sah'; return; }
+
+  // Cek kunci
+  if(!RAPIDAPI_KEY || RAPIDAPI_KEY.includes('ISI_KUNCI')){
+    ytStatus.className='statusYT err';
+    ytStatus.textContent='❌ BELUM ADA API KEY — isi RAPIDAPI_KEY di kode!';
+    return;
   }
-  if(!au){ alert('Belum bisa ambil audio ini'); return; }
-  siapkanAudio();
-  state.playlist.push({judul:'YouTube • '+id,artis:'Dari link',url:au,dur:0});
-  putar(state.playlist.length-1); tutupD();
+
+  ytBtn.disabled = true;
+  ytBtn.textContent = '⏳ PROSES...';
+  ytStatus.className='statusYT';
+  ytStatus.textContent = '🔄 Minta MP3 ke RapidAPI — tunggu sebentar...';
+
+  try {
+    // ✅ PAKAI PERSIS ENDPOINT YANG KAMU BERIKAN
+    const url = `https://${RAPIDAPI_HOST}/download/mp3?url=${encodeURIComponent(link)}`;
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-key': RAPIDAPI_KEY,
+        'x-rapidapi-host': RAPIDAPI_HOST
+      }
+    });
+
+    if(!res.ok){
+      if(res.status === 403) throw new Error('403 — API KEY salah / habis kuota');
+      if(res.status === 429) throw new Error('429 — Terlalu banyak permintaan, coba nanti');
+      throw new Error('HTTP ' + res.status);
+    }
+
+    const data = await res.json();
+    console.log('✅ RapidAPI jawab:', data);
+
+    // API ini balikin: { downloadUrl, title, duration, filesize, ... }
+    const mp3 = data.downloadUrl || data.url || data.link;
+    const judul = data.title || ('YouTube • ' + id);
+    const artis = '▶ Dari YouTube MP3';
+
+    if(!mp3) throw new Error('Tidak dapat link MP3 — coba video lain');
+
+    ytStatus.className='statusYT ok';
+    ytStatus.textContent = '✅ OK: ' + judul.substring(0,35);
+
+    // ✅ MASUK KE PLAYLIST → LANGSUNG PUTAR → PIRINGAN MUTER
+    state.playlist.push({ judul, artis, url: mp3, dur: data.duration||0, dari:'yt' });
+    putar(state.playlist.length-1);
+    tutupD();
+
+  } catch(err) {
+    console.error(err);
+    ytStatus.className='statusYT err';
+    ytStatus.textContent = '❌ GAGAL: ' + err.message;
+  } finally {
+    ytBtn.disabled = false;
+    ytBtn.textContent = '▶ AMBIL MP3 & PUTAR';
+  }
 };
 
+/* ---------- NAVIGASI ---------- */
 function pindah(id){
   document.querySelectorAll('.halaman').forEach(h=>h.classList.remove('aktif'));
   document.getElementById(id).classList.add('aktif');
@@ -367,6 +432,7 @@ function pindah(id){
 }
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>pindah(b.dataset.hal));
 
+/* ---------- MUAT PENYIMPANAN ---------- */
 try{
   const s=JSON.parse(localStorage.winoro||'{}'); Object.assign(state,s); terapkan();
   document.getElementById('gain').value=state.gain*100;
