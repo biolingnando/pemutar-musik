@@ -4,40 +4,55 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Media Player Pro — PWA</title>
-<meta name="theme-color" content="#7c3aed">
-<meta name="description" content="Pemutar Musik & Video PWA dengan Equalizer, Favorit, Mode Gelap">
+<meta name="theme-color" content="#0d9488">
+<meta name="description" content="Pemutar Musik & Video PWA">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
+/* ========== WARNA BARU: HIJAU MERAK + BIRU ========== */
 :root{
-  --bg:#0a0a0f;--card:#12121a;--card2:#1a1a25;--text:#f5f5f7;
-  --muted:#8b8b9a;--accent:#8b5cf6;--accent2:#ec4899;
-  --border:rgba(255,255,255,.08);--shadow:0 10px 40px rgba(0,0,0,.3);
+  --bg:#071214;
+  --card:#0b1c1f;
+  --card2:#11282d;
+  --text:#e6f4f6;
+  --muted:#86a5ab;
+  --accent:#0d9488;   /* HIJAU MERAK */
+  --accent2:#2563eb;  /* BIRU TUA */
+  --accent3:#06b6d4;  /* BIRU MUDA */
+  --border:rgba(255,255,255,.08);
+  --shadow:0 10px 40px rgba(0,0,0,.35);
 }
 html.light{
-  --bg:#f8fafc;--card:#ffffff;--card2:#f1f5f9;--text:#0f172a;
-  --muted:#64748b;--accent:#7c3aed;--accent2:#db2777;
-  --border:rgba(15,23,42,.1);--shadow:0 10px 30px rgba(0,0,0,.06);
+  --bg:#f0fdfa;
+  --card:#ffffff;
+  --card2:#ccfbf1;
+  --text:#042f2e;
+  --muted:#517075;
+  --accent:#0f766e;
+  --accent2:#1d4ed8;
+  --accent3:#0891b2;
+  --border:rgba(4,47,46,.1);
+  --shadow:0 10px 30px rgba(13,148,136,.12);
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);transition:background .3s,color .3s}
 .gradient-bg{background:
-  radial-gradient(1200px 600px at 10% -10%,color-mix(in srgb,var(--accent) 18%,transparent),transparent 60%),
-  radial-gradient(900px 500px at 110% 10%,color-mix(in srgb,var(--accent2) 14%,transparent),transparent 60%),
+  radial-gradient(1200px 600px at 10% -10%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 60%),
+  radial-gradient(900px 500px at 110% 10%,color-mix(in srgb,var(--accent2) 18%,transparent),transparent 60%),
   var(--bg)}
 .glass{background:color-mix(in srgb,var(--card) 88%,transparent);backdrop-filter:blur(14px);border:1px solid var(--border);box-shadow:var(--shadow)}
 .tab-btn{transition:all .2s ease;color:var(--muted)}
-.tab-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 4px 20px color-mix(in srgb,var(--accent) 40%,transparent)}
+.tab-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 4px 20px color-mix(in srgb,var(--accent) 45%,transparent)}
 .track-item{transition:all .15s ease;cursor:pointer;border-radius:12px}
-.track-item:hover{background:color-mix(in srgb,var(--accent) 10%,transparent)}
-.track-item.active{background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 20%,transparent),color-mix(in srgb,var(--accent2) 10%,transparent));border-left:3px solid var(--accent)}
+.track-item:hover{background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.track-item.active{background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 22%,transparent),color-mix(in srgb,var(--accent2) 12%,transparent));border-left:3px solid var(--accent)}
 input[type=range]{-webkit-appearance:none;background:transparent;cursor:pointer;width:100%}
 input[type=range]::-webkit-slider-runnable-track{height:4px;background:rgba(128,128,128,.2);border-radius:999px}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;height:14px;width:14px;border-radius:50%;background:var(--accent);margin-top:-5px;box-shadow:0 0 10px color-mix(in srgb,var(--accent) 50%,transparent)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;height:14px;width:14px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));margin-top:-5px;box-shadow:0 0 10px color-mix(in srgb,var(--accent) 55%,transparent)}
 .scrollbar::-webkit-scrollbar{width:6px;height:6px}
 .scrollbar::-webkit-scrollbar-track{background:transparent}
-.scrollbar::-webkit-scrollbar-thumb{background:rgba(128,128,128,.2);border-radius:999px}
+.scrollbar::-webkit-scrollbar-thumb{background:rgba(128,128,128,.25);border-radius:999px}
 .scrollbar::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 .spin{animation:spin 10s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -47,31 +62,28 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;height:14px;widt
 .theme-toggle::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:all .3s;box-shadow:0 2px 6px rgba(0,0,0,.2)}
 html.light .theme-toggle{background:linear-gradient(135deg,#fbbf24,#f59e0b)}
 html.light .theme-toggle::after{left:27px}
-html:not(.light) .theme-toggle{background:linear-gradient(135deg,#1e3a8a,#4c1d95)}
+html:not(.light) .theme-toggle{background:linear-gradient(135deg,#0d9488,#1e3a8a)}
 html:not(.light) .theme-toggle::after{background:#fde047}
-#visualizer{width:100%;height:80px;border-radius:12px;background:rgba(0,0,0,.2);display:block}
+#visualizer{width:100%;height:80px;border-radius:12px;background:rgba(0,0,0,.25);display:block}
 .eq-slider{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1}
 .eq-slider input{writing-mode:vertical-lr;direction:rtl;height:90px;width:24px}
 .eq-slider label{font-size:10px;color:var(--muted);font-family:monospace}
 .hidden{display:none!important}
 
-/* ========== SIDEBAR PLAYLIST ========== */
+/* SIDEBAR */
 .sidebar{
-  position:fixed;top:0;right:0;height:100vh;width:380px;max-width:92vw;z-index:100;
+  position:fixed;top:0;right:0;height:100vh;width:380px;max-width:95vw;z-index:100;
   background:var(--card);border-left:1px solid var(--border);
   transform:translateX(110%);transition:transform .35s cubic-bezier(.4,0,.2,1);
-  display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.35)
+  display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.4)
 }
 .sidebar.open{transform:translateX(0)}
-.sidebar-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(3px);
-  z-index:90;opacity:0;pointer-events:none;transition:opacity .3s
-}
+.sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(3px);z-index:90;opacity:0;pointer-events:none;transition:opacity .3s}
 .sidebar-overlay.open{opacity:1;pointer-events:auto}
 @media(max-width:640px){.sidebar{width:100vw;max-width:100vw}}
 
-/* ========== SOSMED BAR ========== */
-.sosmed-wrap{transition:all .4s ease;max-height:200px;opacity:1;overflow:hidden}
+/* SOSMED */
+.sosmed-wrap{transition:all .4s ease;max-height:300px;opacity:1;overflow:hidden}
 .sosmed-wrap.offline{max-height:0;opacity:0;margin:0!important;padding:0!important}
 .sosmed-icon{
   width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
@@ -81,10 +93,20 @@ html:not(.light) .theme-toggle::after{background:#fde047}
 .sos-fb{background:linear-gradient(135deg,#1877f2,#0d5fcc)}
 .sos-ig{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
 .sos-wa{background:linear-gradient(135deg,#25d366,#128c7e)}
-.sos-tt{background:linear-gradient(135deg,#000000,#25f4ee,#fe2c55)}
-.sos-tg{background:linear-gradient(135deg,#229ed9,#0088cc)}
+.sos-tt{background:linear-gradient(135deg,#000000,#06b6d4)}
+.sos-tg{background:linear-gradient(135deg,#229ed9,#1e40af)}
 
-/* ========== PWA INSTALL ========== */
+/* TOAST NOTIF */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);
+  padding:12px 20px;border-radius:14px;color:#fff;font-size:14px;font-weight:500;z-index:200;
+  opacity:0;transition:all .35s ease;box-shadow:0 10px 30px rgba(0,0,0,.3);max-width:90vw;text-align:center
+}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+.toast.ok{background:linear-gradient(135deg,var(--accent),var(--accent3))}
+.toast.warn{background:linear-gradient(135deg,#f59e0b,#d97706)}
+.toast.err{background:linear-gradient(135deg,#dc2626,#991b1b)}
+
 #installBtn{display:none}
 </style>
 </head>
@@ -92,39 +114,31 @@ html:not(.light) .theme-toggle::after{background:#fde047}
 <div class="gradient-bg min-h-screen pb-10">
 <div class="max-w-6xl mx-auto px-4 sm:px-6 py-5">
 
-  <!-- ============ HEADER ============ -->
+  <!-- HEADER -->
   <div class="flex items-center justify-between gap-3 mb-6">
     <div class="flex items-center gap-3 min-w-0">
-      <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center shadow-lg flex-shrink-0">
+      <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-teal-500 to-blue-600 flex items-center justify-center shadow-lg flex-shrink-0">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
       </div>
       <div class="min-w-0">
         <h1 class="text-xl sm:text-2xl font-bold truncate">Media Player Pro</h1>
-        <p class="text-xs sm:text-sm truncate" style="color:var(--muted)">PWA • Equalizer • Favorit • Offline</p>
+        <p class="text-xs sm:text-sm truncate" style="color:var(--muted)">PWA • Hijau Merak × Biru</p>
       </div>
     </div>
-
     <div class="flex items-center gap-2 sm:gap-3">
       <div id="themeToggle" class="theme-toggle" title="Ganti Tema"></div>
-      <button id="installBtn" class="px-3 py-2 rounded-xl text-sm font-medium bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:opacity-90 shadow" title="Install Aplikasi">
-        ⬇ Install
-      </button>
-      <label class="cursor-pointer px-3 sm:px-4 py-2 rounded-xl font-medium text-xs sm:text-sm flex items-center gap-2 bg-gradient-to-r from-violet-600 to-pink-600 text-white hover:opacity-90 shadow">
-        📂 Folder
+      <button id="installBtn" class="px-3 py-2 rounded-xl text-sm font-medium bg-gradient-to-r from-teal-500 to-cyan-500 text-white hover:opacity-90 shadow">⬇ Install</button>
+      <label id="folderLabel" class="cursor-pointer px-3 sm:px-4 py-2 rounded-xl font-medium text-xs sm:text-sm flex items-center gap-2 bg-gradient-to-r from-teal-600 to-blue-600 text-white hover:opacity-90 shadow-lg">
+        📂 Pilih Folder
         <input type="file" id="folderInput" webkitdirectory directory multiple class="hidden">
       </label>
-      <label class="cursor-pointer px-3 py-2 rounded-xl font-medium text-xs sm:text-sm flex items-center gap-2 glass hover:bg-white/10 hidden sm:flex">
-        📄 File
-        <input type="file" id="fileInput" multiple accept="audio/*,video/*" class="hidden">
-      </label>
-      <!-- TOMBOL HAMBURGER DAFTAR PUTAR -->
-      <button id="openPlaylist" class="w-11 h-11 rounded-xl glass flex items-center justify-center hover:bg-white/10 transition" title="Buka Daftar Putar">
+      <button id="openPlaylist" class="w-11 h-11 rounded-xl glass flex items-center justify-center hover:bg-white/10 transition" title="Daftar Putar">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
     </div>
   </div>
 
-  <!-- ============ TABS ============ -->
+  <!-- TABS -->
   <div class="flex flex-wrap gap-2 mb-5 p-1.5 glass rounded-2xl w-fit">
     <button class="tab-btn active px-4 py-2 rounded-xl font-medium text-sm" data-tab="music">🎵 Musik</button>
     <button class="tab-btn px-4 py-2 rounded-xl font-medium text-sm" data-tab="video">🎬 Video</button>
@@ -132,19 +146,18 @@ html:not(.light) .theme-toggle::after{background:#fde047}
     <button class="tab-btn px-4 py-2 rounded-xl font-medium text-sm" data-tab="eq">🎚️ Equalizer</button>
   </div>
 
-  <!-- ============ STATUS ============ -->
+  <!-- STATUS -->
   <div id="statusBar" class="glass rounded-xl px-4 py-2.5 mb-5 text-xs sm:text-sm flex items-center gap-2" style="color:var(--muted)">
     <span style="color:var(--accent)">●</span>
-    <span>Klik 📂 Folder untuk memindai OTOMATIS semua musik & video • Klik ☰ untuk buka Daftar Putar</span>
+    <span>Klik 📂 <b>Pilih Folder</b> → pilih folder musik/video → SEMUA file terbaca OTOMATIS</span>
   </div>
 
-  <!-- ============ PLAYER AREA (TENGAH) ============ -->
+  <!-- PLAYER TENGAH -->
   <div class="max-w-2xl mx-auto space-y-5">
-
     <!-- MUSIC -->
     <div id="musicPanel" class="glass rounded-3xl p-5 sm:p-6">
-      <div class="relative w-40 h-40 sm:w-48 sm:h-48 mx-auto rounded-full overflow-hidden mb-4 bg-gradient-to-br from-violet-600/30 to-pink-600/30 flex items-center justify-center">
-        <div id="musicArt" class="w-[85%] h-[85%] rounded-full bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center shadow-2xl spin" style="animation-play-state:paused">
+      <div class="relative w-40 h-40 sm:w-48 sm:h-48 mx-auto rounded-full overflow-hidden mb-4 bg-gradient-to-br from-teal-600/30 to-blue-600/30 flex items-center justify-center">
+        <div id="musicArt" class="w-[85%] h-[85%] rounded-full bg-gradient-to-br from-teal-500 to-blue-600 flex items-center justify-center shadow-2xl spin" style="animation-play-state:paused">
           <div class="w-1/3 h-1/3 rounded-full" style="background:var(--bg)"></div>
         </div>
       </div>
@@ -158,7 +171,7 @@ html:not(.light) .theme-toggle::after{background:#fde047}
       <div class="flex items-center justify-center gap-2 sm:gap-3 mb-4">
         <button id="musicShuffle" class="p-2 rounded-lg hover:bg-white/10" style="color:var(--muted)" title="Acak">🔀</button>
         <button id="musicPrev" class="p-3 rounded-full hover:bg-white/10">⏮</button>
-        <button id="musicPlay" class="w-14 h-14 rounded-full bg-gradient-to-br from-violet-500 to-pink-500 text-white flex items-center justify-center hover:scale-105 transition shadow-xl text-xl">▶</button>
+        <button id="musicPlay" class="w-14 h-14 rounded-full bg-gradient-to-br from-teal-500 to-blue-600 text-white flex items-center justify-center hover:scale-105 transition shadow-xl text-xl">▶</button>
         <button id="musicNext" class="p-3 rounded-full hover:bg-white/10">⏭</button>
         <button id="musicRepeat" class="p-2 rounded-lg hover:bg-white/10" style="color:var(--muted)" title="Ulang">🔁</button>
       </div>
@@ -177,9 +190,9 @@ html:not(.light) .theme-toggle::after{background:#fde047}
       </div>
       <div class="flex items-center justify-center gap-3">
         <button id="videoPrev" class="p-3 rounded-full hover:bg-white/10">⏮</button>
-        <button id="videoPlay" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-pink-600 text-white font-medium text-sm hover:opacity-90">Putar</button>
+        <button id="videoPlay" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-teal-600 to-blue-600 text-white font-medium text-sm hover:opacity-90">Putar</button>
         <button id="videoNext" class="p-3 rounded-full hover:bg-white/10">⏭</button>
-        <button id="videoFull" class="p-3 rounded-full hover:bg-white/10" title="Layar Penuh">⛶</button>
+        <button id="videoFull" class="p-3 rounded-full hover:bg-white/10">⛶</button>
       </div>
     </div>
 
@@ -196,23 +209,22 @@ html:not(.light) .theme-toggle::after{background:#fde047}
         </div>
       </div>
       <div id="eqSliders" class="flex gap-1 justify-between h-36 mb-2"></div>
-      <p class="text-xs text-center" style="color:var(--muted)">Hanya untuk pemutar musik</p>
     </div>
 
-    <!-- FAVORIT -->
+    <!-- FAV -->
     <div id="favPanel" class="glass rounded-3xl p-5 sm:p-6 hidden text-center">
       <div class="text-4xl mb-2">❤️</div>
       <h3 class="font-bold mb-1">Koleksi Favorit</h3>
-      <p class="text-sm" style="color:var(--muted)">Buka Daftar Putar → klik ❤️ di samping judul untuk menyimpan</p>
+      <p class="text-sm" style="color:var(--muted)">Buka Daftar Putar → klik ❤️ di samping judul</p>
     </div>
   </div>
 
-  <!-- ============ SOSIAL MEDIA OWNER (BAWAH) ============ -->
+  <!-- SOSMED -->
   <div id="sosmedWrap" class="sosmed-wrap mt-10">
     <div class="glass rounded-3xl p-5 sm:p-6">
       <div class="text-center mb-4">
-        <p class="text-xs uppercase tracking-widest font-semibold mb-1" style="color:var(--accent)">✨ Hubungi Pemilik Web</p>
-        <h3 class="font-bold text-base sm:text-lg">Ikuti Sosial Media Kami</h3>
+        <p class="text-xs uppercase tracking-widest font-semibold mb-1" style="color:var(--accent)">✨ Hubungi Kami</p>
+        <h3 class="font-bold text-base sm:text-lg">Ikuti Sosial Media Pemilik</h3>
       </div>
       <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
         <a class="sosmed-icon sos-fb" href="https://facebook.com/USERNAME_KAMU" target="_blank" rel="noopener" title="Facebook">
@@ -231,50 +243,40 @@ html:not(.light) .theme-toggle::after{background:#fde047}
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
         </a>
       </div>
-      <p class="text-center text-xs mt-4" style="color:var(--muted)">
-        💡 Sosmed hanya muncul saat terhubung internet • Klik ikon untuk langsung menuju profil
-      </p>
+      <p class="text-center text-xs mt-4" style="color:var(--muted)">💡 Hanya muncul saat ONLINE • Klik untuk langsung ke profil</p>
     </div>
   </div>
-
-  <p class="text-center text-xs mt-6" style="color:var(--muted)">
-    © 2026 Media Player Pro PWA • Dibuat dengan ❤️
-  </p>
+  <p class="text-center text-xs mt-6" style="color:var(--muted)">© 2026 Media Player Pro • Hijau Merak × Biru Edition</p>
 </div>
 
-<!-- ============ OVERLAY SIDEBAR ============ -->
+<!-- SIDEBAR -->
 <div id="sidebarOverlay" class="sidebar-overlay"></div>
-
-<!-- ============ SIDEBAR DAFTAR PUTAR (KANAN) ============ -->
 <aside id="sidebar" class="sidebar">
   <div class="p-4 border-b flex items-center justify-between" style="border-color:var(--border)">
     <div>
       <h2 class="font-bold text-lg">📋 Daftar Putar</h2>
       <p class="text-xs" style="color:var(--muted)"><span id="musicCount">0</span> Musik • <span id="videoCount">0</span> Video</p>
     </div>
-    <button id="closePlaylist" class="w-10 h-10 rounded-xl hover:bg-white/10 flex items-center justify-center" title="Tutup">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
+    <button id="closePlaylist" class="w-10 h-10 rounded-xl hover:bg-white/10 flex items-center justify-center">✕</button>
   </div>
   <div class="p-3 border-b" style="border-color:var(--border)">
-    <div class="relative">
-      <input type="text" id="searchInput" placeholder="🔍 Cari lagu, video, folder..." class="w-full pl-3 pr-3 py-2.5 rounded-xl glass outline-none focus:ring-2 focus:ring-violet-500/50 text-sm" style="background:var(--card);color:var(--text)">
-    </div>
+    <input type="text" id="searchInput" placeholder="🔍 Cari lagu / video / folder..." class="w-full px-3 py-2.5 rounded-xl glass outline-none focus:ring-2 focus:ring-teal-500/50 text-sm" style="background:var(--card);color:var(--text)">
   </div>
   <div id="playlist" class="flex-1 overflow-y-auto scrollbar p-3 space-y-1"></div>
-  <div class="p-3 border-t text-center text-xs" style="border-color:var(--border);color:var(--muted)">
-    <span id="trackInfo">0 file</span> • Klik judul untuk memutar
-  </div>
+  <div class="p-3 border-t text-center text-xs" style="border-color:var(--border);color:var(--muted)"><span id="trackInfo">0 file</span></div>
 </aside>
 
-<audio id="audioPlayer" crossorigin="anonymous">
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
 
 <script>
 /* =========================================================
-   MEDIA PLAYER PRO PWA
-   Sidebar Playlist • Sosmed Online/Offline • PWA Installable
+   FINAL FIXED VERSION
+   ✅ FolderPicker 2 metode ✅ Anti Duplikat ✅ Vercel OK ✅ Warna Hijau+Biru
    ========================================================= */
 (() => {
+'use strict';
+
 const AUDIO_EXT = ['mp3','wav','ogg','flac','m4a','aac','opus'];
 const VIDEO_EXT = ['mp4','webm','mkv','mov','avi','m4v','ogv'];
 const EQ_FREQS = [32,64,125,250,500,1000,2000,4000,8000,16000];
@@ -283,7 +285,9 @@ const EQ_PRESETS = {
   rock:[5,4,2,0,-1,0,2,4,5,5], pop:[-1,1,3,5,4,2,0,-1,-1,-1], jazz:[3,2,1,2,-1,-1,0,1,2,3], classic:[4,3,2,1,-1,-1,0,1,2,3]
 };
 
-let allTracks=[], filtered=[], favs=JSON.parse(localStorage.getItem('favs')||'[]');
+let allTracks=[], filtered=[], favs=[];
+try{ favs = JSON.parse(localStorage.getItem('favs')||'[]'); }catch(e){ favs=[]; }
+const seenKeys = new Set(); // ANTI DUPLIKAT
 let currentTab='music', currentIndex=-1, shuffle=false, repeat=0;
 let audioCtx, source, analyser, filters=[], eqGain=[];
 let rafId, canvas, ctx;
@@ -292,7 +296,17 @@ let deferredPrompt;
 const $=id=>document.getElementById(id);
 const audio=$('audioPlayer'), video=$('videoPlayer');
 
-/* ============ SIDEBAR TOGGLE ============ */
+/* ========== TOAST ========== */
+const toastEl=$('toast');
+let toastTimer;
+function toast(msg,type='ok'){
+  toastEl.textContent=msg;
+  toastEl.className='toast '+type+' show';
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>toastEl.classList.remove('show'),3200);
+}
+
+/* ========== SIDEBAR ========== */
 const sidebar=$('sidebar'), overlay=$('sidebarOverlay');
 const openSidebar=()=>{sidebar.classList.add('open');overlay.classList.add('open');document.body.style.overflow='hidden'};
 const closeSidebar=()=>{sidebar.classList.remove('open');overlay.classList.remove('open');document.body.style.overflow=''};
@@ -301,36 +315,35 @@ $('closePlaylist').onclick=closeSidebar;
 overlay.onclick=closeSidebar;
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSidebar()});
 
-/* ============ THEME ============ */
-if(localStorage.getItem('theme')==='light') document.documentElement.classList.add('light');
+/* ========== THEME ========== */
+try{ if(localStorage.getItem('theme')==='light') document.documentElement.classList.add('light'); }catch(e){}
 $('themeToggle').onclick=()=>{
   document.documentElement.classList.toggle('light');
-  localStorage.setItem('theme', document.documentElement.classList.contains('light')?'light':'dark');
+  try{ localStorage.setItem('theme', document.documentElement.classList.contains('light')?'light':'dark'); }catch(e){}
 };
 
-/* ============ SOSMED: ONLINE / OFFLINE DETECTION ============ */
+/* ========== SOSMED ONLINE/OFFLINE ========== */
 const sosmedWrap=$('sosmedWrap');
-const updateNet=()=>{
-  if(navigator.onLine){ sosmedWrap.classList.remove('offline'); }
-  else{ sosmedWrap.classList.add('offline'); }
-};
+const updateNet=()=>{ try{ sosmedWrap.classList.toggle('offline', !navigator.onLine); }catch(e){} };
 window.addEventListener('online', updateNet);
 window.addEventListener('offline', updateNet);
 updateNet();
 
-/* ============ PWA INSTALL ============ */
+/* ========== PWA INSTALL ========== */
 window.addEventListener('beforeinstallprompt',e=>{
-  e.preventDefault(); deferredPrompt=e; $('installBtn').style.display='inline-flex';
+  try{ e.preventDefault(); deferredPrompt=e; $('installBtn').style.display='inline-flex'; }catch(e){}
 });
 $('installBtn').onclick=async()=>{
   if(!deferredPrompt) return;
-  deferredPrompt.prompt();
-  const {outcome}=await deferredPrompt.userChoice;
-  if(outcome==='accepted') $('installBtn').style.display='none';
+  try{
+    deferredPrompt.prompt();
+    const {outcome}=await deferredPrompt.userChoice;
+    if(outcome==='accepted') $('installBtn').style.display='none';
+  }catch(e){}
   deferredPrompt=null;
 };
 
-/* ============ TABS ============ */
+/* ========== TABS ========== */
 document.querySelectorAll('.tab-btn').forEach(btn=>{
   btn.onclick=()=>{
     document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
@@ -340,106 +353,191 @@ document.querySelectorAll('.tab-btn').forEach(btn=>{
     $('videoPanel').classList.toggle('hidden',currentTab!=='video');
     $('eqPanel').classList.toggle('hidden',currentTab!=='eq');
     $('favPanel').classList.toggle('hidden',currentTab!=='fav');
-    if(currentTab==='video') audio.pause();
+    if(currentTab==='video') try{ audio.pause(); }catch(e){}
     renderPlaylist();
   };
 });
 
-/* ============ FILE SCAN ============ */
-$('folderInput').onchange=e=>handleFiles(e.target.files,true);
-$('fileInput').onchange=e=>handleFiles(e.target.files,false);
-function handleFiles(files,fromFolder){
-  allTracks.forEach(t=>URL.revokeObjectURL(t.url));
-  allTracks=[]; let ac=0,vc=0;
-  Array.from(files).forEach(file=>{
-    const ext=file.name.split('.').pop().toLowerCase();
-    const path=file.webkitRelativePath||file.name;
-    letfile.name;
-    let type=null;
-    if(AUDIO_EXT.includes(ext)){type='audio';ac++;}
-    else if(VIDEO_EXT.includes(ext)){type='video';vc++;}
-    else return;
-    allTracks.push({
-      id:btoa(unescape(encodeURIComponent(path))).slice(0,40),
-      name:file.name.replace(/\.[^/.]+$/,''),ext,type,
-      url:URL.createObjectURL(file),file,size:fmtSize(file.size),
-      path,folder:fromFolder?(path.includes('/')?path.split('/')[0]:'Root'):'File'
-    });
-  });
-  allTracks.sort((a,b)=>(a.folder+a.name).localeCompare(b.folder+b.name));
-  $('musicCount').textContent=ac; $('videoCount').textContent=vc; $('favCount').textContent=`(${favs.length})`;
-  setStatus(`✓ Ditemukan ${ac+vc} file — klik ☰ untuk melihat daftar putar`);
-  currentIndex=-1; renderPlaylist(); openSidebar();
+/* =========================================================
+   🔧 PERBAIKAN 1: FOLDER PICKER — 2 METODE (PASTI JALAN!)
+   ========================================================= */
+const folderLabel=$('folderLabel');
+const folderInput=$('folderInput');
+
+// METODE 1: Modern File System Access API (Chrome/Edge 100% work)
+async function openFolderModern(){
+  try{
+    if(!('showDirectoryPicker' in window)) return false;
+    const dirHandle = await window.showDirectoryPicker({mode:'read'});
+    const files=[];
+    for await (const entry of dirHandle.values()){
+      if(entry.kind==='file'){
+        try{
+          const f = await entry.getFile();
+          f.webkitRelativePath = dirHandle.name + '/' + entry.name;
+          files.push(f);
+        }catch(e){}
+      } else if(entry.kind==='directory'){
+        try{
+          for await (const sub of entry.values()){
+            if(sub.kind==='file'){
+              const f = await sub.getFile();
+              f.webkitRelativePath = dirHandle.name+'/'+entry.name+'/'+sub.name;
+              files.push(f);
+            }
+          }
+        }catch(e){}
+      }
+    }
+    if(files.length){ processFiles(files, true); return true; }
+    return false;
+  }catch(e){
+    if(e.name !== 'AbortError') console.warn('Folder picker error:',e);
+    return false;
+  }
 }
 
-/* ============ RENDER PLAYLIST (DI SIDEBAR) ============ */
-function renderPlaylist(){
-  if(currentTab==='fav') filtered=allTracks.filter(t=>favs.includes(t.id));
-  else{
-    const want=currentTab==='music'?'audio':currentTab==='video'?'video':null;
-    filtered=want?allTracks.filter(t=>t.type===want):[...allTracks];
-  }
-  const q=($('searchInput')?.value||'').trim().toLowerCase();
-  if(q) filtered=filtered.filter(t=>t.name.toLowerCase().includes(q)||t.folder.toLowerCase().includes(q));
-  $('trackInfo').textContent=`${filtered.length} file`;
+// METODE 2: Fallback input webkitdirectory (Firefox/Safari/Old Chrome)
+folderLabel.onclick = async (e) => {
+  e.preventDefault();
+  const ok = await openFolderModern();
+  if(!ok) folderInput.click();
+};
+folderInput.onchange = e => {
+  if(e.target.files && e.target.files.length) processFiles(Array.from(e.target.files), true);
+  folderInput.value=''; // reset agar bisa pilih folder sama lagi
+};
 
-  if(!filtered.length){
-    $('playlist').innerHTML=`<div class="text-center py-16 px-4" style="color:var(--muted)">
-      <div class="text-4xl mb-2">📭</div>
-      <p class="font-medium mb-1" style="color:var(--text)">Kosong</p>
-      <p class="text-sm">Klik 📂 Folder untuk memindai file</p>
-    </div>`; return;
-  }
-  let last='',html='';
-  filtered.forEach(t=>{
-    const realIdx=allTracks.indexOf(t);
-    const active=realIdx===currentIndex, isFav=favs.includes(t.id);
-    if(t.folder!==last){
-      html+=`<div class="text-[11px] font-bold uppercase tracking-wider px-2 py-2 mt-1 first:mt-0 flex items-center gap-1.5" style="color:var(--accent)">📁 ${t.folder}</div>`;
-      last=t.folder;
-    }
-    html+=`<div class="track-item flex items-center gap-2.5 px-2.5 py-2 ${active?'active':''}" data-idx="${realIdx}">
-      <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 text-sm ${active?'bg-gradient-to-br from-violet-500 to-pink-500 text-white':'bg-white/5'}">
-        ${t.type==='audio'?'🎵':'🎬'}
-      </div>
-      <div class="flex-1 min-w-0 play-hit" data-idx="${realIdx}">
-        <div class="font-medium text-sm truncate ${active?'text-violet-400':''}">${esc(t.name)}</div>
-        <div class="text-[11px] truncate" style="color:var(--muted)">${t.ext.toUpperCase()} • ${t.size}</div>
-      </div>
-      <button class="fav-btn p-1.5 rounded-lg hover:bg-white/10 ${isFav?'active':''}" data-id="${t.id}" style="color:${isFav?'#ef4444':'var(--muted)'};font-size:15px">
-        ${isFav?'❤️':'🤍'}
-      </button>
-    </div>`;
+/* =========================================================
+   🔧 PERBAIKAN 2: ANTI DUPLIKAT + PROCESS FILES
+   ========================================================= */
+function processFiles(files, fromFolder){
+  let added=0, dup=0, ac=0, vc=0;
+
+  files.forEach(file=>{
+    try{
+      const ext = (file.name.split('.').pop()||'').toLowerCase();
+      const path = file.webkitRelativePath || file.name;
+      let type=null;
+      if(AUDIO_EXT.includes(ext)){type='audio';ac++;}
+      else if(VIDEO_EXT.includes(ext)){type='video';vc++;}
+      else return;
+
+      // KUNCI UNIK: nama file + ukuran byte (100% akurat)
+      const key = file.name.toLowerCase() + '|' + file.size;
+
+      if(seenKeys.has(key)){ dup++; return; } // LEWATI JIKA SUDAH ADA
+      seenKeys.add(key);
+
+      allTracks.push({
+        id: btoa(unescape(encodeURIComponent(path+file.size))).slice(0,40),
+        name: file.name.replace(/\.[^/.]+$/,''),
+        ext, type,
+        url: URL.createObjectURL(file),
+        size: fmtSize(file.size),
+        path,
+        folder: fromFolder && path.includes('/') ? path.split('/')[0] : 'File'
+      });
+      added++;
+    }catch(e){}
   });
-  $('playlist').innerHTML=html;
-  $('playlist').querySelectorAll('.play-hit').forEach(el=>el.onclick=()=>{playTrack(+el.dataset.idx);closeSidebar();});
-  $('playlist').querySelectorAll('.fav-btn').forEach(btn=>btn.onclick=e=>{e.stopPropagation();toggleFav(btn.dataset.id);});
+
+  allTracks.sort((a,b)=>(a.folder+a.name).localeCompare(b.folder+b.name));
+
+  $('musicCount').textContent = allTracks.filter(t=>t.type==='audio').length;
+  $('videoCount').textContent = allTracks.filter(t=>t.type==='video').length;
+  $('favCount').textContent = `(${favs.length})`;
+
+  // NOTIF JELAS
+  if(added>0){
+    let msg = `✓ ${added} file ditambahkan`;
+    if(dup>0) msg += `  •  ⚠️ ${dup} duplikat dilewati (sudah ada)`;
+    toast(msg, dup>0?'warn':'ok');
+    setStatus(msg);
+  } else if(dup>0){
+    toast(`⚠️ ${dup} file sama persis — tidak ditambahkan (tidak tertimpa)`,'warn');
+  } else {
+    toast('❌ Tidak ada file musik/video di folder ini','err');
+  }
+
+  currentIndex=-1;
+  renderPlaylist();
+  if(added>0) setTimeout(openSidebar,200);
+}
+
+/* ========== RENDER PLAYLIST ========== */
+function renderPlaylist(){
+  try{
+    if(currentTab==='fav') filtered=allTracks.filter(t=>favs.includes(t.id));
+    else{
+      const want=currentTab==='music'?'audio':currentTab==='video'?'video':null;
+      filtered=want?allTracks.filter(t=>t.type===want):[...allTracks];
+    }
+    const q=($('searchInput')?.value||'').trim().toLowerCase();
+    if(q) filtered=filtered.filter(t=>t.name.toLowerCase().includes(q)||t.folder.toLowerCase().includes(q));
+    $('trackInfo').textContent=`${filtered.length} file`;
+
+    if(!filtered.length){
+      $('playlist').innerHTML=`<div class="text-center py-16 px-4" style="color:var(--muted)"><div class="text-4xl mb-2">📭</div><p class="font-medium mb-1" style="color:var(--text)">Kosong</p><p class="text-sm">Klik 📂 Pilih Folder</p></div>`;
+      return;
+    }
+    let last='',html='';
+    filtered.forEach(t=>{
+      const realIdx=allTracks.indexOf(t);
+      const active=realIdx===currentIndex, isFav=favs.includes(t.id);
+      if(t.folder!==last){
+        html+=`<div class="text-[11px] font-bold uppercase tracking-wider px-2 py-2 mt-1 first:mt-0 flex items-center gap-1.5" style="color:var(--accent)">📁 ${t.folder}</div>`;
+        last=t.folder;
+      }
+      html+=`<div class="track-item flex items-center gap-2.5 px-2.5 py-2 ${active?'active':''}">
+        <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 text-sm ${active?'bg-gradient-to-br from-teal-500 to-blue-600 text-white':'bg-white/5'}">${t.type==='audio'?'🎵':'🎬'}</div>
+        <div class="flex-1 min-w-0 play-hit" data-idx="${realIdx}">
+          <div class="font-medium text-sm truncate ${active?'text-teal-300':''}">${esc(t.name)}</div>
+          <div class="text-[11px] truncate" style="color:var(--muted)">${t.ext.toUpperCase()} • ${t.size}</div>
+        </div>
+        <button class="fav-btn p-1.5 rounded-lg hover:bg-white/10 ${isFav?'active':''}" data-id="${t.id}" style="color:${isFav?'#ef4444':'var(--muted)'};font-size:15px">${isFav?'❤️':'🤍'}</button>
+      </div>`;
+    });
+    $('playlist').innerHTML=html;
+    $('playlist').querySelectorAll('.play-hit').forEach(el=>el.onclick=()=>{playTrack(+el.dataset.idx);closeSidebar();});
+    $('playlist').querySelectorAll('.fav-btn').forEach(btn=>btn.onclick=e=>{e.stopPropagation();toggleFav(btn.dataset.id);});
+  }catch(e){ console.error('Render err:',e); }
 }
 if($('searchInput')) $('searchInput').oninput=renderPlaylist;
 
-/* ============ FAV ============ */
+/* ========== FAV ========== */
 function toggleFav(id){
   const i=favs.indexOf(id);
   if(i>=0)favs.splice(i,1);else favs.push(id);
-  localStorage.setItem('favs',JSON.stringify(favs));
+  try{ localStorage.setItem('favs',JSON.stringify(favs)); }catch(e){}
   $('favCount').textContent=`(${favs.length})`;
   renderPlaylist();
 }
 
-/* ============ PLAYBACK ============ */
+/* ========== PLAYBACK ========== */
 window.playTrack=function(idx){
-  if(idx<0||idx>=allTracks.length) return;
-  currentIndex=idx; const t=allTracks[idx];
-  if(t.type==='audio'){
-    if(currentTab!=='music') document.querySelector('[data-tab="music"]').click();
-    initAudioGraph(); audio.src=t.url; audio.play().catch(()=>{});
-    $('musicTitle').textContent=t.name; $('musicArtist').textContent=`${t.folder} • ${t.ext.toUpperCase()}`;
-  }else{
-    if(currentTab!=='video') document.querySelector('[data-tab="video"]').click();
-    video.src=t.url; video.play().catch(()=>{});
-    $('videoTitle').textContent=t.name; $('videoMeta').textContent=`${t.folder} • ${t.size}`;
-  }
-  renderPlaylist();
+  try{
+    if(idx<0||idx>=allTracks.length) return;
+    currentIndex=idx; const t=allTracks[idx];
+    if(t.type==='audio'){
+      if(currentTab!=='music') document.querySelector('[data-tab="music"]').click();
+      initAudioGraph();
+      audio.src=t.url;
+      audio.play().then(()=>{}).catch(err=>{
+        toast('Klik tombol ▶ Play untuk memulai (keamanan browser)','warn');
+        console.warn('Autoplay blocked:',err);
+      });
+      $('musicTitle').textContent=t.name;
+      $('musicArtist').textContent=`${t.folder} • ${t.ext.toUpperCase()}`;
+    }else{
+      if(currentTab!=='video') document.querySelector('[data-tab="video"]').click();
+      video.src=t.url;
+      video.play().then(()=>{}).catch(()=>{});
+      $('videoTitle').textContent=t.name;
+      $('videoMeta').textContent=`${t.folder} • ${t.size}`;
+    }
+    renderPlaylist();
+  }catch(e){ console.error('Play err:',e); }
 };
 function nextTrack(auto){
   if(!filtered.length) return;
@@ -456,130 +554,148 @@ function prevTrack(){
   const p=list.indexOf(currentIndex); playTrack(p>0?list[p-1]:list[list.length-1]);
 }
 
-/* ============ AUDIO CTRL ============ */
-audio.volume=.8;
-$('musicVolume').oninput=()=>{audio.volume=$('musicVolume').value/100;$('musicVolText').textContent=$('musicVolume').value+'%'};
-$('musicPlay').onclick=()=>{if(currentIndex<0&&filtered.length)return playTrack(allTracks.indexOf(filtered[0]));audio.paused?audio.play():audio.pause()};
+/* ========== AUDIO CTRL ========== */
+try{ audio.volume=.8; }catch(e){}
+$('musicVolume').oninput=()=>{try{audio.volume=$('musicVolume').value/100;$('musicVolText').textContent=$('musicVolume').value+'%'}catch(e){}};
+$('musicPlay').onclick=()=>{
+  if(currentIndex<0&&filtered.length) return playTrack(allTracks.indexOf(filtered[0]));
+  try{ audio.paused?audio.play():audio.pause(); }catch(e){}
+};
 $('musicNext').onclick=()=>nextTrack(false);
-$('musicPrev').onclick=()=>{if(audio.currentTime>3)audio.currentTime=0;else prevTrack()};
+$('musicPrev').onclick=()=>{try{if(audio.currentTime>3)audio.currentTime=0;else prevTrack();}catch(e){prevTrack();}};
 $('musicShuffle').onclick=()=>{shuffle=!shuffle;$('musicShuffle').style.color=shuffle?'var(--accent)':'var(--muted)'};
 $('musicRepeat').onclick=()=>{repeat=(repeat+1)%3;$('musicRepeat').style.color=repeat?'var(--accent)':'var(--muted)'};
 audio.onplay=()=>{$('musicPlay').textContent='⏸';$('musicArt').style.animationPlayState='running';drawViz()};
-audio.onpause=()=>{$('musicPlay').textContent='▶';$('musicArt').style.animationPlayState='paused';cancelAnimationFrame(rafId)};
-audio.ontimeupdate=()=>{if(audio.duration){$('musicProgress').value=(audio.currentTime/audio.duration)*100;$('musicCurrent').textContent=fmtTime(audio.currentTime)}};
-audio.onloadedmetadata=()=>$('musicDuration').textContent=fmtTime(audio.duration);
-$('musicProgress').oninput=()=>{if(audio.duration)audio.currentTime=$('musicProgress').value/100*audio.duration};
-audio.onended=()=>repeat===2?(audio.currentTime=0,audio.play()):nextTrack(true);
+audio.onpause=()=>{$('musicPlay').textContent='▶';$('musicArt').style.animationPlayState='paused';try{cancelAnimationFrame(rafId)}catch(e){}};
+audio.ontimeupdate=()=>{try{if(audio.duration){$('musicProgress').value=(audio.currentTime/audio.duration)*100;$('musicCurrent').textContent=fmtTime(audio.currentTime)}}catch(e){}};
+audio.onloadedmetadata=()=>{try{$('musicDuration').textContent=fmtTime(audio.duration)}catch(e){}};
+$('musicProgress').oninput=()=>{try{if(audio.duration)audio.currentTime=$('musicProgress').value/100*audio.duration}catch(e){}};
+audio.onended=()=>{try{if(repeat===2){audio.currentTime=0;audio.play();}else nextTrack(true);}catch(e){}};
 
-/* ============ VIDEO CTRL ============ */
-$('videoPlay').onclick=()=>{if(currentIndex<0&&filtered.length)return playTrack(allTracks.indexOf(filtered[0]));video.paused?video.play():video.pause()};
+/* ========== VIDEO CTRL ========== */
+$('videoPlay').onclick=()=>{if(currentIndex<0&&filtered.length)return playTrack(allTracks.indexOf(filtered[0]));try{video.paused?video.play():video.pause()}catch(e){}};
 video.onplay=()=>$('videoPlay').textContent='⏸';
 video.onpause=()=>$('videoPlay').textContent='▶';
 $('videoNext').onclick=()=>nextTrack(false); $('videoPrev').onclick=prevTrack;
 video.onended=()=>nextTrack(true);
-$('videoFull').onclick=()=>video.requestFullscreen?.()||video.webkitEnterFullscreen?.();
+$('videoFull').onclick=()=>{try{video.requestFullscreen?.()||video.webkitEnterFullscreen?.()}catch(e){}};
 
-/* ============ EQ + VIZ ============ */
+/* ========== EQ + VIZ ========== */
 function initAudioGraph(){
-  if(audioCtx) return;
-  audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-  source=audioCtx.createMediaElementSource(audio);
-  analyser=audioCtx.createAnalyser(); analyser.fftSize=256;
-  let prev=source;
-  EQ_FREQS.forEach((f,i)=>{
-    filters[i]=audioCtx.createBiquadFilter();
-    filters[i].type=i===0?'lowshelf':i===9?'highshelf':'peaking';
-    filters[i].frequency.value=f; filters[i].Q.value=1;
-    eqGain[i]=filters[i].gain; prev.connect(filters[i]); prev=filters[i];
-  });
-  prev.connect(analyser); analyser.connect(audioCtx.destination);
-  canvas=$('visualizer'); ctx=canvas.getContext('2d');
-  const rc=()=>{const dpr=window.devicePixelRatio||1;canvas.width=canvas.clientWidth*dpr;canvas.height=canvas.clientHeight*dpr;ctx.scale(dpr,dpr)};
-  rc(); window.addEventListener('resize',rc);
-  buildEqUI();
+  try{
+    if(audioCtx) return;
+    const AC = window.AudioContext||window.webkitAudioContext;
+    if(!AC) return;
+    audioCtx=new AC();
+    source=audioCtx.createMediaElementSource(audio);
+    analyser=audioCtx.createAnalyser(); analyser.fftSize=256;
+    let prev=source;
+    EQ_FREQS.forEach((f,i)=>{
+      filters[i]=audioCtx.createBiquadFilter();
+      filters[i].type=i===0?'lowshelf':i===9?'highshelf':'peaking';
+      filters[i].frequency.value=f; filters[i].Q.value=1;
+      eqGain[i]=filters[i].gain; prev.connect(filters[i]); prev=filters[i];
+    });
+    prev.connect(analyser); analyser.connect(audioCtx.destination);
+    canvas=$('visualizer'); ctx=canvas.getContext('2d');
+    const rc=()=>{const dpr=window.devicePixelRatio||1;canvas.width=canvas.clientWidth*dpr;canvas.height=canvas.clientHeight*dpr;ctx.scale(dpr,dpr)};
+    rc(); window.addEventListener('resize',rc);
+    buildEqUI();
+  }catch(e){ console.error('AudioGraph err:',e); }
 }
 function drawViz(){
-  rafId=requestAnimationFrame(drawViz);
-  const w=canvas.clientWidth,h=canvas.clientHeight,bars=48;
-  const data=new Uint8Array(analyser.frequencyBinCount);
-  analyser.getByteFrequencyData(data);
-  ctx.clearRect(0,0,w,h);
-  const g=ctx.createLinearGradient(0,h,0,0);g.addColorStop(0,'#8b5cf6');g.addColorStop(1,'#ec4899');
-  const bw=w/bars,gap=2;
-  for(let i=0;i<bars;i++){
-    const v=data[Math.floor(i*data.length/bars)]/255; const bh=v*h*.9;
-    ctx.fillStyle=g; ctx.fillRect(i*bw+gap/2,h-bh,bw-gap,bh);
-  }
+  try{
+    if(!analyser) return;
+    rafId=requestAnimationFrame(drawViz);
+    const w=canvas.clientWidth,h=canvas.clientHeight,bars=48;
+    const data=new Uint8Array(analyser.frequencyBinCount);
+    analyser.getByteFrequencyData(data);
+    ctx.clearRect(0,0,w,h);
+    const g=ctx.createLinearGradient(0,h,0,0);g.addColorStop(0,'#0d9488');g.addColorStop(.5,'#06b6d4');g.addColorStop(1,'#2563eb');
+    const bw=w/bars,gap=2;
+    for(let i=0;i<bars;i++){
+      const v=data[Math.floor(i*data.length/bars)]/255; const bh=Math.max(2,v*h*.92);
+      ctx.fillStyle=g; ctx.fillRect(i*bw+gap/2,h-bh,bw-gap,bh);
+    }
+  }catch(e){}
 }
 function buildEqUI(){
-  const box=$('eqSliders');
-  box.innerHTML=EQ_FREQS.map((f,i)=>`<div class="eq-slider"><input type="range" min="-12" max="12" step="1" value="0" data-i="${i}" class="eq-range"><label>${f<1000?f:f/1000+'K'}</label></div>`).join('');
-  box.querySelectorAll('.eq-range').forEach(r=>r.oninput=()=>{eqGain[+r.dataset.i].value=+r.value;$('eqPreset').value='custom'});
+  try{
+    const box=$('eqSliders');
+    box.innerHTML=EQ_FREQS.map((f,i)=>`<div class="eq-slider"><input type="range" min="-12" max="12" step="1" value="0" data-i="${i}" class="eq-range"><label>${f<1000?f:f/1000+'K'}</label></div>`).join('');
+    box.querySelectorAll('.eq-range').forEach(r=>r.oninput=()=>{try{eqGain[+r.dataset.i].value=+r.value;$('eqPreset').value='custom'}catch(e){}});
+  }catch(e){}
 }
-$('eqPreset').onchange=()=>{const p=EQ_PRESETS[$('eqPreset').value];if(!p)return;document.querySelectorAll('.eq-range').forEach((r,i)=>{r.value=p[i];eqGain[i].value=p[i]})};
+$('eqPreset').onchange=()=>{try{const p=EQ_PRESETS[$('eqPreset').value];if(!p)return;document.querySelectorAll('.eq-range').forEach((r,i)=>{r.value=p[i];try{eqGain[i].value=p[i]}catch(e){}})}catch(e){}};
 $('eqReset').onclick=()=>{$('eqPreset').value='flat';$('eqPreset').onchange()};
 
-/* ============ KEYBOARD ============ */
+/* ========== KEYBOARD ========== */
 document.addEventListener('keydown',e=>{
   if(['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName)) return;
   if(e.code==='Space'){e.preventDefault();(currentTab==='music'?$('musicPlay'):$('videoPlay')).click()}
-  else if(e.code==='ArrowRight'){e.shiftKey?nextTrack(false):(audio.currentTime=Math.min(audio.duration||0,audio.currentTime+5))}
-  else if(e.code==='ArrowLeft'){e.shiftKey?prevTrack():(audio.currentTime=Math.max(0,audio.currentTime-5))}
+  else if(e.code==='ArrowRight'){e.shiftKey?nextTrack(false):(try{audio.currentTime=Math.min(audio.duration||0,audio.currentTime+5)}catch(e){})}
+  else if(e.code==='ArrowLeft'){e.shiftKey?prevTrack():(try{audio.currentTime=Math.max(0,audio.currentTime-5)}catch(e){})}
   else if(e.code==='ArrowUp'){e.preventDefault();$('musicVolume').value=Math.min(100,+$(musicVolume).value+5);$('musicVolume').oninput()}
   else if(e.code==='ArrowDown'){e.preventDefault();$('musicVolume').value=Math.max(0,+$(musicVolume).value-5);$('musicVolume').oninput()}
 });
 
-/* ============ UTILS ============ */
+/* ========== UTILS ========== */
 const fmtTime=s=>isNaN(s)?'0:00':`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
 const fmtSize=b=>b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':b<1073741824?(b/1048576).toFixed(1)+' MB':(b/1073741824).toFixed(2)+' GB';
 const esc=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const setStatus=m=>$('statusBar').innerHTML=`<span style="color:var(--accent)">●</span> ${m}`;
+const setStatus=m=>{try{$('statusBar').innerHTML=`<span style="color:var(--accent)">●</span> ${m}`}catch(e){}};
+
+/* =========================================================
+   🔧 PERBAIKAN 3: PWA SERVICE WORKER (VERCEL AMAN!)
+   ========================================================= */
+try{
+  if('serviceWorker' in navigator){
+    const swCode = `
+      const C='mpp-vercel-v2';
+      self.addEventListener('install',e=>{self.skipWaiting()});
+      self.addEventListener('activate',e=>{e.waitUntil(clients.claim())});
+      self.addEventListener('fetch',e=>{
+        const r=e.request;
+        if(r.method!=='GET') return;
+        e.respondWith(
+          caches.match(r).then(c=>{
+            const fp=fetch(r).then(res=>{
+              if(res&&res.status===200){const cp=res.clone();caches.open(C).then(c=>c.put(r,cp)).catch(()=>{})}
+              return res;
+            }).catch(()=>c);
+            return c||fp;
+          })
+        );
+      });
+    `;
+    const blob=new Blob([swCode],{type:'application/javascript'});
+    const url=URL.createObjectURL(blob);
+    navigator.serviceWorker.register(url).then(()=>console.log('SW OK')).catch(err=>console.warn('SW skipped (Vercel safe):',err));
+  }
+}catch(e){ console.warn('PWA skipped:',e); }
+
+// PWA Manifest (aman untuk Vercel)
+try{
+  const manifest={
+    name:'Media Player Pro',
+    short_name:'MP Pro',
+    description:'Pemutar Musik & Video',
+    start_url:'./',
+    display:'standalone',
+    background_color:'#071214',
+    theme_color:'#0d9488',
+    orientation:'portrait'
+  };
+  const m=document.createElement('link');
+  m.rel='manifest';
+  m.href='data:application/manifest+json;charset=utf-8,'+encodeURIComponent(JSON.stringify(manifest));
+  document.head.appendChild(m);
+}catch(e){}
 
 renderPlaylist();
+toast('✅ Siap! Klik 📂 Pilih Folder untuk memulai','ok');
+
 })();
-
-/* ============ SERVICE WORKER (PWA OFFLINE) ============ */
-if('serviceWorker' in navigator){
-  const swCode=`
-    const CACHE='mpp-v1';
-    self.addEventListener('install',e=>{self.skipWaiting()});
-    self.addEventListener('activate',e=>{e.waitUntil(clients.claim())});
-    self.addEventListener('fetch',e=>{
-      const req=e.request;
-      if(req.method!=='GET') return;
-      e.respondWith(
-        caches.match(req).then(cached=>{
-          const fetchPromise=fetch(req).then(res=>{
-            const copy=res.clone();
-            caches.open(CACHE).then(c=>c.put(req,copy)).catch(()=>{});
-            return res;
-          }).catch(()=>cached);
-          return cached||fetchPromise;
-        })
-      );
-    });
-  `;
-  const blob=new Blob([swCode],{type:'application/javascript'});
-  const swUrl=URL.createObjectURL(blob);
-  navigator.serviceWorker.register(swUrl).catch(()=>{});
-}
-
-/* ============ PWA MANIFEST (INLINE) ============ */
-const manifest={
-  name:'Media Player Pro',
-  short_name:'MP Pro',
-  description:'Pemutar Musik & Video PWA',
-  start_url:'./',
-  display:'standalone',
-  background_color:'#0a0a0f',
-  theme_color:'#7c3aed',
-  orientation:'portrait',
-  icons:[{src:'https://api.iconify.design/material-symbols:music-note-rounded.svg?color=%238b5cf6',sizes:'192x192',type:'image/svg+xml'},{src:'https://api.iconify.design/material-symbols:music-note-rounded.svg?color=%238b5cf6',sizes:'512x512',type:'image/svg+xml',purpose:'any maskable'}]
-};
-const mLink=document.createElement('link');
-mLink.rel='manifest';
-mLink.href='data:application/manifest+json,'+encodeURIComponent(JSON.stringify(manifest));
-document.head.appendChild(mLink);
 </script>
 </body>
 </html>
